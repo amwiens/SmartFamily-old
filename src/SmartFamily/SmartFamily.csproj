@@ -6,7 +6,20 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Icons\Tree.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\Tree32.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icons\Tree.ico" />
+    <Content Include="Icons\Tree.png" />
+    <Content Include="Icons\Tree32.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Prism.Unity" Version="8.1.97" />
