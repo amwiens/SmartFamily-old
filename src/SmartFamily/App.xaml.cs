@@ -1,13 +1,9 @@
 ﻿using Prism.Ioc;
+using Prism.Modularity;
 
+using SmartFamily.Main;
 using SmartFamily.Views;
 
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace SmartFamily
@@ -24,6 +20,11 @@ namespace SmartFamily
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+        }
+
+        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
+        {
+            moduleCatalog.AddModule<MainModule>();
         }
     }
 }
