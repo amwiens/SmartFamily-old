@@ -13,14 +13,14 @@ namespace SmartFamily.Main
         public void OnInitialized(IContainerProvider containerProvider)
         {
             var regionManager = containerProvider.Resolve<IRegionManager>();
-            regionManager.RegisterViewWithRegion(Regions.Main, typeof(OpenPage));
+            regionManager.RegisterViewWithRegion(Regions.Main, typeof(HomePage));
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<DashboardPage, DashboardViewModel>(PageKeys.Dashboard);
             containerRegistry.RegisterForNavigation<MainPage, MainViewModel>(PageKeys.Main);
-            containerRegistry.RegisterForNavigation<OpenPage, OpenViewModel>(PageKeys.Open);
+            containerRegistry.RegisterForNavigation<HomePage, HomeViewModel>(PageKeys.Open);
         }
     }
 }

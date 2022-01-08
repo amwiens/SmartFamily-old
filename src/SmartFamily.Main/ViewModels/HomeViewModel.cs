@@ -2,9 +2,9 @@
 
 namespace SmartFamily.Main.ViewModels
 {
-    public class OpenViewModel : BindableBase
+    public class HomeViewModel : BindableBase
     {
-        public OpenViewModel()
+        public HomeViewModel()
         {
         }
     }
