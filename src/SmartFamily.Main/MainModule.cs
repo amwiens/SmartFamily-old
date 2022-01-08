@@ -19,6 +19,7 @@ namespace SmartFamily.Main
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<DashboardPage, DashboardViewModel>(PageKeys.Dashboard);
+            containerRegistry.RegisterForNavigation<FileSettingsPage, FileSettingsViewModel>(PageKeys.FileSettings);
             containerRegistry.RegisterForNavigation<MainPage, MainViewModel>(PageKeys.Main);
             containerRegistry.RegisterForNavigation<HomePage, HomeViewModel>(PageKeys.Home);
         }

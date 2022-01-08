@@ -21,8 +21,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <UserControl.Resources>
-        <templateSelectors:MenuItemTemplateSelector
-            x:Key="MenuItemTemplateSelector">
+        <templateSelectors:MenuItemTemplateSelector x:Key="MenuItemTemplateSelector">
             <templateSelectors:MenuItemTemplateSelector.GlyphDataTemplate>
                 <DataTemplate DataType="{x:Type controls:HamburgerMenuGlyphItem}">
                     <Grid Height="48">
@@ -32,10 +31,10 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock
                             Grid.Column="0"
-                            FontSize="16"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontFamily="Segoe MDL2 Assets"
+                            FontSize="16"
                             Text="{Binding Glyph}"
                             ToolTip="{Binding Label}" />
                         <TextBlock
@@ -87,14 +86,16 @@
             <controls:HamburgerMenu
                 x:Name="hamburgerMenu"
                 DisplayMode="CompactInline"
+                HamburgerButtonName="Open or close navigation"
                 IsPaneOpen="False"
                 ItemCommand="{Binding MenuItemInvokedCommand}"
                 ItemTemplateSelector="{StaticResource MenuItemTemplateSelector}"
                 ItemsSource="{Binding MenuItems}"
                 OptionsItemCommand="{Binding OptionsMenuItemInvokedCommand}"
                 OptionsItemTemplateSelector="{StaticResource MenuItemTemplateSelector}"
-                OptionsItemsSource="{Binding SelectedOptionsMenuItem}"
-                SelectedItem="{Binding SelectedMenuItem}">
+                OptionsItemsSource="{Binding OptionMenuItems}"
+                SelectedItem="{Binding SelectedMenuItem}"
+                SelectedOptionsItem="{Binding SelectedOptionsMenuItem}">
                 <controls:HamburgerMenu.Content>
                     <ContentControl x:Name="hamburgerMenuContentControl" />
                 </controls:HamburgerMenu.Content>

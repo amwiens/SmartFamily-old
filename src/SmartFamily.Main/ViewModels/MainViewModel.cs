@@ -44,7 +44,7 @@ namespace SmartFamily.Main.ViewModels
 
         public ObservableCollection<HamburgerMenuItem> OptionMenuItems { get; } = new ObservableCollection<HamburgerMenuItem>()
         {
-            new HamburgerMenuGlyphItem() { Label = "Dashboard", Glyph = "\uE8A5", Tag = PageKeys.Dashboard },
+            new HamburgerMenuGlyphItem() { Label = "File Settings", Glyph = "\uE713", Tag = PageKeys.FileSettings },
         };
 
         public DelegateCommand GoBackCommand => _goBackCommand ?? (_goBackCommand = new DelegateCommand(OnGoBack, CanGoBack));
