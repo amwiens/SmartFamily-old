@@ -11,7 +11,7 @@ using System.Windows.Input;
 namespace SmartFamily.ViewModels
 {
     // TODO: Change the URL for your privacy policy in the appsettings.json file, currrently set to https://YourPrivacyUrlGoesHere/
-    internal class SettingsViewModel : BindableBase //, INavigationAware
+    public class SettingsViewModel : BindableBase, INavigationAware
     {
         private readonly AppConfig _appConfig;
         private readonly IThemeSelectorService _themeSelectorService;
