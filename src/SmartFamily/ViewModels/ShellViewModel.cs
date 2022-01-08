@@ -16,6 +16,7 @@ namespace SmartFamily.ViewModels
         private readonly IRightPaneService _rightPaneService;
         private IRegionNavigationService _navigationService;
         private DelegateCommand _goBackCommand;
+        private ICommand _menuFileOpenCommand;
         private ICommand _menuFileSettingsCommand;
         private ICommand _menuViewsDashboardCommand;
         private ICommand _loadedCommand;
@@ -23,6 +24,8 @@ namespace SmartFamily.ViewModels
         private ICommand _menuFileExitCommand;
 
         public DelegateCommand GoBackCommand => _goBackCommand ?? (_goBackCommand = new DelegateCommand(OnGoBack, CanGoBack));
+
+        public ICommand MenuFileOpenCommand => _menuFileOpenCommand ?? (_menuFileOpenCommand = new DelegateCommand(OnMenuFileOpen));
 
         public ICommand MenuFileSettingsCommand => _menuFileSettingsCommand ?? (_menuFileSettingsCommand = new DelegateCommand(OnMenuFileSettings));
 
@@ -93,5 +96,8 @@ namespace SmartFamily.ViewModels
 
         private void OnMenuFileSettings()
             => RequestNavigateOnRightPane(PageKeys.Settings);
+
+        private void OnMenuFileOpen()
+            => RequestNavigateAndCleanJournal(PageKeys.Main);
     }
 }

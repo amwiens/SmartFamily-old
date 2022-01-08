@@ -5,5 +5,6 @@
         public const string Main = "Main";
         public const string Settings = "Settings";
         public const string Dashboard = "Dashboard";
+        public const string Open = "Open";
     }
 }

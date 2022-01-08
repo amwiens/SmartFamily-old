@@ -5,11 +5,10 @@
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:core="clr-namespace:SmartFamily.Core.Constants;assembly=SmartFamily.Core"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:prism="http://prismlibrary.com/"
-    Style="{StaticResource CustomMetroWindow}"
+    Title="{x:Static core:Platform.AppName}"
     MinWidth="500"
     MinHeight="350"
-    Title="{x:Static core:Platform.AppName}">
+    Style="{StaticResource CustomMetroWindow}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
@@ -26,14 +25,34 @@
                     Height="22"
                     Margin="4"
                     Source="/Icons/Tree32.png" />
-                <Menu Style="{StaticResource MainMenuStyle}" Focusable="False">
-                    <MenuItem Style="{StaticResource MainMenuItemStyle}" Header="_File" AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}">
-                        <MenuItem Style="{StaticResource MainMenuItemStyle}" Header="_Settings" Command="{Binding MenuFileSettingsCommand}" AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" />
+                <Menu Focusable="False" Style="{StaticResource MainMenuStyle}">
+                    <MenuItem
+                        AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}"
+                        Header="_File"
+                        Style="{StaticResource MainMenuItemStyle}">
+                        <MenuItem
+                            AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}"
+                            Command="{Binding MenuFileOpenCommand}"
+                            Header="_Open"
+                            Style="{StaticResource MainMenuItemStyle}" />
                         <Separator />
-                        <MenuItem Style="{StaticResource MainMenuItemStyle}" Header="E_xit" Command="{Binding MenuFileExitCommand}" AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" />
+                        <MenuItem
+                            AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}"
+                            Command="{Binding MenuFileSettingsCommand}"
+                            Header="_Settings"
+                            Style="{StaticResource MainMenuItemStyle}" />
+                        <Separator />
+                        <MenuItem
+                            AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}"
+                            Command="{Binding MenuFileExitCommand}"
+                            Header="E_xit"
+                            Style="{StaticResource MainMenuItemStyle}" />
                     </MenuItem>
-                    <MenuItem Style="{StaticResource MainMenuItemStyle}" Header="_Views">
-                        <MenuItem Header="_Dashboard" Command="{Binding MenuViewsDashboardCommand}" AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" />
+                    <MenuItem Header="_Views" Style="{StaticResource MainMenuItemStyle}">
+                        <MenuItem
+                            AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}"
+                            Command="{Binding MenuViewsDashboardCommand}"
+                            Header="_Dashboard" />
                     </MenuItem>
                 </Menu>
             </StackPanel>
@@ -42,19 +61,18 @@
     <controls:MetroWindow.Content>
         <controls:SplitView
             x:Name="splitView"
-            PanePlacement="Right"
+            Focusable="False"
             OpenPaneLength="400"
-            Focusable="False">
+            PanePlacement="Right">
             <controls:SplitView.Pane>
-                <Border
-                    BorderThickness="1,1,0,0"
-                    BorderBrush="{DynamicResource MahApps.Brushes.Control.Border}">
+                <Border BorderBrush="{DynamicResource MahApps.Brushes.Control.Border}" BorderThickness="1,1,0,0">
                     <ContentControl x:Name="rightPaneContentControl" />
                 </Border>
             </controls:SplitView.Pane>
             <controls:SplitView.Content>
                 <Grid>
-                    <ContentControl x:Name="menuContentControl" /> <!--prism:RegionManager.RegionName="{x:Static core:Regions.Main}" />-->
+                    <ContentControl x:Name="menuContentControl" />
+                    <!--  prism:RegionManager.RegionName="{x:Static core:Regions.Main}" />  -->
                 </Grid>
             </controls:SplitView.Content>
         </controls:SplitView>
