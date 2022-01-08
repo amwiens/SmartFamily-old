@@ -20,7 +20,7 @@ namespace SmartFamily.Main
         {
             containerRegistry.RegisterForNavigation<DashboardPage, DashboardViewModel>(PageKeys.Dashboard);
             containerRegistry.RegisterForNavigation<MainPage, MainViewModel>(PageKeys.Main);
-            containerRegistry.RegisterForNavigation<HomePage, HomeViewModel>(PageKeys.Open);
+            containerRegistry.RegisterForNavigation<HomePage, HomeViewModel>(PageKeys.Home);
         }
     }
 }

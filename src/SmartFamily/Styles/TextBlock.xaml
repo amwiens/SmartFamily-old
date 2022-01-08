@@ -49,5 +49,4 @@
     <Style x:Key="BigIconStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseIconStyle}">
         <Setter Property="FontSize" Value="48" />
     </Style>
-
 </ResourceDictionary>

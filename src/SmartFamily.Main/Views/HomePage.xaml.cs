@@ -3,7 +3,7 @@
 namespace SmartFamily.Main.Views
 {
     /// <summary>
-    /// Interaction logic for OpenPage.xaml
+    /// Interaction logic for HomePage.xaml
     /// </summary>
     public partial class HomePage : UserControl
     {

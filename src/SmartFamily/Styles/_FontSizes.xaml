@@ -9,5 +9,4 @@
     <sys:Double x:Key="LargeFontSize">18</sys:Double>
 
     <sys:Double x:Key="XLargeFontSize">22</sys:Double>
-
 </ResourceDictionary>
