@@ -11,13 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmartFamily.Core.WPF\SmartFamily.Core.WPF.csproj" />
     <ProjectReference Include="..\SmartFamily.Core\SmartFamily.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="Views\SettingsPage.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
   </ItemGroup>
 
 </Project>

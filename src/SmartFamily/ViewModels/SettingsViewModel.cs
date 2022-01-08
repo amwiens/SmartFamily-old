@@ -2,12 +2,13 @@
 using Prism.Mvvm;
 using Prism.Regions;
 
-using SmartFamily.Core.Constants;
+using SmartFamily.Contracts.Services;
+using SmartFamily.Core.Models;
 
 using System;
 using System.Windows.Input;
 
-namespace SmartFamily.Main.ViewModels
+namespace SmartFamily.ViewModels
 {
     // TODO: Change the URL for your privacy policy in the appsettings.json file, currrently set to https://YourPrivacyUrlGoesHere/
     internal class SettingsViewModel : BindableBase //, INavigationAware
@@ -27,7 +28,7 @@ namespace SmartFamily.Main.ViewModels
             set { SetProperty(ref _theme, value); }
         }
 
-        public string VerionDescription
+        public string VersionDescription
         {
             get { return _versionDescription; }
             set { SetProperty(ref _versionDescription, value); }
@@ -47,7 +48,7 @@ namespace SmartFamily.Main.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            VersionDescription = $"{Proper} - {_applicationInfoService.GetVersion()}";
+            VersionDescription = $"SmartFamily - {_applicationInfoService.GetVersion()}";
             Theme = _themeSelectorService.GetCurrentTheme();
         }
 
@@ -61,7 +62,7 @@ namespace SmartFamily.Main.ViewModels
             _themeSelectorService.SetTheme(theme);
         }
 
-        private void OnPrivacyStatment()
+        private void OnPrivacyStatement()
             => _systemService.OpenInWebBrowser(_appConfig.PrivacyStatement);
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

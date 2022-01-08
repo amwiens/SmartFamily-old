@@ -6,6 +6,7 @@ using Prism.Modularity;
 using SmartFamily.Contracts.Services;
 using SmartFamily.Core.Constants;
 using SmartFamily.Core.Contracts.Services;
+using SmartFamily.Core.Models;
 using SmartFamily.Core.Services;
 using SmartFamily.Main;
 using SmartFamily.Services;
@@ -25,7 +26,6 @@ namespace SmartFamily
     /// </summary>
     public partial class App
     {
-
         private string[] _startUpArgs;
 
         public App()
@@ -68,6 +68,7 @@ namespace SmartFamily
 
             // Views
             containerRegistry.RegisterForNavigation<ShellWindow, ShellViewModel>();
+            containerRegistry.RegisterForNavigation<SettingsPage, SettingsViewModel>(PageKeys.Settings);
 
             // Configuration
             var configuration = BuildConfiguration();
@@ -87,7 +88,6 @@ namespace SmartFamily
 
         private IConfiguration BuildConfiguration()
         {
-
             var appLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             return new ConfigurationBuilder()
                 .SetBasePath(appLocation)

@@ -1,4 +1,4 @@
-﻿namespace SmartFamily.Core.Constants
+﻿namespace SmartFamily.Core.Models
 {
     public class AppConfig
     {

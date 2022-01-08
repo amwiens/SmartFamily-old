@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmartFamily.Core.WPF\SmartFamily.Core.WPF.csproj" />
     <ProjectReference Include="..\SmartFamily.Core\SmartFamily.Core.csproj" />
     <ProjectReference Include="..\SmartFamily.Main\SmartFamily.Main.csproj" />
   </ItemGroup>
@@ -40,6 +41,17 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Contracts\Services\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\SettingsPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
   </ItemGroup>
 
 </Project>

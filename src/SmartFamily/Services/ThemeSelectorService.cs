@@ -1,9 +1,7 @@
 ﻿using ControlzEx.Theming;
 
-using MahApps.Metro.Theming;
-
 using SmartFamily.Contracts.Services;
-using SmartFamily.Models;
+using SmartFamily.Core.Models;
 
 using System;
 using System.Windows;

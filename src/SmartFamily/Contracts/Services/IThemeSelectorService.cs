@@ -1,4 +1,4 @@
-﻿using SmartFamily.Models;
+﻿using SmartFamily.Core.Models;
 
 namespace SmartFamily.Contracts.Services
 {

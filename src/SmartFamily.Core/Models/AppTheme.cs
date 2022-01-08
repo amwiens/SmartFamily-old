@@ -1,4 +1,4 @@
-﻿namespace SmartFamily.Models
+﻿namespace SmartFamily.Core.Models
 {
     public enum AppTheme
     {

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace SmartFamily.Main.Views
+namespace SmartFamily.Views
 {
     /// <summary>
     /// Interaction logic for SettingsPage.xaml
