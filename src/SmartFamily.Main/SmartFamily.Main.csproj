@@ -14,4 +14,10 @@
     <ProjectReference Include="..\SmartFamily.Core\SmartFamily.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="Views\SettingsPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+
 </Project>

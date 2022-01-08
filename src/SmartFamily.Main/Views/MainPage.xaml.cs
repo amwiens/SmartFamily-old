@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace SmartFamily.Main.Views
 {
     /// <summary>
-    /// Interaction logic for DashboardView.xaml
+    /// Interaction logic for MainPage.xaml
     /// </summary>
-    public partial class DashboardView : UserControl
+    public partial class MainPage : UserControl
     {
-        public DashboardView()
+        public MainPage()
         {
             InitializeComponent();
         }
