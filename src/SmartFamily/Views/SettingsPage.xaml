@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="models:AppTheme" />
     </UserControl.Resources>
-    <ScrollViewer>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid Margin="{StaticResource SmallTopBottomMargin}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="48" />
