@@ -32,6 +32,11 @@
                         Style="{StaticResource MainMenuItemStyle}">
                         <MenuItem
                             AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}"
+                            Command="{Binding MenuFileNewCommand}"
+                            Header="_New"
+                            Style="{StaticResource MainMenuItemStyle}" />
+                        <MenuItem
+                            AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}"
                             Command="{Binding MenuFileOpenCommand}"
                             Header="_Open"
                             Style="{StaticResource MainMenuItemStyle}" />

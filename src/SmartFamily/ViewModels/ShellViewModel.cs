@@ -1,9 +1,11 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
+using Prism.Services.Dialogs;
 
 using SmartFamily.Contracts.Services;
 using SmartFamily.Core.Constants;
+using SmartFamily.Core.WPF.Dialogs;
 
 using System.Windows;
 using System.Windows.Input;
@@ -17,15 +19,19 @@ namespace SmartFamily.ViewModels
         private IRegionNavigationService _navigationService;
         private DelegateCommand _goBackCommand;
         private ICommand _menuFileOpenCommand;
+        private ICommand _menuFileNewCommand;
         private ICommand _menuFileSettingsCommand;
         private ICommand _menuViewsDashboardCommand;
         private ICommand _loadedCommand;
         private ICommand _unloadedCommand;
         private ICommand _menuFileExitCommand;
+        private IDialogService _dialogService;
 
         public DelegateCommand GoBackCommand => _goBackCommand ?? (_goBackCommand = new DelegateCommand(OnGoBack, CanGoBack));
 
         public ICommand MenuFileOpenCommand => _menuFileOpenCommand ?? (_menuFileOpenCommand = new DelegateCommand(OnMenuFileOpen));
+
+        public ICommand MenuFileNewCommand => _menuFileNewCommand ?? (_menuFileNewCommand = new DelegateCommand(OnMenuFileNew));
 
         public ICommand MenuFileSettingsCommand => _menuFileSettingsCommand ?? (_menuFileSettingsCommand = new DelegateCommand(OnMenuFileSettings));
 
@@ -37,10 +43,11 @@ namespace SmartFamily.ViewModels
 
         public ICommand MenuFileExitCommand => _menuFileExitCommand ?? (_menuFileExitCommand = new DelegateCommand(OnMenuFileExit));
 
-        public ShellViewModel(IRegionManager regionManager, IRightPaneService rightPaneService)
+        public ShellViewModel(IRegionManager regionManager, IRightPaneService rightPaneService, IDialogService dialogService)
         {
             _regionManager = regionManager;
             _rightPaneService = rightPaneService;
+            _dialogService = dialogService;
         }
 
         private void OnLoaded()
@@ -99,5 +106,18 @@ namespace SmartFamily.ViewModels
 
         private void OnMenuFileOpen()
             => RequestNavigateAndCleanJournal(PageKeys.Main);
+
+        private void OnMenuFileNew()
+        {
+            var message = "this is the message";
+
+            _dialogService.ShowNotification(message, r =>
+            {
+                if (r.Result == ButtonResult.OK)
+                {
+                    RequestNavigateAndCleanJournal(PageKeys.Main);
+                }
+            });
+        }
     }
 }

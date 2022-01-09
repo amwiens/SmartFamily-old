@@ -8,6 +8,8 @@ using SmartFamily.Core.Constants;
 using SmartFamily.Core.Contracts.Services;
 using SmartFamily.Core.Models;
 using SmartFamily.Core.Services;
+using SmartFamily.Core.WPF.Dialogs.ViewModels;
+using SmartFamily.Core.WPF.Dialogs.Views;
 using SmartFamily.Main;
 using SmartFamily.Services;
 using SmartFamily.ViewModels;
@@ -69,6 +71,9 @@ namespace SmartFamily
             // Views
             containerRegistry.RegisterForNavigation<ShellWindow, ShellViewModel>();
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsViewModel>(PageKeys.Settings);
+
+            // Dialogs
+            containerRegistry.RegisterDialog<NotificationDialog, NotificationDialogViewModel>();
 
             // Configuration
             var configuration = BuildConfiguration();
