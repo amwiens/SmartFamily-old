@@ -16,7 +16,7 @@ using System.Windows.Input;
 
 namespace SmartFamily.Main.ViewModels
 {
-    public class MainViewModel : BindableBase
+    public class MainViewModel : BindableBase, INavigationAware
     {
         private readonly IRegionManager _regionManager;
         private readonly IApplicationSettingsService _applicationSettingsService;
@@ -90,18 +90,6 @@ namespace SmartFamily.Main.ViewModels
         {
             _navigationService.Navigated -= OnNavigated;
             _regionManager.Regions.Remove(Regions.Hamburger);
-
-            if (_applicationSettingsService.GetSetting<bool>("AskForBackup"))
-            {
-                var message = "Would you like to backup this database?";
-
-                _dialogService.ShowNotification(message, r =>
-                {
-                    if (r.Result == ButtonResult.OK)
-                    {
-                    }
-                });
-            }
         }
 
         private bool CanGoBack()
@@ -141,6 +129,30 @@ namespace SmartFamily.Main.ViewModels
             }
 
             GoBackCommand.RaiseCanExecuteChanged();
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            if (_applicationSettingsService.GetSetting<bool>("AskForBackup"))
+            {
+                var message = "Would you like to backup this database?";
+
+                _dialogService.ShowNotification(message, r =>
+                {
+                    if (r.Result == ButtonResult.OK)
+                    {
+                    }
+                });
+            }
         }
     }
 }

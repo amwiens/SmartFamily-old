@@ -6,6 +6,7 @@ using Prism.Services.Dialogs;
 using SmartFamily.Contracts.Services;
 using SmartFamily.Core;
 using SmartFamily.Core.Constants;
+using SmartFamily.Core.Contracts.Services;
 using SmartFamily.Core.WPF.Dialogs;
 
 using System.Windows;
@@ -17,6 +18,8 @@ namespace SmartFamily.ViewModels
     {
         private readonly IRegionManager _regionManager;
         private readonly IRightPaneService _rightPaneService;
+        private readonly IDialogService _dialogService;
+        private readonly IApplicationSettingsService _applicationSettingsService;
         private IRegionNavigationService _navigationService;
         private DelegateCommand _goBackCommand;
         private ICommand _menuFileOpenCommand;
@@ -26,7 +29,6 @@ namespace SmartFamily.ViewModels
         private ICommand _loadedCommand;
         private ICommand _unloadedCommand;
         private ICommand _menuFileExitCommand;
-        private IDialogService _dialogService;
 
         public DelegateCommand GoBackCommand => _goBackCommand ?? (_goBackCommand = new DelegateCommand(OnGoBack, CanGoBack));
 
@@ -44,17 +46,23 @@ namespace SmartFamily.ViewModels
 
         public ICommand MenuFileExitCommand => _menuFileExitCommand ?? (_menuFileExitCommand = new DelegateCommand(OnMenuFileExit));
 
-        public ShellViewModel(IRegionManager regionManager, IRightPaneService rightPaneService, IDialogService dialogService)
+        public ShellViewModel(IRegionManager regionManager, IRightPaneService rightPaneService, IDialogService dialogService, IApplicationSettingsService applicationSettingsService)
         {
             _regionManager = regionManager;
             _rightPaneService = rightPaneService;
             _dialogService = dialogService;
+            _applicationSettingsService = applicationSettingsService;
         }
 
         private void OnLoaded()
         {
             _navigationService = _regionManager.Regions[Regions.Main].NavigationService;
             _navigationService.Navigated += OnNavigated;
+
+            if (_applicationSettingsService.GetSetting<bool>("OpenLastClosedFile"))
+            {
+                OnMenuFileOpen();
+            }
         }
 
         private void OnUnloaded()
@@ -106,7 +114,10 @@ namespace SmartFamily.ViewModels
             => RequestNavigateOnRightPane(PageKeys.Settings);
 
         private void OnMenuFileOpen()
-            => RequestNavigateAndCleanJournal(PageKeys.Main);
+        {
+            RequestNavigateAndCleanJournal(PageKeys.Main);
+            ApplicationSettings.OpenDatabase = "OpenFile";
+        }
 
         private void OnMenuFileNew()
         {

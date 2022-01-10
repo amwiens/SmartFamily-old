@@ -106,8 +106,10 @@ namespace SmartFamily
                 .Build();
         }
 
-        private void OnExit(object sender, ExitEventArgs e)
+        protected override void OnSessionEnding(SessionEndingCancelEventArgs e)
         {
+            base.OnSessionEnding(e);
+
             var applicationSettingsService = Container.Resolve<IApplicationSettingsService>();
             if (applicationSettingsService.GetSetting<bool>("AskForBackup") && !string.IsNullOrWhiteSpace(ApplicationSettings.OpenDatabase))
             {
@@ -121,7 +123,10 @@ namespace SmartFamily
                     }
                 });
             }
+        }
 
+        private void OnExit(object sender, ExitEventArgs e)
+        {
             var persistAndRestoreService = Container.Resolve<IPersistAndRestoreService>();
             persistAndRestoreService.PersistData();
         }
