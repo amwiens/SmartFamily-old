@@ -63,6 +63,7 @@ namespace SmartFamily
             // App Services
             //containerRegistry.RegisterSingleton<IToastNotificationsService, ToastNotificationsService>();
             containerRegistry.Register<IApplicationInfoService, ApplicationInfoService>();
+            containerRegistry.Register<IApplicationSettingsService, ApplicationSettingsService>();
             containerRegistry.Register<ISystemService, SystemService>();
             containerRegistry.Register<IPersistAndRestoreService, PersistAndRestoreService>();
             containerRegistry.Register<IThemeSelectorService, ThemeSelectorService>();

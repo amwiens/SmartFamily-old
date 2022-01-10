@@ -17,8 +17,15 @@ namespace SmartFamily.ViewModels
         private readonly IThemeSelectorService _themeSelectorService;
         private readonly ISystemService _systemService;
         private readonly IApplicationInfoService _applicationInfoService;
+        private readonly IApplicationSettingsService _applicationSettingsService;
+
         private AppTheme _theme;
         private string _versionDescription;
+        private bool _openLastClosedFile;
+        private bool _askForBackup;
+        private bool _addDateToBackup;
+        private bool _checkForDuplicates;
+
         private ICommand _setThemeCommand;
         private ICommand _privacyStatmentCommand;
 
@@ -34,22 +41,69 @@ namespace SmartFamily.ViewModels
             set { SetProperty(ref _versionDescription, value); }
         }
 
+        public bool OpenLastClosedFile
+        {
+            get { return _openLastClosedFile; }
+            set
+            {
+                SetProperty(ref _openLastClosedFile, value);
+                _applicationSettingsService.SetSetting("OpenLastClosedFile", value);
+            }
+        }
+
+        public bool AskForBackup
+        {
+            get { return _askForBackup; }
+            set
+            {
+                SetProperty(ref _askForBackup, value);
+                _applicationSettingsService.SetSetting("AskForBackup", value);
+            }
+        }
+
+        public bool AddDateToBackup
+        {
+            get { return _addDateToBackup; }
+            set
+            {
+                SetProperty(ref _addDateToBackup, value);
+                _applicationSettingsService.SetSetting("AddDateToBackup", value);
+            }
+        }
+
+        public bool CheckForDuplicates
+        {
+            get { return _checkForDuplicates; }
+            set
+            {
+                SetProperty(ref _checkForDuplicates, value);
+                _applicationSettingsService.SetSetting("CheckForDuplicates", value);
+            }
+        }
+
         public ICommand SetThemeCommand => _setThemeCommand ?? (_setThemeCommand = new DelegateCommand<string>(OnSetTheme));
 
         public ICommand PrivacyStatementCommand => _privacyStatmentCommand ?? (_privacyStatmentCommand = new DelegateCommand(OnPrivacyStatement));
 
-        public SettingsViewModel(AppConfig appConfig, IThemeSelectorService themeSelectorService, ISystemService systemService, IApplicationInfoService applicationInfoService)
+        public SettingsViewModel(
+            AppConfig appConfig,
+            IThemeSelectorService themeSelectorService,
+            ISystemService systemService,
+            IApplicationInfoService applicationInfoService,
+            IApplicationSettingsService applicationSettingsService)
         {
             _appConfig = appConfig;
             _themeSelectorService = themeSelectorService;
             _systemService = systemService;
             _applicationInfoService = applicationInfoService;
+            _applicationSettingsService = applicationSettingsService;
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             VersionDescription = $"SmartFamily - {_applicationInfoService.GetVersion()}";
             Theme = _themeSelectorService.GetCurrentTheme();
+            OpenLastClosedFile = _applicationSettingsService.GetSetting<bool>("OpenLastClosedFile");
         }
 
         public void OnNavigatedFrom(NavigationContext navigationContext)

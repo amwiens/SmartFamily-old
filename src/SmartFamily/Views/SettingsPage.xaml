@@ -69,6 +69,31 @@
                 <TextBlock
                     Margin="{StaticResource SmallTopMargin}"
                     Style="{StaticResource SubtitleTextStyle}"
+                    Text="ProgramSettings" />
+                <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+                    <StackPanel Margin="{StaticResource XSmallTopMargin}">
+                        <CheckBox
+                            Content="Open last database when starting Smart Family"
+                            FontSize="{StaticResource MediumFontSize}"
+                            IsChecked="{Binding OpenLastClosedFile}" />
+                        <CheckBox
+                            Content="Ask for backup when exiting Smart Family"
+                            FontSize="{StaticResource MediumFontSize}"
+                            IsChecked="{Binding AskForBackup}" />
+                        <CheckBox
+                            Content="Add date to backup file name"
+                            FontSize="{StaticResource MediumFontSize}"
+                            IsChecked="{Binding AddDateToBackup}" />
+                        <CheckBox
+                            Content="Check for duplicates when adding people"
+                            FontSize="{StaticResource MediumFontSize}"
+                            IsChecked="{Binding CheckForDuplicates}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <TextBlock
+                    Margin="{StaticResource SmallTopMargin}"
+                    Style="{StaticResource SubtitleTextStyle}"
                     Text="About this application" />
                 <TextBlock
                     Margin="{StaticResource XSmallTopMargin}"
