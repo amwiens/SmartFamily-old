@@ -104,6 +104,9 @@ namespace SmartFamily.ViewModels
             VersionDescription = $"SmartFamily - {_applicationInfoService.GetVersion()}";
             Theme = _themeSelectorService.GetCurrentTheme();
             OpenLastClosedFile = _applicationSettingsService.GetSetting<bool>("OpenLastClosedFile");
+            AskForBackup = _applicationSettingsService.GetSetting<bool>("AskForBackup");
+            AddDateToBackup = _applicationSettingsService.GetSetting<bool>("AddDateToBackup");
+            CheckForDuplicates = _applicationSettingsService.GetSetting<bool>("CheckForDuplicates");
         }
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
