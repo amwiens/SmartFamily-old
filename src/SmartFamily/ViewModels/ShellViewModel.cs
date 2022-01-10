@@ -105,7 +105,10 @@ namespace SmartFamily.ViewModels
             => GoBackCommand.RaiseCanExecuteChanged();
 
         private void OnMenuFileExit()
-            => Application.Current.Shutdown();
+        {
+            CheckForBackup();
+            Application.Current.Shutdown();
+        }
 
         private void OnMenuViewsDashboard()
             => RequestNavigateAndCleanJournal(PageKeys.Dashboard);
@@ -131,6 +134,23 @@ namespace SmartFamily.ViewModels
                     RequestNavigateAndCleanJournal(PageKeys.Main);
                 }
             });
+        }
+
+        private void CheckForBackup()
+        {
+            var askForBackup = App.Current.Properties.Contains("AskForBackup") ? (bool)App.Current.Properties["AskForBackup"] : false;
+
+            if ((_applicationSettingsService.GetSetting<bool>("AskForBackup") || askForBackup) && !string.IsNullOrWhiteSpace(ApplicationSettings.OpenDatabase))
+            {
+                var message = "Would you like to backup this database?";
+
+                _dialogService.ShowNotification(message, r =>
+                {
+                    if (r.Result == ButtonResult.OK)
+                    {
+                    }
+                });
+            }
         }
     }
 }
