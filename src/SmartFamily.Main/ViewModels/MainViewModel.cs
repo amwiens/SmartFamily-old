@@ -3,8 +3,12 @@
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
+using Prism.Services.Dialogs;
 
+using SmartFamily.Core;
 using SmartFamily.Core.Constants;
+using SmartFamily.Core.Contracts.Services;
+using SmartFamily.Core.WPF.Dialogs;
 
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -15,7 +19,10 @@ namespace SmartFamily.Main.ViewModels
     public class MainViewModel : BindableBase
     {
         private readonly IRegionManager _regionManager;
+        private readonly IApplicationSettingsService _applicationSettingsService;
+        private readonly IDialogService _dialogService;
         private IRegionNavigationService _navigationService;
+        private string _title;
         private HamburgerMenuItem _selectedMenuItem;
         private HamburgerMenuItem _selectedOptionsMenuItem;
         private DelegateCommand _goBackCommand;
@@ -23,6 +30,12 @@ namespace SmartFamily.Main.ViewModels
         private ICommand _unloadedCommand;
         private ICommand _menuItemInvokedCommand;
         private ICommand _optionsMenuItemInvokedCommand;
+
+        public string Title
+        {
+            get { return _title; }
+            private set { SetProperty(ref _title, value); }
+        }
 
         public HamburgerMenuItem SelectedMenuItem
         {
@@ -57,9 +70,11 @@ namespace SmartFamily.Main.ViewModels
 
         public ICommand OptionsMenuItemInvokedCommand => _optionsMenuItemInvokedCommand ?? (_optionsMenuItemInvokedCommand = new DelegateCommand(OnOptionsMenuItemInvoked));
 
-        public MainViewModel(IRegionManager regionManager)
+        public MainViewModel(IRegionManager regionManager, IApplicationSettingsService applicationSettingsService, IDialogService dialogService)
         {
             _regionManager = regionManager;
+            _applicationSettingsService = applicationSettingsService;
+            _dialogService = dialogService;
         }
 
         private void OnLoaded()
@@ -67,12 +82,26 @@ namespace SmartFamily.Main.ViewModels
             _navigationService = _regionManager.Regions[Regions.Hamburger].NavigationService;
             _navigationService.Navigated += OnNavigated;
             SelectedMenuItem = MenuItems.First();
+
+            Title = ApplicationSettings.OpenDatabase;
         }
 
         private void OnUnloaded()
         {
             _navigationService.Navigated -= OnNavigated;
             _regionManager.Regions.Remove(Regions.Hamburger);
+
+            if (_applicationSettingsService.GetSetting<bool>("AskForBackup"))
+            {
+                var message = "Would you like to backup this database?";
+
+                _dialogService.ShowNotification(message, r =>
+                {
+                    if (r.Result == ButtonResult.OK)
+                    {
+                    }
+                });
+            }
         }
 
         private bool CanGoBack()

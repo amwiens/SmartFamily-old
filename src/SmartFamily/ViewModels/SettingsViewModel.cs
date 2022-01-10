@@ -3,6 +3,7 @@ using Prism.Mvvm;
 using Prism.Regions;
 
 using SmartFamily.Contracts.Services;
+using SmartFamily.Core.Contracts.Services;
 using SmartFamily.Core.Models;
 
 using System;

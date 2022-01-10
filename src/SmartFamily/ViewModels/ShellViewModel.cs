@@ -4,6 +4,7 @@ using Prism.Regions;
 using Prism.Services.Dialogs;
 
 using SmartFamily.Contracts.Services;
+using SmartFamily.Core;
 using SmartFamily.Core.Constants;
 using SmartFamily.Core.WPF.Dialogs;
 
@@ -115,6 +116,7 @@ namespace SmartFamily.ViewModels
             {
                 if (r.Result == ButtonResult.OK)
                 {
+                    ApplicationSettings.OpenDatabase = "TestDatabase";
                     RequestNavigateAndCleanJournal(PageKeys.Main);
                 }
             });

@@ -1,4 +1,4 @@
-﻿namespace SmartFamily.Contracts.Services
+﻿namespace SmartFamily.Core.Contracts.Services
 {
     public interface IApplicationSettingsService
     {

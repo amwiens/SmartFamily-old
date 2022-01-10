@@ -81,7 +81,7 @@
         <TextBlock
             Margin="{StaticResource MediumLeftMargin}"
             Style="{StaticResource PageTitleStyle}"
-            Text="Main" />
+            Text="{Binding Title}" />
         <Grid Grid.Row="1" Background="{DynamicResource MahApps.Brushes.Gray10}">
             <controls:HamburgerMenu
                 x:Name="hamburgerMenu"

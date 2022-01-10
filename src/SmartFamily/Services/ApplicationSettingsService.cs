@@ -1,4 +1,5 @@
 ﻿using SmartFamily.Contracts.Services;
+using SmartFamily.Core.Contracts.Services;
 
 namespace SmartFamily.Services
 {

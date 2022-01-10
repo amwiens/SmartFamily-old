@@ -2,12 +2,15 @@
 
 using Prism.Ioc;
 using Prism.Modularity;
+using Prism.Services.Dialogs;
 
 using SmartFamily.Contracts.Services;
+using SmartFamily.Core;
 using SmartFamily.Core.Constants;
 using SmartFamily.Core.Contracts.Services;
 using SmartFamily.Core.Models;
 using SmartFamily.Core.Services;
+using SmartFamily.Core.WPF.Dialogs;
 using SmartFamily.Core.WPF.Dialogs.ViewModels;
 using SmartFamily.Core.WPF.Dialogs.Views;
 using SmartFamily.Main;
@@ -105,6 +108,20 @@ namespace SmartFamily
 
         private void OnExit(object sender, ExitEventArgs e)
         {
+            var applicationSettingsService = Container.Resolve<IApplicationSettingsService>();
+            if (applicationSettingsService.GetSetting<bool>("AskForBackup") && !string.IsNullOrWhiteSpace(ApplicationSettings.OpenDatabase))
+            {
+                var dialogService = Container.Resolve<IDialogService>();
+                var message = "Would you like to backup this database?";
+
+                dialogService.ShowNotification(message, r =>
+                {
+                    if (r.Result == ButtonResult.OK)
+                    {
+                    }
+                });
+            }
+
             var persistAndRestoreService = Container.Resolve<IPersistAndRestoreService>();
             persistAndRestoreService.PersistData();
         }
