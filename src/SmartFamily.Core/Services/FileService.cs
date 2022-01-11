@@ -6,8 +6,12 @@ using System.Text;
 
 namespace SmartFamily.Core.Services
 {
+    /// <summary>
+    /// File service.
+    /// </summary>
     public class FileService : IFileService
     {
+        /// <inheritdoc/>
         public T Read<T>(string folderPath, string fileName)
         {
             var path = Path.Combine(folderPath, fileName);
@@ -20,6 +24,7 @@ namespace SmartFamily.Core.Services
             return default;
         }
 
+        /// <inheritdoc/>
         public void Save<T>(string folderPath, string fileName, T content)
         {
             if (!Directory.Exists(folderPath))
@@ -31,6 +36,7 @@ namespace SmartFamily.Core.Services
             File.WriteAllText(Path.Combine(folderPath, fileName), fileContent, Encoding.UTF8);
         }
 
+        /// <inheritdoc/>
         public void Delete(string folderPath, string fileName)
         {
             if (fileName != null && File.Exists(Path.Combine(folderPath, fileName)))

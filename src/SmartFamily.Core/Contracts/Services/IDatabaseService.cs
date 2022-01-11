@@ -1,5 +1,8 @@
 ﻿namespace SmartFamily.Core.Contracts.Services
 {
+    /// <summary>
+    /// Database service interface.
+    /// </summary>
     public interface IDatabaseService
     {
         /// <summary>

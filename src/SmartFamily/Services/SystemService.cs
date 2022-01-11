@@ -4,12 +4,19 @@ using System.Diagnostics;
 
 namespace SmartFamily.Services
 {
+    /// <summary>
+    /// System service.
+    /// </summary>
     public class SystemService : ISystemService
     {
+        /// <summary>
+        /// Ctor
+        /// </summary>
         public SystemService()
         {
         }
 
+        /// <inheritdoc/>
         public void OpenInWebBrowser(string url)
         {
             // For more info see https://github.com/dotnet/corefx/issues/10361

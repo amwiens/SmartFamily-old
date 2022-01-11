@@ -8,18 +8,27 @@ using System.IO;
 
 namespace SmartFamily.Services
 {
+    /// <summary>
+    /// Persist and restore service.
+    /// </summary>
     public class PersistAndRestoreService : IPersistAndRestoreService
     {
         private readonly IFileService _fileService;
         private readonly AppConfig _appConfig;
         private readonly string _localAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="fileService">File service</param>
+        /// <param name="appConfig">Application config</param>
         public PersistAndRestoreService(IFileService fileService, AppConfig appConfig)
         {
             _fileService = fileService;
             _appConfig = appConfig;
         }
 
+        /// <inheritdoc/>
         public void PersistData()
         {
             if (App.Current.Properties != null)
@@ -30,6 +39,7 @@ namespace SmartFamily.Services
             }
         }
 
+        /// <inheritdoc/>
         public void RestoreData()
         {
             var folderPath = Path.Combine(_localAppData, _appConfig.ConfigurationsFolder);

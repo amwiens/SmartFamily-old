@@ -4,6 +4,9 @@ using SmartFamily.Core.Contracts.Services;
 
 namespace SmartFamily.EntityFramework.Services
 {
+    /// <summary>
+    /// Database service.
+    /// </summary>
     public class DatabaseService : IDatabaseService
     {
         /// <inheritdoc/>

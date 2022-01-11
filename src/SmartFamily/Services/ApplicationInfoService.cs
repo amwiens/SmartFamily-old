@@ -6,12 +6,19 @@ using System.Reflection;
 
 namespace SmartFamily.Services
 {
+    /// <summary>
+    /// Application information service.
+    /// </summary>
     public class ApplicationInfoService : IApplicationInfoService
     {
+        /// <summary>
+        /// Ctor
+        /// </summary>
         public ApplicationInfoService()
         {
         }
 
+        /// <inheritdoc/>
         public Version GetVersion()
         {
             // Set the app verion in SmartFamily > Properties > Package => PackageVersion
