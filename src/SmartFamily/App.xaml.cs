@@ -13,6 +13,7 @@ using SmartFamily.Core.Services;
 using SmartFamily.Core.WPF.Dialogs;
 using SmartFamily.Core.WPF.Dialogs.ViewModels;
 using SmartFamily.Core.WPF.Dialogs.Views;
+using SmartFamily.EntityFramework.Services;
 using SmartFamily.Main;
 using SmartFamily.Services;
 using SmartFamily.ViewModels;
@@ -62,6 +63,7 @@ namespace SmartFamily
         {
             // Core Services
             containerRegistry.Register<IFileService, FileService>();
+            containerRegistry.Register<IDatabaseService, DatabaseService>();
 
             // App Services
             //containerRegistry.RegisterSingleton<IToastNotificationsService, ToastNotificationsService>();

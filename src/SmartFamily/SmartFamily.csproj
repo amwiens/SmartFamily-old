@@ -23,6 +23,10 @@
 
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="6.0.0" />
@@ -34,6 +38,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SmartFamily.Core.WPF\SmartFamily.Core.WPF.csproj" />
     <ProjectReference Include="..\SmartFamily.Core\SmartFamily.Core.csproj" />
+    <ProjectReference Include="..\SmartFamily.EntityFramework\SmartFamily.EntityFramework.csproj" />
     <ProjectReference Include="..\SmartFamily.Main\SmartFamily.Main.csproj" />
   </ItemGroup>
 

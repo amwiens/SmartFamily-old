@@ -7,8 +7,11 @@ using SmartFamily.Contracts.Services;
 using SmartFamily.Core;
 using SmartFamily.Core.Constants;
 using SmartFamily.Core.Contracts.Services;
+using SmartFamily.Core.Models;
 using SmartFamily.Core.WPF.Dialogs;
 
+using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 
@@ -20,6 +23,8 @@ namespace SmartFamily.ViewModels
         private readonly IRightPaneService _rightPaneService;
         private readonly IDialogService _dialogService;
         private readonly IApplicationSettingsService _applicationSettingsService;
+        private readonly IDatabaseService _databaseService;
+
         private IRegionNavigationService _navigationService;
         private DelegateCommand _goBackCommand;
         private ICommand _menuFileOpenCommand;
@@ -46,12 +51,17 @@ namespace SmartFamily.ViewModels
 
         public ICommand MenuFileExitCommand => _menuFileExitCommand ?? (_menuFileExitCommand = new DelegateCommand(OnMenuFileExit));
 
-        public ShellViewModel(IRegionManager regionManager, IRightPaneService rightPaneService, IDialogService dialogService, IApplicationSettingsService applicationSettingsService)
+        public ShellViewModel(IRegionManager regionManager,
+            IRightPaneService rightPaneService,
+            IDialogService dialogService,
+            IApplicationSettingsService applicationSettingsService,
+            IDatabaseService databaseService)
         {
             _regionManager = regionManager;
             _rightPaneService = rightPaneService;
             _dialogService = dialogService;
             _applicationSettingsService = applicationSettingsService;
+            _databaseService = databaseService;
         }
 
         private void OnLoaded()
@@ -118,8 +128,12 @@ namespace SmartFamily.ViewModels
 
         private void OnMenuFileOpen()
         {
+            var assemblyLocation = Directory.GetCurrentDirectory();
+            var dbPath = Path.Combine(assemblyLocation, "OpenFile.sfdb");
+            _databaseService.OpenDatabase(dbPath);
+            ApplicationSettings.OpenDatabase = dbPath;
+
             RequestNavigateAndCleanJournal(PageKeys.Main);
-            ApplicationSettings.OpenDatabase = "OpenFile";
         }
 
         private void OnMenuFileNew()
@@ -130,7 +144,11 @@ namespace SmartFamily.ViewModels
             {
                 if (r.Result == ButtonResult.OK)
                 {
-                    ApplicationSettings.OpenDatabase = "TestDatabase";
+                    var assemblyLocation = Directory.GetCurrentDirectory();
+                    var dbPath = Path.Combine(assemblyLocation, "OpenFile.sfdb");
+                    _databaseService.CreateDatabase(dbPath);
+                    ApplicationSettings.OpenDatabase = dbPath;
+
                     RequestNavigateAndCleanJournal(PageKeys.Main);
                 }
             });
