@@ -34,13 +34,23 @@ namespace SmartFamily
     {
         private string[] _startUpArgs;
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
         public App()
         {
         }
 
+        /// <summary>
+        /// Creates the shell.
+        /// </summary>
+        /// <returns>Shell window.</returns>
         protected override Window CreateShell() =>
             Container.Resolve<ShellWindow>();
 
+        /// <summary>
+        /// Runs on initialization of the app.
+        /// </summary>
         protected override async void OnInitialized()
         {
             var persistAndRestoreService = Container.Resolve<IPersistAndRestoreService>();
@@ -53,12 +63,20 @@ namespace SmartFamily
             await Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Runs on startup of the app.
+        /// </summary>
+        /// <param name="e">Event args.</param>
         protected override void OnStartup(StartupEventArgs e)
         {
             _startUpArgs = e.Args;
             base.OnStartup(e);
         }
 
+        /// <summary>
+        /// Register types for prism.
+        /// </summary>
+        /// <param name="containerRegistry">Container registry.</param>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             // Core Services
@@ -92,11 +110,19 @@ namespace SmartFamily
             containerRegistry.RegisterInstance<AppConfig>(appConfig);
         }
 
+        /// <summary>
+        /// Configure modules.
+        /// </summary>
+        /// <param name="moduleCatalog">Module catalog.</param>
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             moduleCatalog.AddModule<MainModule>();
         }
 
+        /// <summary>
+        /// Build configuration.
+        /// </summary>
+        /// <returns>configuration.</returns>
         private IConfiguration BuildConfiguration()
         {
             var appLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
@@ -108,6 +134,10 @@ namespace SmartFamily
                 .Build();
         }
 
+        /// <summary>
+        /// Runs on session ending.
+        /// </summary>
+        /// <param name="e">Event args.</param>
         protected override void OnSessionEnding(SessionEndingCancelEventArgs e)
         {
             base.OnSessionEnding(e);
@@ -127,12 +157,22 @@ namespace SmartFamily
             }
         }
 
+        /// <summary>
+        /// Runs on exit of the app.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">Event args.</param>
         private void OnExit(object sender, ExitEventArgs e)
         {
             var persistAndRestoreService = Container.Resolve<IPersistAndRestoreService>();
             persistAndRestoreService.PersistData();
         }
 
+        /// <summary>
+        /// Handles any unhandled exceptions.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">Event args.</param>
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             // TODO: Please log and handle the excption as appropriate to your scenario

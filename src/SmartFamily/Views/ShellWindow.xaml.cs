@@ -12,6 +12,11 @@ namespace SmartFamily.Views
     /// </summary>
     public partial class ShellWindow : MetroWindow
     {
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="regionManager">Region manager.</param>
+        /// <param name="rightPaneService">Right pane service.</param>
         public ShellWindow(IRegionManager regionManager, IRightPaneService rightPaneService)
         {
             InitializeComponent();
