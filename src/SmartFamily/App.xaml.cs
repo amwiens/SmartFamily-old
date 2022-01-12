@@ -10,6 +10,7 @@ using SmartFamily.Core.Constants;
 using SmartFamily.Core.Contracts.Services;
 using SmartFamily.Core.Models;
 using SmartFamily.Core.Services;
+using SmartFamily.Core.WPF.Contracts.Services;
 using SmartFamily.Core.WPF.Dialogs;
 using SmartFamily.Core.WPF.Dialogs.ViewModels;
 using SmartFamily.Core.WPF.Dialogs.Views;
@@ -91,6 +92,7 @@ namespace SmartFamily
             containerRegistry.Register<IPersistAndRestoreService, PersistAndRestoreService>();
             containerRegistry.Register<IThemeSelectorService, ThemeSelectorService>();
             containerRegistry.RegisterSingleton<IRightPaneService, RightPaneService>();
+            containerRegistry.Register<IOpenFileDialogService, OpenFileDialogService>();
 
             // Views
             containerRegistry.RegisterForNavigation<ShellWindow, ShellViewModel>();

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using SmartFamily.Core.Contracts.Services;
+using SmartFamily.Core.Extensions;
 
 namespace SmartFamily.EntityFramework.Services
 {
@@ -28,6 +29,10 @@ namespace SmartFamily.EntityFramework.Services
             if (!File.Exists(databasePath))
             {
                 throw new FileNotFoundException("Database not found", databasePath);
+            }
+            if (!databasePath.IsSQLiteDatabase())
+            {
+                throw new ApplicationException("Not a valid database format.");
             }
             SmartFamilyDbContext ctx = new SmartFamilyDbContext(databasePath);
             ctx.Database.Migrate();

@@ -8,8 +8,10 @@ using SmartFamily.Core;
 using SmartFamily.Core.Constants;
 using SmartFamily.Core.Contracts.Services;
 using SmartFamily.Core.Models;
+using SmartFamily.Core.WPF.Contracts.Services;
 using SmartFamily.Core.WPF.Dialogs;
 
+using System;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -23,6 +25,7 @@ namespace SmartFamily.ViewModels
         private readonly IRightPaneService _rightPaneService;
         private readonly IDialogService _dialogService;
         private readonly IApplicationSettingsService _applicationSettingsService;
+        private readonly IOpenFileDialogService _openFileDialogService;
         private readonly IDatabaseService _databaseService;
 
         private IRegionNavigationService _navigationService;
@@ -55,12 +58,14 @@ namespace SmartFamily.ViewModels
             IRightPaneService rightPaneService,
             IDialogService dialogService,
             IApplicationSettingsService applicationSettingsService,
+            IOpenFileDialogService openFileDialogService,
             IDatabaseService databaseService)
         {
             _regionManager = regionManager;
             _rightPaneService = rightPaneService;
             _dialogService = dialogService;
             _applicationSettingsService = applicationSettingsService;
+            _openFileDialogService = openFileDialogService;
             _databaseService = databaseService;
         }
 
@@ -71,7 +76,7 @@ namespace SmartFamily.ViewModels
 
             if (_applicationSettingsService.GetSetting<bool>("OpenLastClosedFile"))
             {
-                OnMenuFileOpen();
+                OpenDatabaseFile("test");
             }
         }
 
@@ -128,12 +133,13 @@ namespace SmartFamily.ViewModels
 
         private void OnMenuFileOpen()
         {
-            var assemblyLocation = Directory.GetCurrentDirectory();
-            var dbPath = Path.Combine(assemblyLocation, "OpenFile.sfdb");
-            _databaseService.OpenDatabase(dbPath);
-            ApplicationSettings.OpenDatabase = dbPath;
-
-            RequestNavigateAndCleanJournal(PageKeys.Main);
+            _openFileDialogService.ShowDialog(r =>
+            {
+                if (!string.IsNullOrEmpty(r.FileName))
+                {
+                    OpenDatabaseFile(r.FileName);
+                }
+            });
         }
 
         private void OnMenuFileNew()
@@ -163,6 +169,29 @@ namespace SmartFamily.ViewModels
                 var message = "Would you like to backup this database?";
 
                 _dialogService.ShowNotification(message, r =>
+                {
+                    if (r.Result == ButtonResult.OK)
+                    {
+                    }
+                });
+            }
+        }
+
+        /// <summary>
+        /// Opens the database file.
+        /// </summary>
+        /// <param name="databasePath">Path to the database file.</param>
+        private void OpenDatabaseFile(string databasePath)
+        {
+            try
+            {
+                ApplicationSettings.OpenDatabase = _databaseService.OpenDatabase(databasePath);
+
+                RequestNavigateAndCleanJournal(PageKeys.Main);
+            }
+            catch (Exception ex)
+            {
+                _dialogService.ShowNotification(ex.Message, r =>
                 {
                     if (r.Result == ButtonResult.OK)
                     {
