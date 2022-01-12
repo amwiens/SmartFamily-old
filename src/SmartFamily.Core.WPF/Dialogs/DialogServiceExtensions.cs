@@ -4,6 +4,9 @@ using System;
 
 namespace SmartFamily.Core.WPF.Dialogs
 {
+    /// <summary>
+    /// Dialog service extensions.
+    /// </summary>
     public static class DialogServiceExtensions
     {
         /// <summary>
