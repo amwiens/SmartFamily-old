@@ -8,12 +8,19 @@ namespace SmartFamily.Core.WPF.Dialogs
 {
     public class OpenFileDialogService : IOpenFileDialogService
     {
-        private readonly OpenFileDialog _openFileDialog = new OpenFileDialog();
+        private readonly OpenFileDialog _openFileDialog = new();
 
-        public bool? ShowDialog(Action<OpenFileDialog> callback)
+        /// <inheritdoc/>
+        public bool? ShowOpenDatabaseDialog(out string fileName)
         {
+            fileName = String.Empty;
             _openFileDialog.Filter = "SmartFamily database (*.sfdb)|*.sfdb|All files (*.*)|*.*";
+            _openFileDialog.Multiselect = false;
             var openFile = _openFileDialog.ShowDialog();
+            if (_openFileDialog.FileName != null)
+            {
+                fileName = _openFileDialog.FileName;
+            }
             return openFile;
         }
     }

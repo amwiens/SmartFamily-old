@@ -1,11 +1,12 @@
-﻿using Microsoft.Win32;
-
-using System;
-
-namespace SmartFamily.Core.WPF.Contracts.Services
+﻿namespace SmartFamily.Core.WPF.Contracts.Services
 {
     public interface IOpenFileDialogService
     {
-        bool? ShowDialog(Action<OpenFileDialog> callback);
+        /// <summary>
+        /// Opens the open database file dialog window.
+        /// </summary>
+        /// <param name="fileName">File name to pass back to open.</param>
+        /// <returns><c>true</c> if file is selected, otherwise <c>false</c>.</returns>
+        bool? ShowOpenDatabaseDialog(out string fileName);
     }
 }

@@ -133,13 +133,11 @@ namespace SmartFamily.ViewModels
 
         private void OnMenuFileOpen()
         {
-            _openFileDialogService.ShowDialog(r =>
+            var result = _openFileDialogService.ShowOpenDatabaseDialog(out string fileName);
+            if (result == true && !string.IsNullOrWhiteSpace(fileName))
             {
-                if (!string.IsNullOrEmpty(r.FileName))
-                {
-                    OpenDatabaseFile(r.FileName);
-                }
-            });
+                OpenDatabaseFile(fileName);
+            }
         }
 
         private void OnMenuFileNew()
