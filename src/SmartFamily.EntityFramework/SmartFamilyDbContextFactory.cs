@@ -5,8 +5,16 @@ using SmartFamily.Core;
 
 namespace SmartFamily.EntityFramework
 {
+    /// <summary>
+    /// Database context factory.
+    /// </summary>
     public class SmartFamilyDbContextFactory : IDesignTimeDbContextFactory<SmartFamilyDbContext>
     {
+        /// <summary>
+        /// Creates the database context.
+        /// </summary>
+        /// <param name="args">Arguments to pass in.</param>
+        /// <returns>Database context.</returns>
         public SmartFamilyDbContext CreateDbContext(string[] args = null)
         {
             var dbPath = string.Empty;
