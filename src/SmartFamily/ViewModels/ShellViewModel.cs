@@ -130,7 +130,14 @@ namespace SmartFamily.ViewModels
 
         private void OnMenuFileExit()
         {
-            _applicationSettingsService.SetSetting("LastOpenFile", ApplicationSettings.OpenDatabase);
+            if (_applicationSettingsService.GetSetting<bool>("OpenLastClosedFile"))
+            {
+                _applicationSettingsService.SetSetting("LastOpenFile", ApplicationSettings.OpenDatabase);
+            }
+            else
+            {
+                _applicationSettingsService.SetSetting("LastOpenFile", string.Empty);
+            }
 
             CheckForBackup();
             Application.Current.Shutdown();

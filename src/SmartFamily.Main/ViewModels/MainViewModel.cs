@@ -11,6 +11,7 @@ using SmartFamily.Core.Contracts.Services;
 using SmartFamily.Core.WPF.Dialogs;
 
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows.Input;
 
@@ -70,6 +71,12 @@ namespace SmartFamily.Main.ViewModels
 
         public ICommand OptionsMenuItemInvokedCommand => _optionsMenuItemInvokedCommand ?? (_optionsMenuItemInvokedCommand = new DelegateCommand(OnOptionsMenuItemInvoked));
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="regionManager">Region manager.</param>
+        /// <param name="applicationSettingsService">Application settings service.</param>
+        /// <param name="dialogService">Dialg service.</param>
         public MainViewModel(IRegionManager regionManager, IApplicationSettingsService applicationSettingsService, IDialogService dialogService)
         {
             _regionManager = regionManager;
@@ -77,13 +84,17 @@ namespace SmartFamily.Main.ViewModels
             _dialogService = dialogService;
         }
 
+        /// <summary>
+        /// Runs when the view model is loaded.
+        /// </summary>
         private void OnLoaded()
         {
             _navigationService = _regionManager.Regions[Regions.Hamburger].NavigationService;
             _navigationService.Navigated += OnNavigated;
             SelectedMenuItem = MenuItems.First();
 
-            Title = ApplicationSettings.OpenDatabase;
+            var fileProperties = new FileInfo(ApplicationSettings.OpenDatabase);
+            Title = fileProperties.Name.Substring(0, fileProperties.Name.LastIndexOf('.'));
         }
 
         private void OnUnloaded()
@@ -103,6 +114,10 @@ namespace SmartFamily.Main.ViewModels
         private void OnOptionsMenuItemInvoked()
             => RequestNavigate(SelectedOptionsMenuItem.Tag?.ToString());
 
+        /// <summary>
+        /// Request navigate.
+        /// </summary>
+        /// <param name="target">Target.</param>
         private void RequestNavigate(string target)
         {
             if (_navigationService.CanNavigate(target))
@@ -111,6 +126,11 @@ namespace SmartFamily.Main.ViewModels
             }
         }
 
+        /// <summary>
+        /// On navigated.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">Event args.</param>
         private void OnNavigated(object sender, RegionNavigationEventArgs e)
         {
             var item = MenuItems
@@ -130,15 +150,28 @@ namespace SmartFamily.Main.ViewModels
             GoBackCommand.RaiseCanExecuteChanged();
         }
 
+        /// <summary>
+        /// On navigated to.
+        /// </summary>
+        /// <param name="navigationContext">Navigation context.</param>
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
         }
 
+        /// <summary>
+        /// Is navigation target.
+        /// </summary>
+        /// <param name="navigationContext">Navigation context.</param>
+        /// <returns><c>true</c> if the view model is a navigation target, otherwise <c>false</c>.</returns>
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
             return true;
         }
 
+        /// <summary>
+        /// On navigated from.
+        /// </summary>
+        /// <param name="navigationContext">Navigation context.</param>
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
             if (_applicationSettingsService.GetSetting<bool>("AskForBackup"))
