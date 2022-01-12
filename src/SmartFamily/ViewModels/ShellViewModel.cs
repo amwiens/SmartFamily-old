@@ -7,13 +7,11 @@ using SmartFamily.Contracts.Services;
 using SmartFamily.Core;
 using SmartFamily.Core.Constants;
 using SmartFamily.Core.Contracts.Services;
-using SmartFamily.Core.Models;
 using SmartFamily.Core.WPF.Contracts.Services;
 using SmartFamily.Core.WPF.Dialogs;
 
 using System;
 using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 
@@ -32,17 +30,22 @@ namespace SmartFamily.ViewModels
         private DelegateCommand _goBackCommand;
         private ICommand _menuFileOpenCommand;
         private ICommand _menuFileNewCommand;
+        private ICommand _menuFileCloseDatabaseCommand;
         private ICommand _menuFileSettingsCommand;
         private ICommand _menuViewsDashboardCommand;
         private ICommand _loadedCommand;
         private ICommand _unloadedCommand;
         private ICommand _menuFileExitCommand;
 
+        public bool CloseEnabled => CanGoBack();
+
         public DelegateCommand GoBackCommand => _goBackCommand ?? (_goBackCommand = new DelegateCommand(OnGoBack, CanGoBack));
 
         public ICommand MenuFileOpenCommand => _menuFileOpenCommand ?? (_menuFileOpenCommand = new DelegateCommand(OnMenuFileOpen));
 
         public ICommand MenuFileNewCommand => _menuFileNewCommand ?? (_menuFileNewCommand = new DelegateCommand(OnMenuFileNew));
+
+        public ICommand MenuFileCloseDatabaseCommand => _menuFileCloseDatabaseCommand ?? (_menuFileCloseDatabaseCommand = new DelegateCommand(OnMenuFileCloseDatabase, CanCloseDatabase));
 
         public ICommand MenuFileSettingsCommand => _menuFileSettingsCommand ?? (_menuFileSettingsCommand = new DelegateCommand(OnMenuFileSettings));
 
@@ -74,9 +77,9 @@ namespace SmartFamily.ViewModels
             _navigationService = _regionManager.Regions[Regions.Main].NavigationService;
             _navigationService.Navigated += OnNavigated;
 
-            if (_applicationSettingsService.GetSetting<bool>("OpenLastClosedFile"))
+            if (_applicationSettingsService.GetSetting<bool>("OpenLastClosedFile") && !string.IsNullOrWhiteSpace(_applicationSettingsService.GetSetting<string>("LastOpenFile")))
             {
-                OpenDatabaseFile("test");
+                OpenDatabaseFile(_applicationSettingsService.GetSetting<string>("LastOpenFile"));
             }
         }
 
@@ -121,6 +124,11 @@ namespace SmartFamily.ViewModels
 
         private void OnMenuFileExit()
         {
+            if (!string.IsNullOrWhiteSpace(ApplicationSettings.OpenDatabase))
+            {
+                _applicationSettingsService.SetSetting("LastOpenFile", ApplicationSettings.OpenDatabase);
+            }
+
             CheckForBackup();
             Application.Current.Shutdown();
         }
@@ -156,6 +164,16 @@ namespace SmartFamily.ViewModels
                     RequestNavigateAndCleanJournal(PageKeys.Main);
                 }
             });
+        }
+
+        private bool CanCloseDatabase()
+            => !string.IsNullOrWhiteSpace(ApplicationSettings.OpenDatabase);
+
+        private void OnMenuFileCloseDatabase()
+        {
+            ApplicationSettings.OpenDatabase = String.Empty;
+
+            RequestNavigateAndCleanJournal(PageKeys.Home);
         }
 
         private void CheckForBackup()

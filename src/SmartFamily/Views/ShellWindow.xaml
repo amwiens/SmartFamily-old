@@ -33,13 +33,20 @@
                         <MenuItem
                             AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}"
                             Command="{Binding MenuFileNewCommand}"
-                            Header="_New"
+                            Header="_New database"
                             Style="{StaticResource MainMenuItemStyle}" />
                         <MenuItem
                             AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}"
                             Command="{Binding MenuFileOpenCommand}"
-                            Header="_Open"
+                            Header="_Open database"
                             Style="{StaticResource MainMenuItemStyle}" />
+                        <Separator />
+                        <MenuItem
+                            AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}"
+                            Command="{Binding MenuFileCloseDatabaseCommand}"
+                            Header="_Close database"
+                            Style="{StaticResource MainMenuItemStyle}"
+                            IsEnabled="{Binding CloseEnabled}" />
                         <Separator />
                         <MenuItem
                             AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}"

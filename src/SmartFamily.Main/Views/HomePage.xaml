@@ -22,10 +22,31 @@
             Grid.Row="1"
             Margin="{StaticResource MediumLeftRightMargin}"
             Background="{DynamicResource MahApps.Brushes.Gray10}">
-            <!--
-                The Mahapps Gray10 color represents where you should place your content.
-                Place your content here.
-            -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Border Margin="3" Padding="5" BorderThickness="1" BorderBrush="Black" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                <TextBlock Text="Files" />
+            </Border>
+
+            <Border Margin="3" Padding="5" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black">
+                <TextBlock Text="News" />
+            </Border>
+
+            <Border Margin="3" Padding="5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                <TextBlock Text="Help" />
+            </Border>
+
+            <Border Margin="3" Padding="5" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="Black">
+                <TextBlock Text="Update" />
+            </Border>
         </Grid>
     </Grid>
 </UserControl>

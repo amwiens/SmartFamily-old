@@ -79,6 +79,7 @@ namespace SmartFamily.Main.ViewModels
 
         private void OnLoaded()
         {
+            // TODO: Fix navigation service when closing and opening new databases. Currently gives an error that it can't find the region.
             _navigationService = _regionManager.Regions[Regions.Hamburger].NavigationService;
             _navigationService.Navigated += OnNavigated;
             SelectedMenuItem = MenuItems.First();
