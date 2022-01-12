@@ -21,6 +21,38 @@
                 The Mahapps Gray10 color represents where you should place your content.
                 Place your content here.
             -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Data folder:" />
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SelectedFolder}" />
+            <Button Grid.Row="0" Grid.Column="2" Content="..." Command="{Binding SelectFolderCommand}" Width="42" Height="42" />
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Backup folder:" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedFolder}" />
+            <Button Grid.Row="1" Grid.Column="2" Content="..." Command="{Binding SelectFolderCommand}" Width="42" Height="42" />
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Media folder:" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedFolder}" />
+            <Button Grid.Row="2" Grid.Column="2" Content="..." Command="{Binding SelectFolderCommand}" Width="42" Height="42" />
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="GEDCOM folder:" />
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedFolder}" />
+            <Button Grid.Row="3" Grid.Column="2" Content="..." Command="{Binding SelectFolderCommand}" Width="42" Height="42" />
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Report folder:" />
+            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedFolder}" />
+            <Button Grid.Row="4" Grid.Column="2" Content="..." Command="{Binding SelectFolderCommand}" Width="42" Height="42" />
         </Grid>
     </Grid>
 </UserControl>

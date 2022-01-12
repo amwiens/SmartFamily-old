@@ -93,6 +93,7 @@ namespace SmartFamily
             containerRegistry.Register<IThemeSelectorService, ThemeSelectorService>();
             containerRegistry.RegisterSingleton<IRightPaneService, RightPaneService>();
             containerRegistry.Register<IOpenFileDialogService, OpenFileDialogService>();
+            containerRegistry.Register<ISelectFolderDialogService, SelectFolderDialogService>();
 
             // Views
             containerRegistry.RegisterForNavigation<ShellWindow, ShellViewModel>();

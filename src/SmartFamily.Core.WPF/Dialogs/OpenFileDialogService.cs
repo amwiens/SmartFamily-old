@@ -13,7 +13,7 @@ namespace SmartFamily.Core.WPF.Dialogs
         /// <inheritdoc/>
         public bool? ShowOpenDatabaseDialog(out string fileName)
         {
-            fileName = String.Empty;
+            fileName = string.Empty;
             _openFileDialog.Filter = "SmartFamily database (*.sfdb)|*.sfdb|All files (*.*)|*.*";
             _openFileDialog.Multiselect = false;
             var openFile = _openFileDialog.ShowDialog();
