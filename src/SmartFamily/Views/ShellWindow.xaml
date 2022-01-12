@@ -46,7 +46,7 @@
                             Command="{Binding MenuFileCloseDatabaseCommand}"
                             Header="_Close database"
                             Style="{StaticResource MainMenuItemStyle}"
-                            IsEnabled="{Binding CloseEnabled}" />
+                            IsEnabled="{Binding CloseEnabled, Mode=OneWay}" />
                         <Separator />
                         <MenuItem
                             AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}"

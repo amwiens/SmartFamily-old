@@ -37,7 +37,13 @@ namespace SmartFamily.ViewModels
         private ICommand _unloadedCommand;
         private ICommand _menuFileExitCommand;
 
-        public bool CloseEnabled => CanGoBack();
+        private bool _closeEnabled;
+
+        public bool CloseEnabled
+        {
+            get => _closeEnabled;
+            set => SetProperty(ref _closeEnabled, value);
+        }
 
         public DelegateCommand GoBackCommand => _goBackCommand ?? (_goBackCommand = new DelegateCommand(OnGoBack, CanGoBack));
 
@@ -124,10 +130,7 @@ namespace SmartFamily.ViewModels
 
         private void OnMenuFileExit()
         {
-            if (!string.IsNullOrWhiteSpace(ApplicationSettings.OpenDatabase))
-            {
-                _applicationSettingsService.SetSetting("LastOpenFile", ApplicationSettings.OpenDatabase);
-            }
+            _applicationSettingsService.SetSetting("LastOpenFile", ApplicationSettings.OpenDatabase);
 
             CheckForBackup();
             Application.Current.Shutdown();
@@ -172,6 +175,7 @@ namespace SmartFamily.ViewModels
         private void OnMenuFileCloseDatabase()
         {
             ApplicationSettings.OpenDatabase = String.Empty;
+            CloseEnabled = false;
 
             RequestNavigateAndCleanJournal(PageKeys.Home);
         }
@@ -203,6 +207,7 @@ namespace SmartFamily.ViewModels
             {
                 ApplicationSettings.OpenDatabase = _databaseService.OpenDatabase(databasePath);
 
+                CloseEnabled = true;
                 RequestNavigateAndCleanJournal(PageKeys.Main);
             }
             catch (Exception ex)
