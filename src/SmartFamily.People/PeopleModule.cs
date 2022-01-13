@@ -5,8 +5,6 @@ using SmartFamily.Core.Constants;
 using SmartFamily.People.ViewModels;
 using SmartFamily.People.Views;
 
-using System;
-
 namespace SmartFamily.People
 {
     public class PeopleModule : IModule
@@ -19,6 +17,7 @@ namespace SmartFamily.People
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<PeoplePage, PeopleViewModel>(PageKeys.People);
+            containerRegistry.RegisterForNavigation<PeopleListPage, PeopleViewModel>(PageKeys.PeopleListView);
         }
     }
 }

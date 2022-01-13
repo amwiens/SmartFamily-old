@@ -1,12 +1,24 @@
-﻿<UserControl x:Class="SmartFamily.People.Views.PeoplePage"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:SmartFamily.People.Views"
-             mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="SmartFamily.People.Views.PeoplePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prism="http://prismlibrary.com/"
+    Style="{StaticResource BaseUserControlStyle}">
     <Grid>
-        <TextBlock Text="People Page" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Style="{StaticResource PageTitleStyle}"
+                   Margin="{StaticResource MediumLeftMargin}"
+                   Text="People" />
+        <Grid Grid.Row="1"
+              Margin="{StaticResource MediumLeftRightMargin}"
+              Background="{DynamicResource MahApps.Brushes.Gray10}">
+            <StackPanel Orientation="Vertical">
+                <Button Content="People List View" Command="{Binding PeopleListViewCommand}" />
+                <ContentControl x:Name="peopleViewContentControl" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

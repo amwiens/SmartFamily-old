@@ -16,6 +16,11 @@
         public const string Main = "MainRegion";
 
         /// <summary>
+        /// People region on the people page.
+        /// </summary>
+        public const string People = "PeopleRegion";
+
+        /// <summary>
         /// Right pane region on the shell view.
         /// </summary>
         public const string RightPane = "RightPane";
