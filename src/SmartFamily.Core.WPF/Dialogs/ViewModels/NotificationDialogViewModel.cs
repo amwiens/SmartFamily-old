@@ -1,4 +1,6 @@
-﻿using Prism.Commands;
+﻿using Microsoft.Extensions.Logging;
+
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 
@@ -11,6 +13,8 @@ namespace SmartFamily.Core.WPF.Dialogs.ViewModels
     /// </summary>
     public class NotificationDialogViewModel : BindableBase, IDialogAware
     {
+        private readonly ILogger<NotificationDialogViewModel> _logger;
+
         private DelegateCommand<string> _closeDialogCommand;
 
         /// <summary>
@@ -45,6 +49,15 @@ namespace SmartFamily.Core.WPF.Dialogs.ViewModels
         /// Action to be taken on close.
         /// </summary>
         public event Action<IDialogResult> RequestClose;
+
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="logger">Logger.</param>
+        public NotificationDialogViewModel(ILogger<NotificationDialogViewModel> logger)
+        {
+            _logger = logger;
+        }
 
         /// <summary>
         /// Close dialog.

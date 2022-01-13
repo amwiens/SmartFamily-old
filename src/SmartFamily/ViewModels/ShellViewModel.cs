@@ -1,4 +1,6 @@
-﻿using Prism.Commands;
+﻿using Microsoft.Extensions.Logging;
+
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Services.Dialogs;
@@ -25,6 +27,7 @@ namespace SmartFamily.ViewModels
         private readonly IApplicationSettingsService _applicationSettingsService;
         private readonly IOpenFileDialogService _openFileDialogService;
         private readonly IDatabaseService _databaseService;
+        private readonly ILogger<ShellViewModel> _logger;
 
         private IRegionNavigationService _navigationService;
         private DelegateCommand _goBackCommand;
@@ -68,7 +71,8 @@ namespace SmartFamily.ViewModels
             IDialogService dialogService,
             IApplicationSettingsService applicationSettingsService,
             IOpenFileDialogService openFileDialogService,
-            IDatabaseService databaseService)
+            IDatabaseService databaseService,
+            ILogger<ShellViewModel> logger)
         {
             _regionManager = regionManager;
             _rightPaneService = rightPaneService;
@@ -76,6 +80,7 @@ namespace SmartFamily.ViewModels
             _applicationSettingsService = applicationSettingsService;
             _openFileDialogService = openFileDialogService;
             _databaseService = databaseService;
+            _logger = logger;
         }
 
         private void OnLoaded()
@@ -87,6 +92,8 @@ namespace SmartFamily.ViewModels
             {
                 OpenDatabaseFile(_applicationSettingsService.GetSetting<string>("LastOpenFile"));
             }
+
+            _logger.LogInformation("Shell view model loaded.");
         }
 
         private void OnUnloaded()
@@ -94,6 +101,7 @@ namespace SmartFamily.ViewModels
             _navigationService.Navigated -= OnNavigated;
             _regionManager.Regions.Remove(Regions.Main);
             _rightPaneService.CleanUp();
+            _logger.LogInformation("Shell view model unloaded.");
         }
 
         private bool CanGoBack()
@@ -220,6 +228,7 @@ namespace SmartFamily.ViewModels
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 _dialogService.ShowNotification(ex.Message, r =>
                 {
                     if (r.Result == ButtonResult.OK)

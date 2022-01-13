@@ -1,15 +1,16 @@
-﻿using Prism.Commands;
+﻿using Microsoft.Extensions.Logging;
+
+using Prism.Commands;
 using Prism.Mvvm;
 
 using SmartFamily.Core.WPF.Contracts.Services;
-
-using System.Windows.Input;
 
 namespace SmartFamily.Main.ViewModels
 {
     internal class FileSettingsViewModel : BindableBase
     {
         private readonly ISelectFolderDialogService _selectFolderDialogService;
+        private readonly ILogger<FileSettingsViewModel> _logger;
 
         private string _selectedFolder;
 
@@ -23,9 +24,11 @@ namespace SmartFamily.Main.ViewModels
 
         public DelegateCommand SelectFolderCommand => _selectFolderCommand ?? new DelegateCommand(OnSelectFolder);
 
-        public FileSettingsViewModel(ISelectFolderDialogService selectFolderDialogService)
+        public FileSettingsViewModel(ISelectFolderDialogService selectFolderDialogService,
+            ILogger<FileSettingsViewModel> logger)
         {
             _selectFolderDialogService = selectFolderDialogService;
+            _logger = logger;
         }
 
         private void OnSelectFolder()

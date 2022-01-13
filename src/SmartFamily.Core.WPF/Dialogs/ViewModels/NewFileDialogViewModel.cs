@@ -1,14 +1,12 @@
-﻿using Prism.Commands;
+﻿using Microsoft.Extensions.Logging;
+
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 
 using SmartFamily.Core.WPF.Contracts.Services;
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartFamily.Core.WPF.Dialogs.ViewModels
 {
@@ -18,6 +16,8 @@ namespace SmartFamily.Core.WPF.Dialogs.ViewModels
     public class NewFileDialogViewModel : BindableBase, IDialogAware
     {
         private readonly ISelectFolderDialogService _selectFolderDialogService;
+        private readonly ILogger<NewFileDialogViewModel> _logger;
+
         private DelegateCommand<string> _closeDialogCommand;
         private DelegateCommand _selectFolderCommand;
 
@@ -68,9 +68,12 @@ namespace SmartFamily.Core.WPF.Dialogs.ViewModels
         /// Ctor
         /// </summary>
         /// <param name="selectFolderDialogService">Select folder dialog service.</param>
-        public NewFileDialogViewModel(ISelectFolderDialogService selectFolderDialogService)
+        /// <param name="logger">Logger.</param>
+        public NewFileDialogViewModel(ISelectFolderDialogService selectFolderDialogService,
+            ILogger<NewFileDialogViewModel> logger)
         {
             _selectFolderDialogService = selectFolderDialogService;
+            _logger = logger;
         }
 
         /// <summary>
@@ -119,6 +122,7 @@ namespace SmartFamily.Core.WPF.Dialogs.ViewModels
         /// </summary>
         public void OnDialogClosed()
         {
+            _logger.LogInformation("NewFileDialogViewModel: Dialog closed.");
         }
 
         /// <summary>
@@ -127,6 +131,7 @@ namespace SmartFamily.Core.WPF.Dialogs.ViewModels
         /// <param name="parameters">Parameters.</param>
         public void OnDialogOpened(IDialogParameters parameters)
         {
+            _logger.LogInformation("NewFileDialogViewModel: Dialog opened.");
         }
 
         /// <summary>

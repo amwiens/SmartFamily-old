@@ -1,4 +1,6 @@
-﻿using Prism.Commands;
+﻿using Microsoft.Extensions.Logging;
+
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 
@@ -19,6 +21,7 @@ namespace SmartFamily.ViewModels
         private readonly ISystemService _systemService;
         private readonly IApplicationInfoService _applicationInfoService;
         private readonly IApplicationSettingsService _applicationSettingsService;
+        private readonly ILogger<SettingsViewModel> _logger;
 
         private AppTheme _theme;
         private string _versionDescription;
@@ -91,13 +94,15 @@ namespace SmartFamily.ViewModels
             IThemeSelectorService themeSelectorService,
             ISystemService systemService,
             IApplicationInfoService applicationInfoService,
-            IApplicationSettingsService applicationSettingsService)
+            IApplicationSettingsService applicationSettingsService,
+            ILogger<SettingsViewModel> logger)
         {
             _appConfig = appConfig;
             _themeSelectorService = themeSelectorService;
             _systemService = systemService;
             _applicationInfoService = applicationInfoService;
             _applicationSettingsService = applicationSettingsService;
+            _logger = logger;
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)

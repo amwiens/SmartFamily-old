@@ -1,8 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Services.Dialogs;
+using Prism.Unity;
+
+using Serilog;
 
 using SmartFamily.Contracts.Services;
 using SmartFamily.Core;
@@ -22,9 +26,13 @@ using SmartFamily.Views;
 
 using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+
+using Unity;
+using Unity.Microsoft.DependencyInjection;
 
 namespace SmartFamily
 {
@@ -40,6 +48,7 @@ namespace SmartFamily
         /// </summary>
         public App()
         {
+            Log.Information("Starting application.");
         }
 
         /// <summary>
@@ -71,6 +80,13 @@ namespace SmartFamily
         protected override void OnStartup(StartupEventArgs e)
         {
             _startUpArgs = e.Args;
+
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .MinimumLevel.Debug()
+                .WriteTo.File(path: "DemoLog.txt")
+                .CreateLogger();
+
             base.OnStartup(e);
         }
 
@@ -80,6 +96,9 @@ namespace SmartFamily
         /// <param name="containerRegistry">Container registry.</param>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            // Logging
+
+
             // Core Services
             containerRegistry.Register<IFileService, FileService>();
             containerRegistry.Register<IDatabaseService, DatabaseService>();
@@ -170,6 +189,10 @@ namespace SmartFamily
         {
             var persistAndRestoreService = Container.Resolve<IPersistAndRestoreService>();
             persistAndRestoreService.PersistData();
+
+            Log.Information("Application closed.");
+
+            Log.CloseAndFlush();
         }
 
         /// <summary>
@@ -181,6 +204,19 @@ namespace SmartFamily
         {
             // TODO: Please log and handle the excption as appropriate to your scenario
             // For more info see https://docs.microsoft.com/dotnet/api/system.windows.application.dispatcherunhandledexception?view=netcore-3.0
+            Log.Error(e.Exception, e.Exception.Message);
+        }
+
+        protected override IContainerExtension CreateContainerExtension()
+        {
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddLogging(loggingBuilder =>
+                loggingBuilder.AddSerilog(dispose: true));
+
+            var container = new UnityContainer();
+            container.BuildServiceProvider(serviceCollection);
+
+            return new UnityContainerExtension(container);
         }
     }
 }

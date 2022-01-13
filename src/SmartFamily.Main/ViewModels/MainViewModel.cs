@@ -1,5 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 
+using Microsoft.Extensions.Logging;
+
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -22,6 +24,8 @@ namespace SmartFamily.Main.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IApplicationSettingsService _applicationSettingsService;
         private readonly IDialogService _dialogService;
+        private readonly ILogger<MainViewModel> _logger;
+
         private IRegionNavigationService _navigationService;
         private string _title;
         private HamburgerMenuItem _selectedMenuItem;
@@ -77,11 +81,15 @@ namespace SmartFamily.Main.ViewModels
         /// <param name="regionManager">Region manager.</param>
         /// <param name="applicationSettingsService">Application settings service.</param>
         /// <param name="dialogService">Dialg service.</param>
-        public MainViewModel(IRegionManager regionManager, IApplicationSettingsService applicationSettingsService, IDialogService dialogService)
+        public MainViewModel(IRegionManager regionManager,
+            IApplicationSettingsService applicationSettingsService,
+            IDialogService dialogService,
+            ILogger<MainViewModel> logger)
         {
             _regionManager = regionManager;
             _applicationSettingsService = applicationSettingsService;
             _dialogService = dialogService;
+            _logger = logger;
         }
 
         /// <summary>

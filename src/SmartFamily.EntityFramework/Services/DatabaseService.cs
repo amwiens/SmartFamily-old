@@ -24,6 +24,7 @@ namespace SmartFamily.EntityFramework.Services
         }
 
         /// <inheritdoc/>
+        /// <exception cref="ApplicationException">Thrown when a file selected isn't a sqlite database.</exception>
         public string OpenDatabase(string databasePath)
         {
             if (!File.Exists(databasePath))
