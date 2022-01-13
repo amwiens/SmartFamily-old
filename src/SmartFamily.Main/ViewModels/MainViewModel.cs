@@ -58,6 +58,7 @@ namespace SmartFamily.Main.ViewModels
         public ObservableCollection<HamburgerMenuItem> MenuItems { get; } = new ObservableCollection<HamburgerMenuItem>()
         {
             new HamburgerMenuGlyphItem() { Label = "Dashboard", Glyph = "\uE8A5", Tag = PageKeys.Dashboard },
+            new HamburgerMenuGlyphItem() { Label = "People", Glyph = "\uE8A5", Tag = PageKeys.People },
         };
 
         public ObservableCollection<HamburgerMenuItem> OptionMenuItems { get; } = new ObservableCollection<HamburgerMenuItem>()

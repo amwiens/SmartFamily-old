@@ -26,6 +26,11 @@
         public const string Main = "Main";
 
         /// <summary>
+        /// People view.
+        /// </summary>
+        public const string People = "People";
+
+        /// <summary>
         /// Settings view.
         /// </summary>
         public const string Settings = "Settings";

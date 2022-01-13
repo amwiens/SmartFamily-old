@@ -20,6 +20,7 @@ using SmartFamily.Core.WPF.Dialogs.ViewModels;
 using SmartFamily.Core.WPF.Dialogs.Views;
 using SmartFamily.EntityFramework.Services;
 using SmartFamily.Main;
+using SmartFamily.People;
 using SmartFamily.Services;
 using SmartFamily.ViewModels;
 using SmartFamily.Views;
@@ -136,6 +137,7 @@ namespace SmartFamily
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             moduleCatalog.AddModule<MainModule>();
+            moduleCatalog.AddModule<PeopleModule>();
         }
 
         /// <summary>

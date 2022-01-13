@@ -45,6 +45,7 @@
     <ProjectReference Include="..\SmartFamily.Core\SmartFamily.Core.csproj" />
     <ProjectReference Include="..\SmartFamily.EntityFramework\SmartFamily.EntityFramework.csproj" />
     <ProjectReference Include="..\SmartFamily.Main\SmartFamily.Main.csproj" />
+    <ProjectReference Include="..\SmartFamily.People\SmartFamily.People.csproj" />
   </ItemGroup>
 
   <ItemGroup>
