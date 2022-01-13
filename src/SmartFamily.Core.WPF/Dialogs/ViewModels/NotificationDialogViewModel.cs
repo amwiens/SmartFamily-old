@@ -65,7 +65,7 @@ namespace SmartFamily.Core.WPF.Dialogs.ViewModels
         /// <summary>
         /// Raise the close request.
         /// </summary>
-        /// <param name="dialogResult"></param>
+        /// <param name="dialogResult">Dialog result.</param>
         public virtual void RaiseRequestClose(IDialogResult dialogResult)
         {
             RequestClose?.Invoke(dialogResult);

@@ -162,12 +162,13 @@ namespace SmartFamily.ViewModels
         {
             var message = "this is the message";
 
-            _dialogService.ShowNotification(message, r =>
+            _dialogService.ShowNewFile(r =>
             {
                 if (r.Result == ButtonResult.OK)
                 {
-                    var assemblyLocation = Directory.GetCurrentDirectory();
-                    var dbPath = Path.Combine(assemblyLocation, "OpenFile.sfdb");
+                    var fileName = r.Parameters.GetValue<string>("FileName");
+                    var fileLocation = r.Parameters.GetValue<string>("FileLocation");
+                    var dbPath = Path.Combine(fileLocation, $"{fileName}.sfdb");
                     _databaseService.CreateDatabase(dbPath);
                     ApplicationSettings.OpenDatabase = dbPath;
 

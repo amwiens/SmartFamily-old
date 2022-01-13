@@ -34,25 +34,100 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Data folder:" />
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SelectedFolder}" />
-            <Button Grid.Row="0" Grid.Column="2" Content="..." Command="{Binding SelectFolderCommand}" Width="42" Height="42" />
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Text="Data folder:" />
+            <TextBox
+                Grid.Row="0"
+                Grid.Column="1"
+                Width="200"
+                Text="{Binding SelectedFolder}" />
+            <Button
+                Grid.Row="0"
+                Grid.Column="2"
+                Width="42"
+                Height="25"
+                Command="{Binding SelectFolderCommand}"
+                Content="..." />
 
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Backup folder:" />
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedFolder}" />
-            <Button Grid.Row="1" Grid.Column="2" Content="..." Command="{Binding SelectFolderCommand}" Width="42" Height="42" />
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Text="Backup folder:" />
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="1"
+                Width="200"
+                Text="{Binding SelectedFolder}" />
+            <Button
+                Grid.Row="1"
+                Grid.Column="2"
+                Width="42"
+                Height="25"
+                Command="{Binding SelectFolderCommand}"
+                Content="..." />
 
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="Media folder:" />
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedFolder}" />
-            <Button Grid.Row="2" Grid.Column="2" Content="..." Command="{Binding SelectFolderCommand}" Width="42" Height="42" />
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Text="Media folder:" />
+            <TextBox
+                Grid.Row="2"
+                Grid.Column="1"
+                Width="200"
+                Text="{Binding SelectedFolder}" />
+            <Button
+                Grid.Row="2"
+                Grid.Column="2"
+                Width="42"
+                Height="25"
+                Command="{Binding SelectFolderCommand}"
+                Content="..." />
 
-            <TextBlock Grid.Row="3" Grid.Column="0" Text="GEDCOM folder:" />
-            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedFolder}" />
-            <Button Grid.Row="3" Grid.Column="2" Content="..." Command="{Binding SelectFolderCommand}" Width="42" Height="42" />
+            <TextBlock
+                Grid.Row="3"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Text="GEDCOM folder:" />
+            <TextBox
+                Grid.Row="3"
+                Grid.Column="1"
+                Width="200"
+                Text="{Binding SelectedFolder}" />
+            <Button
+                Grid.Row="3"
+                Grid.Column="2"
+                Width="42"
+                Height="25"
+                Command="{Binding SelectFolderCommand}"
+                Content="..." />
 
-            <TextBlock Grid.Row="4" Grid.Column="0" Text="Report folder:" />
-            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedFolder}" />
-            <Button Grid.Row="4" Grid.Column="2" Content="..." Command="{Binding SelectFolderCommand}" Width="42" Height="42" />
+            <TextBlock
+                Grid.Row="4"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Text="Report folder:" />
+            <TextBox
+                Grid.Row="4"
+                Grid.Column="1"
+                Width="200"
+                Text="{Binding SelectedFolder}" />
+            <Button
+                Grid.Row="4"
+                Grid.Column="2"
+                Width="42"
+                Height="25"
+                Command="{Binding SelectFolderCommand}"
+                Content="..." />
         </Grid>
     </Grid>
 </UserControl>

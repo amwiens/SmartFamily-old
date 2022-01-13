@@ -101,6 +101,7 @@ namespace SmartFamily
 
             // Dialogs
             containerRegistry.RegisterDialog<NotificationDialog, NotificationDialogViewModel>();
+            containerRegistry.RegisterDialog<NewFileDialog, NewFileDialogViewModel>();
 
             // Configuration
             var configuration = BuildConfiguration();
