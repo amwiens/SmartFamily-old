@@ -1,4 +1,6 @@
-﻿namespace SmartFamily.Core.Contracts.Services
+﻿using SmartFamily.Core.Exceptions;
+
+namespace SmartFamily.Core.Contracts.Services
 {
     /// <summary>
     /// Database service interface.
@@ -16,7 +18,8 @@
         /// Opens a database with the given database name.
         /// </summary>
         /// <param name="databaseName">Database name.</param>
-        /// <exception cref="ApplicationException">Thrown when a file selected isn't a sqlite database.</exception>
+        /// <exception cref="FileNotFoundException" />
+        /// <exception cref="DatabaseFormatException" />
         /// <returns>Database path.</returns>
         string OpenDatabase(string databaseName);
 

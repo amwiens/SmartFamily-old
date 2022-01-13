@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using SmartFamily.Core.Contracts.Services;
+using SmartFamily.Core.Exceptions;
 using SmartFamily.Core.Extensions;
 
 namespace SmartFamily.EntityFramework.Services
@@ -24,7 +25,6 @@ namespace SmartFamily.EntityFramework.Services
         }
 
         /// <inheritdoc/>
-        /// <exception cref="ApplicationException">Thrown when a file selected isn't a sqlite database.</exception>
         public string OpenDatabase(string databasePath)
         {
             if (!File.Exists(databasePath))
@@ -33,7 +33,7 @@ namespace SmartFamily.EntityFramework.Services
             }
             if (!databasePath.IsSQLiteDatabase())
             {
-                throw new ApplicationException("Not a valid database format.");
+                throw new DatabaseFormatException("Not a valid database format.", databasePath);
             }
             SmartFamilyDbContext ctx = new SmartFamilyDbContext(databasePath);
             ctx.Database.Migrate();

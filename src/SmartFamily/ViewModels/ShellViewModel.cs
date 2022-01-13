@@ -9,6 +9,7 @@ using SmartFamily.Contracts.Services;
 using SmartFamily.Core;
 using SmartFamily.Core.Constants;
 using SmartFamily.Core.Contracts.Services;
+using SmartFamily.Core.Exceptions;
 using SmartFamily.Core.WPF.Contracts.Services;
 using SmartFamily.Core.WPF.Dialogs;
 
@@ -226,7 +227,7 @@ namespace SmartFamily.ViewModels
                 CloseEnabled = true;
                 RequestNavigateAndCleanJournal(PageKeys.Main);
             }
-            catch (Exception ex)
+            catch (DatabaseFormatException ex)
             {
                 _logger.LogError(ex, ex.Message);
                 _dialogService.ShowNotification(ex.Message, r =>
