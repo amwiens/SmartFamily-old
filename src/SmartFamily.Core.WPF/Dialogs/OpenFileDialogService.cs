@@ -2,8 +2,6 @@
 
 using SmartFamily.Core.WPF.Contracts.Services;
 
-using System;
-
 namespace SmartFamily.Core.WPF.Dialogs
 {
     public class OpenFileDialogService : IOpenFileDialogService

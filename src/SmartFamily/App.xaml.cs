@@ -26,7 +26,6 @@ using SmartFamily.Views;
 
 using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
@@ -96,9 +95,6 @@ namespace SmartFamily
         /// <param name="containerRegistry">Container registry.</param>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            // Logging
-
-
             // Core Services
             containerRegistry.Register<IFileService, FileService>();
             containerRegistry.Register<IDatabaseService, DatabaseService>();
