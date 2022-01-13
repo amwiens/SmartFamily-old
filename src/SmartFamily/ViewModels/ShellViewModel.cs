@@ -67,6 +67,16 @@ namespace SmartFamily.ViewModels
 
         public ICommand MenuFileExitCommand => _menuFileExitCommand ?? (_menuFileExitCommand = new DelegateCommand(OnMenuFileExit));
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="regionManager">Region manager.</param>
+        /// <param name="rightPaneService">Right pane service.</param>
+        /// <param name="dialogService">Dialog service.</param>
+        /// <param name="applicationSettingsService">Application settings service.</param>
+        /// <param name="openFileDialogService">Open file dialog service.</param>
+        /// <param name="databaseService">Database service.</param>
+        /// <param name="logger">Logger.</param>
         public ShellViewModel(IRegionManager regionManager,
             IRightPaneService rightPaneService,
             IDialogService dialogService,
@@ -84,6 +94,9 @@ namespace SmartFamily.ViewModels
             _logger = logger;
         }
 
+        /// <summary>
+        /// On loaded.
+        /// </summary>
         private void OnLoaded()
         {
             _navigationService = _regionManager.Regions[Regions.Main].NavigationService;
@@ -94,23 +107,38 @@ namespace SmartFamily.ViewModels
                 OpenDatabaseFile(_applicationSettingsService.GetSetting<string>("LastOpenFile"));
             }
 
-            _logger.LogInformation("Shell view model loaded.");
+            _logger.LogInformation("ShellViewModel: Loaded.");
         }
 
+        /// <summary>
+        /// On unloaded.
+        /// </summary>
         private void OnUnloaded()
         {
             _navigationService.Navigated -= OnNavigated;
             _regionManager.Regions.Remove(Regions.Main);
             _rightPaneService.CleanUp();
-            _logger.LogInformation("Shell view model unloaded.");
+            _logger.LogInformation("ShellViewModel: Unloaded.");
         }
 
+        /// <summary>
+        /// Can go back.
+        /// </summary>
+        /// <returns><c>true</c> if can go back, otherwise <c>false</c>.</returns>
         private bool CanGoBack()
             => _navigationService != null && _navigationService.Journal.CanGoBack;
 
+        /// <summary>
+        /// Go back.
+        /// </summary>
         private void OnGoBack()
             => _navigationService.Journal.GoBack();
 
+        /// <summary>
+        /// Request navigate.
+        /// </summary>
+        /// <param name="target">Target page.</param>
+        /// <returns><c>true</c> if page can be navigated to, otherwise <c>false</c>.</returns>
         private bool RequestNavigate(string target)
         {
             if (_navigationService.CanNavigate(target))
@@ -122,9 +150,17 @@ namespace SmartFamily.ViewModels
             return false;
         }
 
+        /// <summary>
+        /// Open target in right pane.
+        /// </summary>
+        /// <param name="target">Target page.</param>
         private void RequestNavigateOnRightPane(string target)
             => _rightPaneService.OpenInRightPane(target);
 
+        /// <summary>
+        /// Navigate to the target page.
+        /// </summary>
+        /// <param name="target">Target page.</param>
         private void RequestNavigateAndCleanJournal(string target)
         {
             var navigated = RequestNavigate(target);
@@ -134,9 +170,17 @@ namespace SmartFamily.ViewModels
             }
         }
 
+        /// <summary>
+        /// On navigated to.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">Event args.</param>
         private void OnNavigated(object sender, RegionNavigationEventArgs e)
             => GoBackCommand.RaiseCanExecuteChanged();
 
+        /// <summary>
+        /// Exit the program.
+        /// </summary>
         private void OnMenuFileExit()
         {
             if (_applicationSettingsService.GetSetting<bool>("OpenLastClosedFile"))
@@ -152,12 +196,21 @@ namespace SmartFamily.ViewModels
             Application.Current.Shutdown();
         }
 
+        /// <summary>
+        /// Open dashboard view.
+        /// </summary>
         private void OnMenuViewsDashboard()
             => RequestNavigateAndCleanJournal(PageKeys.Dashboard);
 
+        /// <summary>
+        /// Settings menu item.
+        /// </summary>
         private void OnMenuFileSettings()
             => RequestNavigateOnRightPane(PageKeys.Settings);
 
+        /// <summary>
+        /// Open a file.
+        /// </summary>
         private void OnMenuFileOpen()
         {
             var result = _openFileDialogService.ShowOpenDatabaseDialog(out string fileName);
@@ -167,6 +220,9 @@ namespace SmartFamily.ViewModels
             }
         }
 
+        /// <summary>
+        /// New file.
+        /// </summary>
         private void OnMenuFileNew()
         {
             var message = "this is the message";
@@ -186,9 +242,16 @@ namespace SmartFamily.ViewModels
             });
         }
 
+        /// <summary>
+        /// Can the database be closed.
+        /// </summary>
+        /// <returns><c>true</c> if a database can be closed, otherwise <c>false</c>.</returns>
         private bool CanCloseDatabase()
             => !string.IsNullOrWhiteSpace(ApplicationSettings.OpenDatabase);
 
+        /// <summary>
+        /// Close the database.
+        /// </summary>
         private void OnMenuFileCloseDatabase()
         {
             ApplicationSettings.OpenDatabase = String.Empty;
@@ -197,6 +260,9 @@ namespace SmartFamily.ViewModels
             RequestNavigateAndCleanJournal(PageKeys.Home);
         }
 
+        /// <summary>
+        /// Check if a backup needs to be created.
+        /// </summary>
         private void CheckForBackup()
         {
             var askForBackup = App.Current.Properties.Contains("AskForBackup") ? (bool)App.Current.Properties["AskForBackup"] : false;

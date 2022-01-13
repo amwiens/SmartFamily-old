@@ -207,6 +207,10 @@ namespace SmartFamily
             Log.Error(e.Exception, e.Exception.Message);
         }
 
+        /// <summary>
+        /// Create container extension.
+        /// </summary>
+        /// <returns>Container extension.</returns>
         protected override IContainerExtension CreateContainerExtension()
         {
             var serviceCollection = new ServiceCollection();
