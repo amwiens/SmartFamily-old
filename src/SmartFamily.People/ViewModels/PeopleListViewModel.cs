@@ -69,7 +69,7 @@ namespace SmartFamily.People.ViewModels
 
             Source.Clear();
 
-            // Replace this with your actual data
+            // TODO: Replace this with your actual data
             var data = await _sampleDataService.GetGridDataAsync();
 
             foreach (var item in data)
@@ -81,7 +81,7 @@ namespace SmartFamily.People.ViewModels
         /// <summary>
         /// On navigated from.
         /// </summary>
-        /// <param name="navigationContext"></param>
+        /// <param name="navigationContext">Navigation context.</param>
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
         }

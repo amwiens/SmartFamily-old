@@ -30,30 +30,42 @@ namespace SmartFamily.Main.ViewModels
         private string _title;
         private HamburgerMenuItem _selectedMenuItem;
         private HamburgerMenuItem _selectedOptionsMenuItem;
-        private DelegateCommand _goBackCommand;
+
         private ICommand _loadedCommand;
         private ICommand _unloadedCommand;
         private ICommand _menuItemInvokedCommand;
         private ICommand _optionsMenuItemInvokedCommand;
 
+        /// <summary>
+        /// Title
+        /// </summary>
         public string Title
         {
             get { return _title; }
             private set { SetProperty(ref _title, value); }
         }
 
+        /// <summary>
+        /// Selected menu item.
+        /// </summary>
         public HamburgerMenuItem SelectedMenuItem
         {
             get { return _selectedMenuItem; }
             set { SetProperty(ref _selectedMenuItem, value); }
         }
 
+        /// <summary>
+        /// Selected option menu item.
+        /// </summary>
         public HamburgerMenuItem SelectedOptionsMenuItem
         {
             get { return _selectedOptionsMenuItem; }
             set { SetProperty(ref _selectedOptionsMenuItem, value); }
         }
 
+        /// <summary>
+        /// Menu items.
+        /// </summary>
         // TODO: Change the icons and title for all HamburgerMenuItems here.
         public ObservableCollection<HamburgerMenuItem> MenuItems { get; } = new ObservableCollection<HamburgerMenuItem>()
         {
@@ -61,12 +73,13 @@ namespace SmartFamily.Main.ViewModels
             new HamburgerMenuGlyphItem() { Label = "People", Glyph = "\uE8A5", Tag = PageKeys.People },
         };
 
+        /// <summary>
+        /// Option menu items.
+        /// </summary>
         public ObservableCollection<HamburgerMenuItem> OptionMenuItems { get; } = new ObservableCollection<HamburgerMenuItem>()
         {
             new HamburgerMenuGlyphItem() { Label = "File Settings", Glyph = "\uE713", Tag = PageKeys.FileSettings },
         };
-
-        public DelegateCommand GoBackCommand => _goBackCommand ?? (_goBackCommand = new DelegateCommand(OnGoBack, CanGoBack));
 
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new DelegateCommand(OnLoaded));
 
@@ -106,20 +119,23 @@ namespace SmartFamily.Main.ViewModels
             Title = fileProperties.Name.Substring(0, fileProperties.Name.LastIndexOf('.'));
         }
 
+        /// <summary>
+        /// Runs when the view is unloaded.
+        /// </summary>
         private void OnUnloaded()
         {
             _navigationService.Navigated -= OnNavigated;
         }
 
-        private bool CanGoBack()
-            => _navigationService != null && _navigationService.Journal.CanGoBack;
-
-        private void OnGoBack()
-            => _navigationService.Journal.GoBack();
-
+        /// <summary>
+        /// On menu item invoked.
+        /// </summary>
         private void OnMenuItemInvoked()
             => RequestNavigate(SelectedMenuItem.Tag?.ToString());
 
+        /// <summary>
+        /// On options menu item invoked.
+        /// </summary>
         private void OnOptionsMenuItemInvoked()
             => RequestNavigate(SelectedOptionsMenuItem.Tag?.ToString());
 
@@ -140,7 +156,7 @@ namespace SmartFamily.Main.ViewModels
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">Event args.</param>
-        private void OnNavigated(object sender, RegionNavigationEventArgs e)
+        private void OnNavigated(object? sender, RegionNavigationEventArgs e)
         {
             var item = MenuItems
                 .OfType<HamburgerMenuItem>()
@@ -155,16 +171,6 @@ namespace SmartFamily.Main.ViewModels
                     .OfType<HamburgerMenuItem>()
                     .FirstOrDefault(i => e.Uri.ToString() == i.Tag?.ToString());
             }
-
-            GoBackCommand.RaiseCanExecuteChanged();
-        }
-
-        /// <summary>
-        /// On navigated to.
-        /// </summary>
-        /// <param name="navigationContext">Navigation context.</param>
-        public void OnNavigatedTo(NavigationContext navigationContext)
-        {
         }
 
         /// <summary>
@@ -173,8 +179,14 @@ namespace SmartFamily.Main.ViewModels
         /// <param name="navigationContext">Navigation context.</param>
         /// <returns><c>true</c> if the view model is a navigation target, otherwise <c>false</c>.</returns>
         public bool IsNavigationTarget(NavigationContext navigationContext)
+            => true;
+
+        /// <summary>
+        /// On navigated to.
+        /// </summary>
+        /// <param name="navigationContext">Navigation context.</param>
+        public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            return true;
         }
 
         /// <summary>
