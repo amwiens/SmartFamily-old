@@ -1,5 +1,6 @@
 using Prism.Ioc;
 using Prism.Modularity;
+using Prism.Regions;
 
 using SmartFamily.Core.Constants;
 using SmartFamily.People.ViewModels;
@@ -11,13 +12,14 @@ namespace SmartFamily.People
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
-
+            var regionManager = containerProvider.Resolve<IRegionManager>();
+            //regionManager.RegisterViewWithRegion(Regions.People, PageKeys.PeopleListView);
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<PeoplePage, PeopleViewModel>(PageKeys.People);
-            containerRegistry.RegisterForNavigation<PeopleListPage, PeopleViewModel>(PageKeys.PeopleListView);
+            containerRegistry.RegisterForNavigation<PeopleListPage, PeopleListViewModel>(PageKeys.PeopleListView);
         }
     }
 }

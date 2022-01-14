@@ -10,23 +10,46 @@ using System.Windows.Input;
 
 namespace SmartFamily.People.ViewModels
 {
+    /// <summary>
+    /// People view model.
+    /// </summary>
     public class PeopleViewModel : BindableBase, INavigationAware
     {
         private readonly IRegionManager _regionManager;
         private readonly ILogger<PeopleViewModel> _logger;
 
         private IRegionNavigationService _navigationService;
+        private DelegateCommand _goBackCommand;
         private ICommand _peopleListViewCommand;
 
+        public DelegateCommand GoBackCommand => _goBackCommand ?? (_goBackCommand = new DelegateCommand(OnGoBack, CanGoBack));
 
         public ICommand PeopleListViewCommand => _peopleListViewCommand ?? (_peopleListViewCommand = new DelegateCommand(OnPeopleListView));
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="regionManager">Region manager.</param>
+        /// <param name="logger">Logger.</param>
         public PeopleViewModel(IRegionManager regionManager,
             ILogger<PeopleViewModel> logger)
         {
             _regionManager = regionManager;
             _logger = logger;
         }
+
+        /// <summary>
+        /// Can go back.
+        /// </summary>
+        /// <returns><c>true</c> if can go back, otherwise <c>false</c>.</returns>
+        private bool CanGoBack()
+            => _navigationService != null && _navigationService.Journal.CanGoBack;
+
+        /// <summary>
+        /// Go back.
+        /// </summary>
+        private void OnGoBack()
+            => _navigationService.Journal.GoBack();
 
         /// <summary>
         /// Request navigate.
@@ -63,8 +86,7 @@ namespace SmartFamily.People.ViewModels
         /// <param name="sender">Sender.</param>
         /// <param name="e">Event args.</param>
         private void OnNavigated(object sender, RegionNavigationEventArgs e)
-        {
-        }
+            => GoBackCommand.RaiseCanExecuteChanged();
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
@@ -73,17 +95,20 @@ namespace SmartFamily.People.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
+            _navigationService = _regionManager.Regions[Regions.People].NavigationService;
+            _navigationService.Navigated += OnNavigated;
 
+            RequestNavigateAndCleanJournal(PageKeys.PeopleListView);
         }
 
         private void OnPeopleListView()
         {
-            _regionManager.RequestNavigate(Regions.People, PageKeys.PeopleListView);
+            RequestNavigateAndCleanJournal(PageKeys.PeopleListView);
+            //_regionManager.RequestNavigate(Regions.People, PageKeys.PeopleListView);
         }
     }
 }

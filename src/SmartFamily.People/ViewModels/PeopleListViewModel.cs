@@ -8,7 +8,7 @@ using SmartFamily.EntityFramework.Contracts.Services;
 
 using System.Collections.ObjectModel;
 
-namespace SmartFamily.Main.ViewModels
+namespace SmartFamily.People.ViewModels
 {
     internal class PeopleListViewModel : BindableBase, INavigationAware
     {

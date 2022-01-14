@@ -18,6 +18,7 @@ using SmartFamily.Core.WPF.Contracts.Services;
 using SmartFamily.Core.WPF.Dialogs;
 using SmartFamily.Core.WPF.Dialogs.ViewModels;
 using SmartFamily.Core.WPF.Dialogs.Views;
+using SmartFamily.EntityFramework.Contracts.Services;
 using SmartFamily.EntityFramework.Services;
 using SmartFamily.Main;
 using SmartFamily.People;
@@ -110,6 +111,7 @@ namespace SmartFamily
             containerRegistry.RegisterSingleton<IRightPaneService, RightPaneService>();
             containerRegistry.Register<IOpenFileDialogService, OpenFileDialogService>();
             containerRegistry.Register<ISelectFolderDialogService, SelectFolderDialogService>();
+            containerRegistry.Register<ISampleDataService, SampleDataService>();
 
             // Views
             containerRegistry.RegisterForNavigation<ShellWindow, ShellViewModel>();
