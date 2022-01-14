@@ -3,12 +3,22 @@ using SmartFamily.EntityFramework.Contracts.Services;
 
 namespace SmartFamily.EntityFramework.Services
 {
+    /// <summary>
+    /// Sample data service.
+    /// </summary>
     public class SampleDataService : ISampleDataService
     {
+        /// <summary>
+        /// Ctor
+        /// </summary>
         public SampleDataService()
         {
         }
 
+        /// <summary>
+        /// All people.
+        /// </summary>
+        /// <returns>All people.</returns>
         private static IEnumerable<SamplePerson> AllPeople()
         {
             return new List<SamplePerson>()
@@ -51,18 +61,21 @@ namespace SmartFamily.EntityFramework.Services
             };
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<SamplePerson>> GetContentGridDataAsync()
         {
             await Task.CompletedTask;
             return AllPeople();
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<SamplePerson>> GetGridDataAsync()
         {
             await Task.CompletedTask;
             return AllPeople();
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<SamplePerson>> GetListDetailsDataAsync()
         {
             await Task.CompletedTask;

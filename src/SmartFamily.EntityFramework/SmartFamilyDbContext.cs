@@ -64,6 +64,9 @@ namespace SmartFamily.EntityFramework
             base.OnModelCreating(modelBuilder);
         }
 
+        /// <summary>
+        /// File settings.
+        /// </summary>
         public DbSet<FileSettings> FileSettings { get; set; }
     }
 }
