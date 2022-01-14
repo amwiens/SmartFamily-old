@@ -4,6 +4,10 @@ using Prism.Mvvm;
 using Prism.Regions;
 
 using SmartFamily.Core.Constants;
+using SmartFamily.Core.Models;
+
+using System;
+using System.Collections.ObjectModel;
 
 namespace SmartFamily.Main.ViewModels
 {
@@ -14,6 +18,16 @@ namespace SmartFamily.Main.ViewModels
 
         private IRegionNavigationService _navigationService;
 
+        /// <summary>
+        /// Gets the recent files.
+        /// </summary>
+        public ObservableCollection<RecentFile> RecentFiles { get; } = new ObservableCollection<RecentFile>();
+
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="regionManager">Region manager.</param>
+        /// <param name="logger">Logger.</param>
         public HomeViewModel(IRegionManager regionManager,
             ILogger<HomeViewModel> logger)
         {
@@ -46,6 +60,9 @@ namespace SmartFamily.Main.ViewModels
         {
             _navigationService = _regionManager.Regions[Regions.Hamburger].NavigationService;
             _navigationService.Navigated += OnNavigated;
+
+            RecentFiles.Add(new RecentFile { FileName = "test.sfdb", FilePath = "C:\\Code", LastOpened = DateTime.Today });
+            RecentFiles.Add(new RecentFile { FileName = "test1.sfdb", FilePath = "C:\\Code", LastOpened = DateTime.Today });
         }
 
         /// <summary>
