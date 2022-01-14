@@ -8,14 +8,23 @@ using SmartFamily.People.Views;
 
 namespace SmartFamily.People
 {
+    /// <summary>
+    /// People module.
+    /// </summary>
     public class PeopleModule : IModule
     {
+        /// <summary>
+        /// On initialized.
+        /// </summary>
+        /// <param name="containerProvider">Container provider.</param>
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            var regionManager = containerProvider.Resolve<IRegionManager>();
-            //regionManager.RegisterViewWithRegion(Regions.People, PageKeys.PeopleListView);
         }
 
+        /// <summary>
+        /// Register types.
+        /// </summary>
+        /// <param name="containerRegistry">Container registry.</param>
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<PeoplePage, PeopleViewModel>(PageKeys.People);

@@ -9,14 +9,15 @@
             <RowDefinition Height="48" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Style="{StaticResource PageTitleStyle}"
-                   Margin="{StaticResource MediumLeftMargin}"
-                   Text="People" />
-        <Grid Grid.Row="1"
-              Margin="{StaticResource MediumLeftRightMargin}"
-              Background="{DynamicResource MahApps.Brushes.Gray10}">
+        <TextBlock
+            Margin="{StaticResource MediumLeftMargin}"
+            Style="{StaticResource PageTitleStyle}"
+            Text="People" />
+        <Grid
+            Grid.Row="1"
+            Margin="{StaticResource MediumLeftRightMargin}"
+            Background="{DynamicResource MahApps.Brushes.Gray10}">
             <StackPanel Orientation="Vertical">
-                <Button Content="People List View" Command="{Binding PeopleListViewCommand}" />
                 <ContentControl x:Name="peopleViewContentControl" />
             </StackPanel>
         </Grid>
