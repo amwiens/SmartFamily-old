@@ -73,7 +73,7 @@ namespace SmartFamily.Main.ViewModels
         /// <param name="navigationContext">Navigation context.</param>
         public async void OnNavigatedTo(NavigationContext navigationContext)
         {
-            _navigationService = _regionManager.Regions[Regions.People].NavigationService;
+            _navigationService = _regionManager.Regions[Regions.Hamburger].NavigationService;
             _navigationService.Navigated += OnNavigated;
         }
 
@@ -92,7 +92,7 @@ namespace SmartFamily.Main.ViewModels
         {
             if (_selectFolderDialogService.ShowDialog(out string folderName) == true && !string.IsNullOrEmpty(folderName))
             {
-                _selectedFolder = folderName;
+                SelectedFolder = folderName;
             }
         }
     }
