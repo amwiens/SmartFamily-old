@@ -1,7 +1,15 @@
 ﻿namespace SmartFamily.Core.Extensions
 {
+    /// <summary>
+    /// SQLite database extensions
+    /// </summary>
     public static class SQLiteDatabaseExtensions
     {
+        /// <summary>
+        /// Checks to see if the file is a SQLite database.
+        /// </summary>
+        /// <param name="databasePath">Path to the database.</param>
+        /// <returns><c>true</c> if the file is a database, otherwise <c>false</c>.</returns>
         public static bool IsSQLiteDatabase(this string databasePath)
         {
             bool result = false;
