@@ -45,8 +45,8 @@
                             AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}"
                             Command="{Binding MenuFileCloseDatabaseCommand}"
                             Header="_Close database"
-                            Style="{StaticResource MainMenuItemStyle}"
-                            IsEnabled="{Binding CloseEnabled, Mode=OneWay}" />
+                            IsEnabled="{Binding CloseEnabled, Mode=OneWay}"
+                            Style="{StaticResource MainMenuItemStyle}" />
                         <Separator />
                         <MenuItem
                             AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}"
@@ -84,7 +84,7 @@
             <controls:SplitView.Content>
                 <Grid>
                     <ContentControl x:Name="menuContentControl" />
-                    <!--  prism:RegionManager.RegionName="{x:Static core:Regions.Main}" />  -->
+                    <!--<ContentControl prism:RegionManager.RegionName="{x:Static core:Regions.Main}" />  -->
                 </Grid>
             </controls:SplitView.Content>
         </controls:SplitView>

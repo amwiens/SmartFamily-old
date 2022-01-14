@@ -13,6 +13,9 @@ using System.Windows.Input;
 
 namespace SmartFamily.ViewModels
 {
+    /// <summary>
+    /// Settings view model.
+    /// </summary>
     // TODO: Change the URL for your privacy policy in the appsettings.json file, currrently set to https://YourPrivacyUrlGoesHere/
     public class SettingsViewModel : BindableBase, INavigationAware
     {
@@ -33,18 +36,27 @@ namespace SmartFamily.ViewModels
         private ICommand _setThemeCommand;
         private ICommand _privacyStatmentCommand;
 
+        /// <summary>
+        /// App theme
+        /// </summary>
         public AppTheme Theme
         {
             get { return _theme; }
             set { SetProperty(ref _theme, value); }
         }
 
+        /// <summary>
+        /// Version description.
+        /// </summary>
         public string VersionDescription
         {
             get { return _versionDescription; }
             set { SetProperty(ref _versionDescription, value); }
         }
 
+        /// <summary>
+        /// Open last closed file.
+        /// </summary>
         public bool OpenLastClosedFile
         {
             get { return _openLastClosedFile; }
@@ -55,6 +67,9 @@ namespace SmartFamily.ViewModels
             }
         }
 
+        /// <summary>
+        /// Ask for backup.
+        /// </summary>
         public bool AskForBackup
         {
             get { return _askForBackup; }
@@ -65,6 +80,9 @@ namespace SmartFamily.ViewModels
             }
         }
 
+        /// <summary>
+        /// Add date to backup.
+        /// </summary>
         public bool AddDateToBackup
         {
             get { return _addDateToBackup; }
@@ -75,6 +93,9 @@ namespace SmartFamily.ViewModels
             }
         }
 
+        /// <summary>
+        /// Check for duplicates.
+        /// </summary>
         public bool CheckForDuplicates
         {
             get { return _checkForDuplicates; }
@@ -85,10 +106,25 @@ namespace SmartFamily.ViewModels
             }
         }
 
+        /// <summary>
+        /// Set theme command.
+        /// </summary>
         public ICommand SetThemeCommand => _setThemeCommand ?? (_setThemeCommand = new DelegateCommand<string>(OnSetTheme));
 
+        /// <summary>
+        /// Set privacy statement command.
+        /// </summary>
         public ICommand PrivacyStatementCommand => _privacyStatmentCommand ?? (_privacyStatmentCommand = new DelegateCommand(OnPrivacyStatement));
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="appConfig">App config.</param>
+        /// <param name="themeSelectorService">Theme selector service.</param>
+        /// <param name="systemService">System service.</param>
+        /// <param name="applicationInfoService">Application info service.</param>
+        /// <param name="applicationSettingsService">Application settings service.</param>
+        /// <param name="logger">Logger.</param>
         public SettingsViewModel(
             AppConfig appConfig,
             IThemeSelectorService themeSelectorService,
@@ -105,6 +141,18 @@ namespace SmartFamily.ViewModels
             _logger = logger;
         }
 
+        /// <summary>
+        /// Is navigation target.
+        /// </summary>
+        /// <param name="navigationContext">Navigation target.</param>
+        /// <returns><c>true</c> if view can be navigated to, otherwise <c>false</c>.</returns>
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+            => true;
+
+        /// <summary>
+        /// On navigated to.
+        /// </summary>
+        /// <param name="navigationContext">Navigation context.</param>
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             VersionDescription = $"SmartFamily - {_applicationInfoService.GetVersion()}";
@@ -115,20 +163,28 @@ namespace SmartFamily.ViewModels
             CheckForDuplicates = _applicationSettingsService.GetSetting<bool>("CheckForDuplicates");
         }
 
+        /// <summary>
+        /// On navigated from.
+        /// </summary>
+        /// <param name="navigationContext">Navigation context.</param>
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
         }
 
+        /// <summary>
+        /// On set theme.
+        /// </summary>
+        /// <param name="themeName">Theme name.</param>
         private void OnSetTheme(string themeName)
         {
             var theme = (AppTheme)Enum.Parse(typeof(AppTheme), themeName);
             _themeSelectorService.SetTheme(theme);
         }
 
+        /// <summary>
+        /// On privacy statement.
+        /// </summary>
         private void OnPrivacyStatement()
             => _systemService.OpenInWebBrowser(_appConfig.PrivacyStatement);
-
-        public bool IsNavigationTarget(NavigationContext navigationContext)
-            => true;
     }
 }

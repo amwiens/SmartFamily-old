@@ -20,6 +20,9 @@ using System.Windows.Input;
 
 namespace SmartFamily.ViewModels
 {
+    /// <summary>
+    /// Shell view model.
+    /// </summary>
     public class ShellViewModel : BindableBase
     {
         private readonly IRegionManager _regionManager;
@@ -31,7 +34,6 @@ namespace SmartFamily.ViewModels
         private readonly ILogger<ShellViewModel> _logger;
 
         private IRegionNavigationService _navigationService;
-        private DelegateCommand _goBackCommand;
         private ICommand _menuFileOpenCommand;
         private ICommand _menuFileNewCommand;
         private ICommand _menuFileCloseDatabaseCommand;
@@ -49,23 +51,45 @@ namespace SmartFamily.ViewModels
             set => SetProperty(ref _closeEnabled, value);
         }
 
-        public DelegateCommand GoBackCommand => _goBackCommand ?? (_goBackCommand = new DelegateCommand(OnGoBack, CanGoBack));
-
-        public ICommand MenuFileOpenCommand => _menuFileOpenCommand ?? (_menuFileOpenCommand = new DelegateCommand(OnMenuFileOpen));
-
+        /// <summary>
+        /// File -> new menu command.
+        /// </summary>
         public ICommand MenuFileNewCommand => _menuFileNewCommand ?? (_menuFileNewCommand = new DelegateCommand(OnMenuFileNew));
 
+        /// <summary>
+        /// File -> open menu command.
+        /// </summary>
+        public ICommand MenuFileOpenCommand => _menuFileOpenCommand ?? (_menuFileOpenCommand = new DelegateCommand(OnMenuFileOpen));
+
+        /// <summary>
+        /// File -> close menu command.
+        /// </summary>
         public ICommand MenuFileCloseDatabaseCommand => _menuFileCloseDatabaseCommand ?? (_menuFileCloseDatabaseCommand = new DelegateCommand(OnMenuFileCloseDatabase, CanCloseDatabase));
 
+        /// <summary>
+        /// File -> settings menu command.
+        /// </summary>
         public ICommand MenuFileSettingsCommand => _menuFileSettingsCommand ?? (_menuFileSettingsCommand = new DelegateCommand(OnMenuFileSettings));
 
+        /// <summary>
+        /// File -> exit menu command.
+        /// </summary>
+        public ICommand MenuFileExitCommand => _menuFileExitCommand ?? (_menuFileExitCommand = new DelegateCommand(OnMenuFileExit));
+
+        /// <summary>
+        /// Views -> dashboard menu command.
+        /// </summary>
         public ICommand MenuViewsDashboardCommand => _menuViewsDashboardCommand ?? (_menuViewsDashboardCommand = new DelegateCommand(OnMenuViewsDashboard));
 
+        /// <summary>
+        /// Loaded command.
+        /// </summary>
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new DelegateCommand(OnLoaded));
 
+        /// <summary>
+        /// Unloaded command.
+        /// </summary>
         public ICommand UnloadedCommand => _unloadedCommand ?? (_unloadedCommand = new DelegateCommand(OnUnloaded));
-
-        public ICommand MenuFileExitCommand => _menuFileExitCommand ?? (_menuFileExitCommand = new DelegateCommand(OnMenuFileExit));
 
         /// <summary>
         /// Ctor
@@ -122,19 +146,6 @@ namespace SmartFamily.ViewModels
         }
 
         /// <summary>
-        /// Can go back.
-        /// </summary>
-        /// <returns><c>true</c> if can go back, otherwise <c>false</c>.</returns>
-        private bool CanGoBack()
-            => _navigationService != null && _navigationService.Journal.CanGoBack;
-
-        /// <summary>
-        /// Go back.
-        /// </summary>
-        private void OnGoBack()
-            => _navigationService.Journal.GoBack();
-
-        /// <summary>
         /// Request navigate.
         /// </summary>
         /// <param name="target">Target page.</param>
@@ -175,8 +186,60 @@ namespace SmartFamily.ViewModels
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">Event args.</param>
-        private void OnNavigated(object sender, RegionNavigationEventArgs e)
-            => GoBackCommand.RaiseCanExecuteChanged();
+        private void OnNavigated(object? sender, RegionNavigationEventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// New file.
+        /// </summary>
+        private void OnMenuFileNew()
+        {
+            var message = "this is the message";
+
+            _dialogService.ShowNewFile(r =>
+            {
+                if (r.Result == ButtonResult.OK)
+                {
+                    var fileName = r.Parameters.GetValue<string>("FileName");
+                    var fileLocation = r.Parameters.GetValue<string>("FileLocation");
+                    var dbPath = Path.Combine(fileLocation, $"{fileName}.sfdb");
+                    _databaseService.CreateDatabase(dbPath);
+                    ApplicationSettings.OpenDatabase = dbPath;
+
+                    RequestNavigateAndCleanJournal(PageKeys.Main);
+                }
+            });
+        }
+
+        /// <summary>
+        /// Open a file.
+        /// </summary>
+        private void OnMenuFileOpen()
+        {
+            var result = _openFileDialogService.ShowOpenDatabaseDialog(out string fileName);
+            if (result == true && !string.IsNullOrWhiteSpace(fileName))
+            {
+                OpenDatabaseFile(fileName);
+            }
+        }
+
+        /// <summary>
+        /// Close the database.
+        /// </summary>
+        private void OnMenuFileCloseDatabase()
+        {
+            ApplicationSettings.OpenDatabase = String.Empty;
+            CloseEnabled = false;
+
+            RequestNavigateAndCleanJournal(PageKeys.Home);
+        }
+
+        /// <summary>
+        /// Settings menu item.
+        /// </summary>
+        private void OnMenuFileSettings()
+            => RequestNavigateOnRightPane(PageKeys.Settings);
 
         /// <summary>
         /// Exit the program.
@@ -203,62 +266,11 @@ namespace SmartFamily.ViewModels
             => RequestNavigateAndCleanJournal(PageKeys.Dashboard);
 
         /// <summary>
-        /// Settings menu item.
-        /// </summary>
-        private void OnMenuFileSettings()
-            => RequestNavigateOnRightPane(PageKeys.Settings);
-
-        /// <summary>
-        /// Open a file.
-        /// </summary>
-        private void OnMenuFileOpen()
-        {
-            var result = _openFileDialogService.ShowOpenDatabaseDialog(out string fileName);
-            if (result == true && !string.IsNullOrWhiteSpace(fileName))
-            {
-                OpenDatabaseFile(fileName);
-            }
-        }
-
-        /// <summary>
-        /// New file.
-        /// </summary>
-        private void OnMenuFileNew()
-        {
-            var message = "this is the message";
-
-            _dialogService.ShowNewFile(r =>
-            {
-                if (r.Result == ButtonResult.OK)
-                {
-                    var fileName = r.Parameters.GetValue<string>("FileName");
-                    var fileLocation = r.Parameters.GetValue<string>("FileLocation");
-                    var dbPath = Path.Combine(fileLocation, $"{fileName}.sfdb");
-                    _databaseService.CreateDatabase(dbPath);
-                    ApplicationSettings.OpenDatabase = dbPath;
-
-                    RequestNavigateAndCleanJournal(PageKeys.Main);
-                }
-            });
-        }
-
-        /// <summary>
         /// Can the database be closed.
         /// </summary>
         /// <returns><c>true</c> if a database can be closed, otherwise <c>false</c>.</returns>
         private bool CanCloseDatabase()
             => !string.IsNullOrWhiteSpace(ApplicationSettings.OpenDatabase);
-
-        /// <summary>
-        /// Close the database.
-        /// </summary>
-        private void OnMenuFileCloseDatabase()
-        {
-            ApplicationSettings.OpenDatabase = String.Empty;
-            CloseEnabled = false;
-
-            RequestNavigateAndCleanJournal(PageKeys.Home);
-        }
 
         /// <summary>
         /// Check if a backup needs to be created.
@@ -271,12 +283,7 @@ namespace SmartFamily.ViewModels
             {
                 var message = "Would you like to backup this database?";
 
-                _dialogService.ShowNotification(message, r =>
-                {
-                    if (r.Result == ButtonResult.OK)
-                    {
-                    }
-                });
+                _dialogService.ShowNotification(message, r => { });
             }
         }
 
@@ -296,12 +303,7 @@ namespace SmartFamily.ViewModels
             catch (DatabaseFormatException ex)
             {
                 _logger.LogError(ex, ex.Message);
-                _dialogService.ShowNotification(ex.Message, r =>
-                {
-                    if (r.Result == ButtonResult.OK)
-                    {
-                    }
-                });
+                _dialogService.ShowNotification(ex.Message, r => { });
             }
         }
     }
