@@ -26,6 +26,7 @@ using SmartFamily.Services;
 using SmartFamily.ViewModels;
 using SmartFamily.Views;
 
+using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -49,7 +50,6 @@ namespace SmartFamily
         /// </summary>
         public App()
         {
-            Log.Information("Starting application.");
         }
 
         /// <summary>
@@ -64,6 +64,19 @@ namespace SmartFamily
         /// </summary>
         protected override async void OnInitialized()
         {
+            var appConfig = Container.Resolve<AppConfig>();
+            var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var loggingFolder = Path.Combine(localAppData, appConfig.LoggingFolder);
+            var logFilePath = Path.Combine(loggingFolder, $"Log{DateTime.Today:ddMMyyy}.log");
+
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .MinimumLevel.Debug()
+                .WriteTo.File(path: logFilePath)
+                .CreateLogger();
+
+            Log.Information("Starting application.");
+
             var persistAndRestoreService = Container.Resolve<IPersistAndRestoreService>();
             persistAndRestoreService.RestoreData();
 
@@ -81,12 +94,6 @@ namespace SmartFamily
         protected override void OnStartup(StartupEventArgs e)
         {
             _startUpArgs = e.Args;
-
-            Log.Logger = new LoggerConfiguration()
-                .Enrich.FromLogContext()
-                .MinimumLevel.Debug()
-                .WriteTo.File(path: "DemoLog.txt")
-                .CreateLogger();
 
             base.OnStartup(e);
         }

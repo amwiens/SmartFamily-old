@@ -11,6 +11,11 @@
         public string ConfigurationsFolder { get; set; }
 
         /// <summary>
+        /// Folder for logging.
+        /// </summary>
+        public string LoggingFolder { get; set; }
+
+        /// <summary>
         /// File name for the properties file.
         /// </summary>
         public string AppPropertiesFileName { get; set; }
