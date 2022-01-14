@@ -4,6 +4,9 @@ using SmartFamily.Core.WPF.Contracts.Services;
 
 namespace SmartFamily.Core.WPF.Dialogs
 {
+    /// <summary>
+    /// Open file dialog service.
+    /// </summary>
     public class OpenFileDialogService : IOpenFileDialogService
     {
         private readonly OpenFileDialog _openFileDialog = new();

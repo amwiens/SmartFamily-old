@@ -15,6 +15,8 @@ namespace SmartFamily.Core.WPF.Dialogs.ViewModels
     {
         private readonly ILogger<NotificationDialogViewModel> _logger;
 
+        private string _message;
+        private string _title = "Notification";
         private DelegateCommand<string> _closeDialogCommand;
 
         /// <summary>
@@ -22,8 +24,6 @@ namespace SmartFamily.Core.WPF.Dialogs.ViewModels
         /// </summary>
         public DelegateCommand<string> CloseDialogCommand =>
             _closeDialogCommand ?? (_closeDialogCommand = new DelegateCommand<string>(CloseDialog));
-
-        private string _message;
 
         /// <summary>
         /// Message to show in the dialog window.
@@ -33,8 +33,6 @@ namespace SmartFamily.Core.WPF.Dialogs.ViewModels
             get { return _message; }
             set { SetProperty(ref _message, value); }
         }
-
-        private string _title = "Notification";
 
         /// <summary>
         /// Title to show on the dialog window.

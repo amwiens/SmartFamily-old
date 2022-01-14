@@ -20,6 +20,11 @@ namespace SmartFamily.Core.WPF.Dialogs
             dialogService.ShowDialog("NotificationDialog", new DialogParameters($"message={message}"), callBack);
         }
 
+        /// <summary>
+        /// Shows the new file dialog.
+        /// </summary>
+        /// <param name="dialogService">Dialog service.</param>
+        /// <param name="callBack">Action to be taken after the dialog is shown./param>
         public static void ShowNewFile(this IDialogService dialogService, Action<IDialogResult> callBack)
         {
             dialogService.ShowDialog("NewFileDialog", callBack);

@@ -22,6 +22,7 @@ namespace SmartFamily.Core.WPF.Dialogs.ViewModels
         private DelegateCommand _selectFolderCommand;
 
         private string _fileName;
+        private string _fileLocation;
 
         /// <summary>
         /// File name.
@@ -31,8 +32,6 @@ namespace SmartFamily.Core.WPF.Dialogs.ViewModels
             get => _fileName;
             set => SetProperty(ref _fileName, value);
         }
-
-        private string _fileLocation;
 
         /// <summary>
         /// File location.
