@@ -16,7 +16,7 @@ namespace SmartFamily.Main.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly ILogger<HomeViewModel> _logger;
 
-        private IRegionNavigationService _navigationService;
+        private IRegionNavigationService? _navigationService;
 
         /// <summary>
         /// Gets the recent files.
@@ -58,6 +58,7 @@ namespace SmartFamily.Main.ViewModels
         /// <param name="navigationContext">Navigation context.</param>
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
+            _logger.LogInformation("HomeViewModel: Navigated to.");
             _navigationService = _regionManager.Regions[Regions.Hamburger].NavigationService;
             _navigationService.Navigated += OnNavigated;
 
@@ -71,6 +72,7 @@ namespace SmartFamily.Main.ViewModels
         /// <param name="navigationContext">Navigation context.</param>
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
+            _logger.LogInformation("HomeViewModel: Navigated from.");
         }
     }
 }
