@@ -33,15 +33,15 @@ namespace SmartFamily.ViewModels
         private readonly IDatabaseService _databaseService;
         private readonly ILogger<ShellViewModel> _logger;
 
-        private IRegionNavigationService _navigationService;
-        private ICommand _menuFileOpenCommand;
-        private ICommand _menuFileNewCommand;
-        private ICommand _menuFileCloseDatabaseCommand;
-        private ICommand _menuFileSettingsCommand;
-        private ICommand _menuViewsDashboardCommand;
-        private ICommand _loadedCommand;
-        private ICommand _unloadedCommand;
-        private ICommand _menuFileExitCommand;
+        private IRegionNavigationService? _navigationService;
+        private ICommand? _menuFileOpenCommand;
+        private ICommand? _menuFileNewCommand;
+        private ICommand? _menuFileCloseDatabaseCommand;
+        private ICommand? _menuFileSettingsCommand;
+        private ICommand? _menuViewsDashboardCommand;
+        private ICommand? _loadedCommand;
+        private ICommand? _unloadedCommand;
+        private ICommand? _menuFileExitCommand;
 
         private bool _closeEnabled;
 
@@ -198,8 +198,6 @@ namespace SmartFamily.ViewModels
         /// </summary>
         private void OnMenuFileNew()
         {
-            var message = "this is the message";
-
             _dialogService.ShowNewFile(r =>
             {
                 if (r.Result == ButtonResult.OK)
