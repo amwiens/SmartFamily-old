@@ -27,6 +27,7 @@ using SmartFamily.ViewModels;
 using SmartFamily.Views;
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -80,6 +81,9 @@ namespace SmartFamily
             var persistAndRestoreService = Container.Resolve<IPersistAndRestoreService>();
             persistAndRestoreService.RestoreData();
 
+            var recentFilesService = Container.Resolve<IRecentFilesService>();
+            recentFilesService.RestoreData();
+
             var themeSelectorService = Container.Resolve<IThemeSelectorService>();
             themeSelectorService.InitializeTheme();
 
@@ -114,6 +118,7 @@ namespace SmartFamily
             containerRegistry.Register<IApplicationSettingsService, ApplicationSettingsService>();
             containerRegistry.Register<ISystemService, SystemService>();
             containerRegistry.Register<IPersistAndRestoreService, PersistAndRestoreService>();
+            containerRegistry.Register<IRecentFilesService, RecentFilesService>();
             containerRegistry.Register<IThemeSelectorService, ThemeSelectorService>();
             containerRegistry.RegisterSingleton<IRightPaneService, RightPaneService>();
             containerRegistry.Register<IOpenFileDialogService, OpenFileDialogService>();
@@ -197,6 +202,9 @@ namespace SmartFamily
             var persistAndRestoreService = Container.Resolve<IPersistAndRestoreService>();
             persistAndRestoreService.PersistData();
 
+            var recentFilesService = Container.Resolve<IRecentFilesService>();
+            recentFilesService.PersistData();
+
             Log.Information("Application closed.");
 
             Log.CloseAndFlush();
@@ -229,5 +237,7 @@ namespace SmartFamily
 
             return new UnityContainerExtension(container);
         }
+
+
     }
 }

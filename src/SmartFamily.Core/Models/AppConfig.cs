@@ -21,6 +21,11 @@
         public string AppPropertiesFileName { get; set; }
 
         /// <summary>
+        /// File name for the recent files file.
+        /// </summary>
+        public string RecentFilesFileName { get; set; }
+
+        /// <summary>
         /// URL for the privacy statement
         /// </summary>
         public string PrivacyStatement { get; set; }

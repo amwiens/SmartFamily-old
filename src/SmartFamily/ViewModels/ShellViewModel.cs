@@ -10,11 +10,14 @@ using SmartFamily.Core;
 using SmartFamily.Core.Constants;
 using SmartFamily.Core.Contracts.Services;
 using SmartFamily.Core.Exceptions;
+using SmartFamily.Core.Models;
 using SmartFamily.Core.WPF.Contracts.Services;
 using SmartFamily.Core.WPF.Dialogs;
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -297,6 +300,28 @@ namespace SmartFamily.ViewModels
             try
             {
                 ApplicationSettings.OpenDatabase = _databaseService.OpenDatabase(databasePath);
+
+                if (ApplicationSettings.RecentFiles is null)
+                {
+                    ApplicationSettings.RecentFiles = new List<RecentFile>();
+                }
+                var recentFile = new RecentFile
+                {
+                    FileName = databasePath.Substring(databasePath.LastIndexOf('\\') + 1),
+                    FilePath = databasePath.Substring(0, databasePath.LastIndexOf('\\')),
+                    LastOpened = DateTime.Now,
+                };
+
+                var file = ApplicationSettings.RecentFiles.Where(x => x.FileName == recentFile.FileName && x.FilePath == recentFile.FilePath);
+
+                if (file.Any())
+                {
+                    file.FirstOrDefault().LastOpened = DateTime.Now;
+                }
+                else
+                {
+                    ApplicationSettings.RecentFiles.Add(recentFile);
+                }
 
                 CloseEnabled = true;
                 RequestNavigateAndCleanJournal(PageKeys.Main);
