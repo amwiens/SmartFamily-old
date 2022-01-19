@@ -136,6 +136,10 @@ namespace SmartFamily.ViewModels
             {
                 OpenDatabaseFile(_applicationSettingsService.GetSetting<string>("LastOpenFile"));
             }
+            else
+            {
+                RequestNavigateAndCleanJournal(PageKeys.Home);
+            }
 
             _logger.LogInformation("ShellViewModel: Loaded.");
         }
@@ -209,9 +213,8 @@ namespace SmartFamily.ViewModels
                     var fileLocation = r.Parameters.GetValue<string>("FileLocation");
                     var dbPath = Path.Combine(fileLocation, $"{fileName}.sfdb");
                     _databaseService.CreateDatabase(dbPath);
-                    ApplicationSettings.OpenDatabase = dbPath;
 
-                    RequestNavigateAndCleanJournal(PageKeys.Main);
+                    OpenDatabaseFile(dbPath);
                 }
             });
         }
@@ -233,10 +236,7 @@ namespace SmartFamily.ViewModels
         /// </summary>
         private void OnMenuFileCloseDatabase()
         {
-            ApplicationSettings.OpenDatabase = String.Empty;
-            CloseEnabled = false;
-
-            RequestNavigateAndCleanJournal(PageKeys.Home);
+            CloseDatabaseFile();
         }
 
         /// <summary>
@@ -277,21 +277,6 @@ namespace SmartFamily.ViewModels
             => !string.IsNullOrWhiteSpace(ApplicationSettings.OpenDatabase);
 
         /// <summary>
-        /// Check if a backup needs to be created.
-        /// </summary>
-        private void CheckForBackup()
-        {
-            var askForBackup = App.Current.Properties.Contains("AskForBackup") ? (bool)App.Current.Properties["AskForBackup"] : false;
-
-            if ((_applicationSettingsService.GetSetting<bool>("AskForBackup") || askForBackup) && !string.IsNullOrWhiteSpace(ApplicationSettings.OpenDatabase))
-            {
-                var message = "Would you like to backup this database?";
-
-                _dialogService.ShowNotification(message, r => { });
-            }
-        }
-
-        /// <summary>
         /// Opens the database file.
         /// </summary>
         /// <param name="databasePath">Path to the database file.</param>
@@ -299,6 +284,10 @@ namespace SmartFamily.ViewModels
         {
             try
             {
+                if (!string.IsNullOrWhiteSpace(ApplicationSettings.OpenDatabase))
+                {
+                    CloseDatabaseFile();
+                }
                 ApplicationSettings.OpenDatabase = _databaseService.OpenDatabase(databasePath);
 
                 if (ApplicationSettings.RecentFiles is null)
@@ -330,6 +319,39 @@ namespace SmartFamily.ViewModels
             {
                 _logger.LogError(ex, ex.Message);
                 _dialogService.ShowNotification(ex.Message, r => { });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                _dialogService.ShowNotification(ex.Message, r => { });
+            }
+        }
+
+        /// <summary>
+        /// Close the database file.
+        /// </summary>
+        private void CloseDatabaseFile()
+        {
+            CheckForBackup();
+
+            ApplicationSettings.OpenDatabase = String.Empty;
+            CloseEnabled = false;
+
+            RequestNavigateAndCleanJournal(PageKeys.Home);
+        }
+
+        /// <summary>
+        /// Check if a backup needs to be created.
+        /// </summary>
+        private void CheckForBackup()
+        {
+            var askForBackup = App.Current.Properties.Contains("AskForBackup") ? (bool)App.Current.Properties["AskForBackup"] : false;
+
+            if ((_applicationSettingsService.GetSetting<bool>("AskForBackup") || askForBackup) && !string.IsNullOrWhiteSpace(ApplicationSettings.OpenDatabase))
+            {
+                var message = "Would you like to backup this database?";
+
+                _dialogService.ShowNotification(message, r => { });
             }
         }
     }

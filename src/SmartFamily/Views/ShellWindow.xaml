@@ -4,13 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:core="clr-namespace:SmartFamily.Core.Constants;assembly=SmartFamily.Core"
-    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:dp="clr-namespace:SmartFamily.Core.WPF.DependencyProperties;assembly=SmartFamily.Core.WPF"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     Title="{x:Static core:Platform.AppName}"
     MinWidth="500"
     MinHeight="350"
-    Style="{StaticResource CustomMetroWindow}"
-    dp:WindowProperties.WindowClosing="{Binding MenuFileExitCommand}">
+    dp:WindowProperties.WindowClosing="{Binding MenuFileExitCommand}"
+    Style="{StaticResource CustomMetroWindow}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
@@ -47,7 +47,7 @@
                             AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}"
                             Command="{Binding MenuFileCloseDatabaseCommand}"
                             Header="_Close database"
-                            IsEnabled="{Binding CloseEnabled, Mode=OneWay}"
+                            IsEnabled="{Binding CloseEnabled, Mode=TwoWay}"
                             Style="{StaticResource MainMenuItemStyle}" />
                         <Separator />
                         <MenuItem

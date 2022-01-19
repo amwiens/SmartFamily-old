@@ -19,8 +19,8 @@ namespace SmartFamily.Main
         /// <param name="containerProvider">Container provider.</param>
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            var regionManager = containerProvider.Resolve<IRegionManager>();
-            regionManager.RegisterViewWithRegion(Regions.Main, typeof(HomePage));
+            //var regionManager = containerProvider.Resolve<IRegionManager>();
+            //regionManager.RegisterViewWithRegion(Regions.Main, typeof(HomePage));
         }
 
         /// <summary>

@@ -195,17 +195,6 @@ namespace SmartFamily.Main.ViewModels
         /// <param name="navigationContext">Navigation context.</param>
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            if (_applicationSettingsService.GetSetting<bool>("AskForBackup"))
-            {
-                var message = "Would you like to backup this database?";
-
-                _dialogService.ShowNotification(message, r =>
-                {
-                    if (r.Result == ButtonResult.OK)
-                    {
-                    }
-                });
-            }
         }
     }
 }

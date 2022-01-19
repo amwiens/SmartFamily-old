@@ -42,6 +42,8 @@ namespace SmartFamily.Main.ViewModels
         {
             _regionManager = regionManager;
             _logger = logger;
+
+            GetRecentFiles();
         }
 
         /// <summary>
@@ -68,10 +70,10 @@ namespace SmartFamily.Main.ViewModels
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             _logger.LogInformation("HomeViewModel: Navigated to.");
-            _navigationService = _regionManager.Regions[Regions.Hamburger].NavigationService;
-            _navigationService.Navigated += OnNavigated;
+            //_navigationService = _regionManager.Regions[Regions.Hamburger].NavigationService;
+            //_navigationService.Navigated += OnNavigated;
 
-            RecentFiles = ApplicationSettings.RecentFiles.OrderByDescending(x => x.LastOpened).Take(10).ToList();
+            GetRecentFiles();
         }
 
         /// <summary>
@@ -81,6 +83,11 @@ namespace SmartFamily.Main.ViewModels
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
             _logger.LogInformation("HomeViewModel: Navigated from.");
+        }
+
+        private void GetRecentFiles()
+        {
+            RecentFiles = ApplicationSettings.RecentFiles.OrderByDescending(x => x.LastOpened).Take(10).ToList();
         }
     }
 }
