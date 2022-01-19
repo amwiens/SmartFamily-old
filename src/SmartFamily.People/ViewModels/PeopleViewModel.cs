@@ -81,6 +81,7 @@ namespace SmartFamily.People.ViewModels
         /// <param name="navigationContext">Navigation context.</param>
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
+            _logger.LogInformation("PeopleViewModel: Navigated to.");
             _navigationService = _regionManager.Regions[Regions.People].NavigationService;
             _navigationService.Navigated += OnNavigated;
 
@@ -93,6 +94,7 @@ namespace SmartFamily.People.ViewModels
         /// <param name="navigationContext">Navigation context.</param>
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
+            _logger.LogInformation("PeopleViewModel: Navigated from.");
         }
     }
 }

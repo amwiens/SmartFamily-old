@@ -10,7 +10,6 @@ using Prism.Services.Dialogs;
 using SmartFamily.Core;
 using SmartFamily.Core.Constants;
 using SmartFamily.Core.Contracts.Services;
-using SmartFamily.Core.WPF.Dialogs;
 
 using System.Collections.ObjectModel;
 using System.IO;
@@ -19,6 +18,9 @@ using System.Windows.Input;
 
 namespace SmartFamily.Main.ViewModels
 {
+    /// <summary>
+    /// Main view model.
+    /// </summary>
     public class MainViewModel : BindableBase, INavigationAware
     {
         private readonly IRegionManager _regionManager;
@@ -187,6 +189,7 @@ namespace SmartFamily.Main.ViewModels
         /// <param name="navigationContext">Navigation context.</param>
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
+            _logger.LogInformation("MainViewModel: Navigated to.");
         }
 
         /// <summary>
@@ -195,6 +198,7 @@ namespace SmartFamily.Main.ViewModels
         /// <param name="navigationContext">Navigation context.</param>
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
+            _logger.LogInformation("MainViewModel: Navigated from.");
         }
     }
 }

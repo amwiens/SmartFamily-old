@@ -9,7 +9,10 @@ using SmartFamily.Core.WPF.Contracts.Services;
 
 namespace SmartFamily.Main.ViewModels
 {
-    internal class FileSettingsViewModel : BindableBase, INavigationAware
+    /// <summary>
+    /// File settings view model.
+    /// </summary>
+    public class FileSettingsViewModel : BindableBase, INavigationAware
     {
         private readonly IRegionManager _regionManager;
         private readonly ISelectFolderDialogService _selectFolderDialogService;
@@ -73,6 +76,8 @@ namespace SmartFamily.Main.ViewModels
         /// <param name="navigationContext">Navigation context.</param>
         public async void OnNavigatedTo(NavigationContext navigationContext)
         {
+            _logger.LogInformation("FileSettingsViewModel: Navigated to.");
+
             _navigationService = _regionManager.Regions[Regions.Hamburger].NavigationService;
             _navigationService.Navigated += OnNavigated;
         }
@@ -83,6 +88,7 @@ namespace SmartFamily.Main.ViewModels
         /// <param name="navigationContext">Navigation context.</param>
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
+            _logger.LogInformation("FileSettingsViewModel: Navigated from.");
         }
 
         /// <summary>

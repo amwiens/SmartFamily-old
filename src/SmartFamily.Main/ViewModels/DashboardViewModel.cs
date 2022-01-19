@@ -52,6 +52,8 @@ namespace SmartFamily.Main.ViewModels
         /// <param name="navigationContext">Navigation context.</param>
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
+            _logger.LogInformation("DashboardViewModel: Navigated to.");
+
             _navigationService = _regionManager.Regions[Regions.Hamburger].NavigationService;
             _navigationService.Navigated += OnNavigated;
         }
@@ -62,6 +64,7 @@ namespace SmartFamily.Main.ViewModels
         /// <param name="navigationContext">Navigation context.</param>
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
+            _logger.LogInformation("DashboardViewModel: Navigated from.");
         }
     }
 }

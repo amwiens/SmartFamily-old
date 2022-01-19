@@ -176,20 +176,6 @@ namespace SmartFamily
         protected override void OnSessionEnding(SessionEndingCancelEventArgs e)
         {
             base.OnSessionEnding(e);
-
-            var applicationSettingsService = Container.Resolve<IApplicationSettingsService>();
-            if (applicationSettingsService.GetSetting<bool>("AskForBackup") && !string.IsNullOrWhiteSpace(ApplicationSettings.OpenDatabase))
-            {
-                var dialogService = Container.Resolve<IDialogService>();
-                var message = "Would you like to backup this database?";
-
-                dialogService.ShowNotification(message, r =>
-                {
-                    if (r.Result == ButtonResult.OK)
-                    {
-                    }
-                });
-            }
         }
 
         /// <summary>
@@ -237,7 +223,5 @@ namespace SmartFamily
 
             return new UnityContainerExtension(container);
         }
-
-
     }
 }

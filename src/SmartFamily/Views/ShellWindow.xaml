@@ -9,7 +9,6 @@
     Title="{x:Static core:Platform.AppName}"
     MinWidth="500"
     MinHeight="350"
-    dp:WindowProperties.WindowClosing="{Binding MenuFileExitCommand}"
     Style="{StaticResource CustomMetroWindow}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">

@@ -4,7 +4,6 @@ using Prism.Mvvm;
 using Prism.Regions;
 
 using SmartFamily.Core;
-using SmartFamily.Core.Constants;
 using SmartFamily.Core.Models;
 
 using System.Collections.Generic;
@@ -12,6 +11,9 @@ using System.Linq;
 
 namespace SmartFamily.Main.ViewModels
 {
+    /// <summary>
+    /// Home view model.
+    /// </summary>
     public class HomeViewModel : BindableBase, INavigationAware
     {
         private readonly IRegionManager _regionManager;
@@ -30,7 +32,7 @@ namespace SmartFamily.Main.ViewModels
             {
                 SetProperty(ref _recentFiles, value);
             }
-        } //= new List<RecentFile>();
+        }
 
         /// <summary>
         /// Ctor
@@ -70,8 +72,6 @@ namespace SmartFamily.Main.ViewModels
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             _logger.LogInformation("HomeViewModel: Navigated to.");
-            //_navigationService = _regionManager.Regions[Regions.Hamburger].NavigationService;
-            //_navigationService.Navigated += OnNavigated;
 
             GetRecentFiles();
         }
@@ -85,6 +85,9 @@ namespace SmartFamily.Main.ViewModels
             _logger.LogInformation("HomeViewModel: Navigated from.");
         }
 
+        /// <summary>
+        /// Get the recent files that have been opened.
+        /// </summary>
         private void GetRecentFiles()
         {
             RecentFiles = ApplicationSettings.RecentFiles.OrderByDescending(x => x.LastOpened).Take(10).ToList();

@@ -180,6 +180,8 @@ namespace SmartFamily.ViewModels
         /// <param name="navigationContext">Navigation context.</param>
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
+            _logger.LogInformation("SettingsViewModel: Navigated to.");
+
             VersionDescription = $"SmartFamily - {_applicationInfoService.GetVersion()}";
             Theme = _themeSelectorService.GetCurrentTheme();
             OpenLastClosedFile = _applicationSettingsService.GetSetting<bool>("OpenLastClosedFile");
@@ -195,6 +197,7 @@ namespace SmartFamily.ViewModels
         /// <param name="navigationContext">Navigation context.</param>
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
+            _logger.LogInformation("SettingsViewModel: Navigated from.");
         }
 
         /// <summary>

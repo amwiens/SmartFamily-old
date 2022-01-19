@@ -26,7 +26,7 @@ namespace SmartFamily.ViewModels
     /// <summary>
     /// Shell view model.
     /// </summary>
-    public class ShellViewModel : BindableBase
+    public class ShellViewModel : BindableBase, INavigationAware
     {
         private readonly IRegionManager _regionManager;
         private readonly IRightPaneService _rightPaneService;
@@ -125,6 +125,32 @@ namespace SmartFamily.ViewModels
         }
 
         /// <summary>
+        /// Is navigation target.
+        /// </summary>
+        /// <param name="navigationContext">Navigation target.</param>
+        /// <returns><c>true</c> if view can be navigated to, otherwise <c>false</c>.</returns>
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+            => false;
+
+        /// <summary>
+        /// On navigated to.
+        /// </summary>
+        /// <param name="navigationContext">Navigation context.</param>
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            _logger.LogInformation("ShellViewModel: Navigated to.");
+        }
+
+        /// <summary>
+        /// On navigated from.
+        /// </summary>
+        /// <param name="navigationContext">Navigation context.</param>
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            _logger.LogInformation("ShellViewModel: Navigated from.");
+        }
+
+        /// <summary>
         /// On loaded.
         /// </summary>
         private void OnLoaded()
@@ -212,9 +238,17 @@ namespace SmartFamily.ViewModels
                     var fileName = r.Parameters.GetValue<string>("FileName");
                     var fileLocation = r.Parameters.GetValue<string>("FileLocation");
                     var dbPath = Path.Combine(fileLocation, $"{fileName}.sfdb");
-                    _databaseService.CreateDatabase(dbPath);
+                    if (File.Exists(dbPath))
+                    {
+                        _dialogService.ShowNotification("Database already exists!", r => { });
+                    }
+                    else
+                    {
+                        _databaseService.CreateDatabase(dbPath);
 
-                    OpenDatabaseFile(dbPath);
+                        _logger.LogInformation("ShellViewModel: {dbPath} database created.", dbPath);
+                        OpenDatabaseFile(dbPath);
+                    }
                 }
             });
         }
@@ -313,6 +347,7 @@ namespace SmartFamily.ViewModels
                 }
 
                 CloseEnabled = true;
+                _logger.LogInformation("ShellViewModel: {databasePath} opened.", databasePath);
                 RequestNavigateAndCleanJournal(PageKeys.Main);
             }
             catch (DatabaseFormatException ex)
@@ -333,6 +368,7 @@ namespace SmartFamily.ViewModels
         private void CloseDatabaseFile()
         {
             CheckForBackup();
+            _logger.LogInformation("ShellViewModel: {ApplicationSettings.OpenDatabase} closed.", ApplicationSettings.OpenDatabase);
 
             ApplicationSettings.OpenDatabase = String.Empty;
             CloseEnabled = false;
