@@ -33,7 +33,7 @@ namespace SmartFamily.Main.ViewModels
         /// <summary>
         /// Select folder command.
         /// </summary>
-        public DelegateCommand SelectFolderCommand => _selectFolderCommand ?? new DelegateCommand(OnSelectFolder);
+        public DelegateCommand SelectFolderCommand => _selectFolderCommand ?? (_selectFolderCommand = new DelegateCommand(OnSelectFolder));
 
         /// <summary>
         /// Ctor

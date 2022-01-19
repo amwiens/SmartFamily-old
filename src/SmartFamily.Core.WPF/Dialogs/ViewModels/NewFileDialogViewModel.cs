@@ -4,6 +4,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 
+using SmartFamily.Core.Contracts.Services;
 using SmartFamily.Core.WPF.Contracts.Services;
 
 using System;
@@ -16,6 +17,7 @@ namespace SmartFamily.Core.WPF.Dialogs.ViewModels
     public class NewFileDialogViewModel : BindableBase, IDialogAware
     {
         private readonly ISelectFolderDialogService _selectFolderDialogService;
+        private readonly IApplicationSettingsService _applicationSettingsService;
         private readonly ILogger<NewFileDialogViewModel> _logger;
 
         private DelegateCommand<string> _closeDialogCommand;
@@ -69,9 +71,11 @@ namespace SmartFamily.Core.WPF.Dialogs.ViewModels
         /// <param name="selectFolderDialogService">Select folder dialog service.</param>
         /// <param name="logger">Logger.</param>
         public NewFileDialogViewModel(ISelectFolderDialogService selectFolderDialogService,
+            IApplicationSettingsService applicationSettingsService,
             ILogger<NewFileDialogViewModel> logger)
         {
             _selectFolderDialogService = selectFolderDialogService;
+            _applicationSettingsService = applicationSettingsService;
             _logger = logger;
         }
 
@@ -131,6 +135,7 @@ namespace SmartFamily.Core.WPF.Dialogs.ViewModels
         public void OnDialogOpened(IDialogParameters parameters)
         {
             _logger.LogInformation("NewFileDialogViewModel: Dialog opened.");
+            FileLocation = _applicationSettingsService.GetSetting<string>("DataFilePath");
         }
 
         /// <summary>

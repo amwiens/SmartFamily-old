@@ -8,6 +8,7 @@ using SmartFamily.Core.Constants;
 using SmartFamily.Core.Models;
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SmartFamily.Main.ViewModels
 {
@@ -70,7 +71,7 @@ namespace SmartFamily.Main.ViewModels
             _navigationService = _regionManager.Regions[Regions.Hamburger].NavigationService;
             _navigationService.Navigated += OnNavigated;
 
-            RecentFiles = ApplicationSettings.RecentFiles;
+            RecentFiles = ApplicationSettings.RecentFiles.OrderByDescending(x => x.LastOpened).Take(10).ToList();
         }
 
         /// <summary>

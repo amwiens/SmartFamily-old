@@ -7,6 +7,7 @@ using Prism.Regions;
 using SmartFamily.Contracts.Services;
 using SmartFamily.Core.Contracts.Services;
 using SmartFamily.Core.Models;
+using SmartFamily.Core.WPF.Contracts.Services;
 
 using System;
 using System.Windows.Input;
@@ -24,6 +25,7 @@ namespace SmartFamily.ViewModels
         private readonly ISystemService _systemService;
         private readonly IApplicationInfoService _applicationInfoService;
         private readonly IApplicationSettingsService _applicationSettingsService;
+        private readonly ISelectFolderDialogService _selectFolderDialogService;
         private readonly ILogger<SettingsViewModel> _logger;
 
         private AppTheme _theme;
@@ -32,17 +34,19 @@ namespace SmartFamily.ViewModels
         private bool _askForBackup;
         private bool _addDateToBackup;
         private bool _checkForDuplicates;
+        private string _dataFilePath;
 
         private ICommand _setThemeCommand;
         private ICommand _privacyStatmentCommand;
+        private DelegateCommand _selectFolderCommand;
 
         /// <summary>
         /// App theme
         /// </summary>
         public AppTheme Theme
         {
-            get { return _theme; }
-            set { SetProperty(ref _theme, value); }
+            get => _theme;
+            set => SetProperty(ref _theme, value);
         }
 
         /// <summary>
@@ -50,8 +54,8 @@ namespace SmartFamily.ViewModels
         /// </summary>
         public string VersionDescription
         {
-            get { return _versionDescription; }
-            set { SetProperty(ref _versionDescription, value); }
+            get => _versionDescription;
+            set => SetProperty(ref _versionDescription, value);
         }
 
         /// <summary>
@@ -59,7 +63,7 @@ namespace SmartFamily.ViewModels
         /// </summary>
         public bool OpenLastClosedFile
         {
-            get { return _openLastClosedFile; }
+            get => _openLastClosedFile;
             set
             {
                 SetProperty(ref _openLastClosedFile, value);
@@ -72,7 +76,7 @@ namespace SmartFamily.ViewModels
         /// </summary>
         public bool AskForBackup
         {
-            get { return _askForBackup; }
+            get => _askForBackup;
             set
             {
                 SetProperty(ref _askForBackup, value);
@@ -85,7 +89,7 @@ namespace SmartFamily.ViewModels
         /// </summary>
         public bool AddDateToBackup
         {
-            get { return _addDateToBackup; }
+            get => _addDateToBackup;
             set
             {
                 SetProperty(ref _addDateToBackup, value);
@@ -98,13 +102,31 @@ namespace SmartFamily.ViewModels
         /// </summary>
         public bool CheckForDuplicates
         {
-            get { return _checkForDuplicates; }
+            get => _checkForDuplicates;
             set
             {
                 SetProperty(ref _checkForDuplicates, value);
                 _applicationSettingsService.SetSetting("CheckForDuplicates", value);
             }
         }
+
+        /// <summary>
+        /// Data file path.
+        /// </summary>
+        public string DataFilePath
+        {
+            get => _dataFilePath;
+            set
+            {
+                SetProperty(ref _dataFilePath, value);
+                _applicationSettingsService.SetSetting("DataFilePath", value);
+            }
+        }
+
+        /// <summary>
+        /// Select folder command.
+        /// </summary>
+        public DelegateCommand SelectFolderCommand => _selectFolderCommand ?? (_selectFolderCommand = new DelegateCommand(OnSelectFolder));
 
         /// <summary>
         /// Set theme command.
@@ -124,6 +146,7 @@ namespace SmartFamily.ViewModels
         /// <param name="systemService">System service.</param>
         /// <param name="applicationInfoService">Application info service.</param>
         /// <param name="applicationSettingsService">Application settings service.</param>
+        /// <param name="selectFolderDialogService">Select folder dialog service.</param>
         /// <param name="logger">Logger.</param>
         public SettingsViewModel(
             AppConfig appConfig,
@@ -131,6 +154,7 @@ namespace SmartFamily.ViewModels
             ISystemService systemService,
             IApplicationInfoService applicationInfoService,
             IApplicationSettingsService applicationSettingsService,
+            ISelectFolderDialogService selectFolderDialogService,
             ILogger<SettingsViewModel> logger)
         {
             _appConfig = appConfig;
@@ -138,6 +162,7 @@ namespace SmartFamily.ViewModels
             _systemService = systemService;
             _applicationInfoService = applicationInfoService;
             _applicationSettingsService = applicationSettingsService;
+            _selectFolderDialogService = selectFolderDialogService;
             _logger = logger;
         }
 
@@ -161,6 +186,7 @@ namespace SmartFamily.ViewModels
             AskForBackup = _applicationSettingsService.GetSetting<bool>("AskForBackup");
             AddDateToBackup = _applicationSettingsService.GetSetting<bool>("AddDateToBackup");
             CheckForDuplicates = _applicationSettingsService.GetSetting<bool>("CheckForDuplicates");
+            DataFilePath = _applicationSettingsService.GetSetting<string>("DataFilePath");
         }
 
         /// <summary>
@@ -186,5 +212,16 @@ namespace SmartFamily.ViewModels
         /// </summary>
         private void OnPrivacyStatement()
             => _systemService.OpenInWebBrowser(_appConfig.PrivacyStatement);
+
+        /// <summary>
+        /// On select folder.
+        /// </summary>
+        private void OnSelectFolder()
+        {
+            if (_selectFolderDialogService.ShowDialog(out string folderName) == true && !string.IsNullOrEmpty(folderName))
+            {
+                DataFilePath = folderName;
+            }
+        }
     }
 }

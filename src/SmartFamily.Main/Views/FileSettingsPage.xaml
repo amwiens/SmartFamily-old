@@ -26,7 +26,6 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -39,33 +38,14 @@
                 Grid.Column="0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Text="Data folder:" />
-            <TextBox
-                Grid.Row="0"
-                Grid.Column="1"
-                Width="200"
-                Text="{Binding SelectedFolder, Mode=TwoWay}" />
-            <Button
-                Grid.Row="0"
-                Grid.Column="2"
-                Width="42"
-                Height="25"
-                Command="{Binding SelectFolderCommand}"
-                Content="..." />
-
-            <TextBlock
-                Grid.Row="1"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
                 Text="Backup folder:" />
             <TextBox
-                Grid.Row="1"
+                Grid.Row="0"
                 Grid.Column="1"
                 Width="200"
                 Text="{Binding SelectedFolder, Mode=TwoWay}" />
             <Button
-                Grid.Row="1"
+                Grid.Row="0"
                 Grid.Column="2"
                 Width="42"
                 Height="25"
@@ -73,18 +53,18 @@
                 Content="..." />
 
             <TextBlock
-                Grid.Row="2"
+                Grid.Row="1"
                 Grid.Column="0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Text="Media folder:" />
             <TextBox
-                Grid.Row="2"
+                Grid.Row="1"
                 Grid.Column="1"
                 Width="200"
                 Text="{Binding SelectedFolder, Mode=TwoWay}" />
             <Button
-                Grid.Row="2"
+                Grid.Row="1"
                 Grid.Column="2"
                 Width="42"
                 Height="25"
@@ -92,18 +72,18 @@
                 Content="..." />
 
             <TextBlock
-                Grid.Row="3"
+                Grid.Row="2"
                 Grid.Column="0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Text="GEDCOM folder:" />
             <TextBox
-                Grid.Row="3"
+                Grid.Row="2"
                 Grid.Column="1"
                 Width="200"
                 Text="{Binding SelectedFolder, Mode=TwoWay}" />
             <Button
-                Grid.Row="3"
+                Grid.Row="2"
                 Grid.Column="2"
                 Width="42"
                 Height="25"
@@ -111,18 +91,18 @@
                 Content="..." />
 
             <TextBlock
-                Grid.Row="4"
+                Grid.Row="3"
                 Grid.Column="0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Text="Report folder:" />
             <TextBox
-                Grid.Row="4"
+                Grid.Row="3"
                 Grid.Column="1"
                 Width="200"
                 Text="{Binding SelectedFolder, Mode=TwoWay}" />
             <Button
-                Grid.Row="4"
+                Grid.Row="3"
                 Grid.Column="2"
                 Width="42"
                 Height="25"

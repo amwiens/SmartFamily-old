@@ -92,6 +92,25 @@
                 </StackPanel>
 
                 <TextBlock
+                    Margin="{StaticResource MediumTopMargin}"
+                    Style="{StaticResource BodyTextStyle}"
+                    Text="Data file location:" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Text="{Binding DataFilePath}" />
+                    <Button
+                        Grid.Column="1"
+                        Width="42"
+                        Height="25"
+                        Command="{Binding SelectFolderCommand}"
+                        Content="..." />
+                </Grid>
+
+                <TextBlock
                     Margin="{StaticResource SmallTopMargin}"
                     Style="{StaticResource SubtitleTextStyle}"
                     Text="About this application" />
