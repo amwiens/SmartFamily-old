@@ -5,10 +5,12 @@
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:core="clr-namespace:SmartFamily.Core.Constants;assembly=SmartFamily.Core"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:dp="clr-namespace:SmartFamily.Core.WPF.DependencyProperties;assembly=SmartFamily.Core.WPF"
     Title="{x:Static core:Platform.AppName}"
     MinWidth="500"
     MinHeight="350"
-    Style="{StaticResource CustomMetroWindow}">
+    Style="{StaticResource CustomMetroWindow}"
+    dp:WindowProperties.WindowClosing="{Binding MenuFileExitCommand}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
