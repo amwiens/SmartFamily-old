@@ -3,13 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Prism.Ioc;
 using Prism.Modularity;
-using Prism.Services.Dialogs;
 using Prism.Unity;
 
 using Serilog;
 
 using SmartFamily.Contracts.Services;
-using SmartFamily.Core;
 using SmartFamily.Core.Constants;
 using SmartFamily.Core.Contracts.Services;
 using SmartFamily.Core.Models;
@@ -27,7 +25,6 @@ using SmartFamily.ViewModels;
 using SmartFamily.Views;
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -73,6 +70,7 @@ namespace SmartFamily
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 .MinimumLevel.Debug()
+                .WriteTo.Debug()
                 .WriteTo.File(path: logFilePath)
                 .CreateLogger();
 
