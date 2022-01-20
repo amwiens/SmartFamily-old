@@ -2,6 +2,8 @@
     x:Class="SmartFamily.Main.Views.HomePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:prism="http://prismlibrary.com/"
     Style="{StaticResource BaseUserControlStyle}">
     <Grid>
         <Grid.RowDefinitions>
@@ -26,13 +28,25 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Border Margin="3" Padding="5" BorderThickness="1" BorderBrush="Black" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+            <Border
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Margin="3"
+                Padding="5"
+                BorderBrush="Black"
+                BorderThickness="1">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Files" Style="{StaticResource SubtitleTextStyle}" />
-                    <ListView ItemsSource="{Binding RecentFiles}">
+                    <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Files" />
+                    <ListView x:Name="_recentFiles" ItemsSource="{Binding RecentFiles}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <prism:InvokeCommandAction Command="{Binding MenuFileOpenCommand}" CommandParameter="{Binding SelectedItem, ElementName=_recentFiles}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderThickness="0, 1, 0, 1">
+                                <Border BorderThickness="0,1,0,1">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -43,11 +57,23 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Text="{Binding FileName}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="2"
+                                            Text="{Binding FileName}" />
 
-                                        <TextBlock Text="{Binding FilePath}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="2"
+                                            Text="{Binding FilePath}" />
 
-                                        <TextBlock Text="{Binding LastOpened}" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            Grid.ColumnSpan="2"
+                                            Text="{Binding LastOpened}" />
                                     </Grid>
                                 </Border>
                             </DataTemplate>
@@ -56,16 +82,35 @@
                 </StackPanel>
             </Border>
 
-            <Border Margin="3" Padding="5" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black">
-                <TextBlock Text="News" Style="{StaticResource SubtitleTextStyle}" />
+            <Border
+                Grid.Row="0"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Margin="3"
+                Padding="5"
+                BorderBrush="Black"
+                BorderThickness="1">
+                <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="News" />
             </Border>
 
-            <Border Margin="3" Padding="5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="Black">
-                <TextBlock Text="Help" Style="{StaticResource SubtitleTextStyle}" />
+            <Border
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="3"
+                Padding="5"
+                BorderBrush="Black"
+                BorderThickness="1">
+                <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Help" />
             </Border>
 
-            <Border Margin="3" Padding="5" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="Black">
-                <TextBlock Text="Update" Style="{StaticResource SubtitleTextStyle}" />
+            <Border
+                Grid.Row="1"
+                Grid.Column="2"
+                Margin="3"
+                Padding="5"
+                BorderBrush="Black"
+                BorderThickness="1">
+                <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Update" />
             </Border>
         </Grid>
     </Grid>
