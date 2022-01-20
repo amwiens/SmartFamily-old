@@ -20,6 +20,7 @@ using SmartFamily.EntityFramework.Contracts.Services;
 using SmartFamily.EntityFramework.Services;
 using SmartFamily.Main;
 using SmartFamily.People;
+using SmartFamily.Places;
 using SmartFamily.Services;
 using SmartFamily.ViewModels;
 using SmartFamily.Views;
@@ -150,6 +151,7 @@ namespace SmartFamily
         {
             moduleCatalog.AddModule<MainModule>();
             moduleCatalog.AddModule<PeopleModule>();
+            moduleCatalog.AddModule<PlacesModule>();
         }
 
         /// <summary>

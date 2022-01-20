@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SmartFamily.Core.WPF\SmartFamily.Core.WPF.csproj" />
+    <ProjectReference Include="..\SmartFamily.Core\SmartFamily.Core.csproj" />
+    <ProjectReference Include="..\SmartFamily.EntityFramework\SmartFamily.EntityFramework.csproj" />
+  </ItemGroup>
+
+</Project>

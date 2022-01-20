@@ -73,6 +73,7 @@ namespace SmartFamily.Main.ViewModels
         {
             new HamburgerMenuGlyphItem() { Label = "Dashboard", Glyph = "\uE8A5", Tag = PageKeys.Dashboard },
             new HamburgerMenuGlyphItem() { Label = "People", Glyph = "\uE8A5", Tag = PageKeys.People },
+            new HamburgerMenuGlyphItem() { Label = "Places", Glyph = "\uE8A5", Tag = PageKeys.Places },
         };
 
         /// <summary>

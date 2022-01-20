@@ -36,6 +36,11 @@
         public const string PeopleListView = "PeopleListView";
 
         /// <summary>
+        /// Places view.
+        /// </summary>
+        public const string Places = "Places";
+
+        /// <summary>
         /// Settings view.
         /// </summary>
         public const string Settings = "Settings";

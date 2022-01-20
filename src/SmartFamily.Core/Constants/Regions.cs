@@ -21,6 +21,11 @@
         public const string People = "PeopleRegion";
 
         /// <summary>
+        /// Places region on the places page.
+        /// </summary>
+        public const string Places = "PlacesRegion";
+
+        /// <summary>
         /// Right pane region on the shell view.
         /// </summary>
         public const string RightPane = "RightPane";
