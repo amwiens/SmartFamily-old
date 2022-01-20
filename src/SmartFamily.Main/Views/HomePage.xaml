@@ -4,8 +4,99 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:prism="http://prismlibrary.com/"
+    xmlns:controls="clr-namespace:SmartFamily.Core.WPF.Controls;assembly=SmartFamily.Core.WPF"
     Style="{StaticResource BaseUserControlStyle}">
-    <Grid>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Border
+            Grid.Row="0"
+            Height="400">
+                <Border.Background>
+                    <ImageBrush ImageSource="../Assets/sites-like-ancestry-h.jpg" Stretch="UniformToFill" Opacity=".5" />
+                </Border.Background>
+                <Border>
+                    <Border.Background>
+                        <RadialGradientBrush>
+                            <GradientStop Offset="0" Color="#2F000000" />
+                            <GradientStop Offset="1" Color="#8F000000" />
+                        </RadialGradientBrush>
+                    </Border.Background>
+                    <StackPanel
+                    Margin="16"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Background="Transparent">
+                        <TextBlock FontSize="18" Text="Coming soon" />
+                        <TextBlock
+                        FontSize="28"
+                        FontWeight="Bold"
+                        Text="Start your family journey..." />
+                        <!--<TextBlock
+                        FontSize="18"
+                        Opacity=".8"
+                        Text="Sample text" />-->
+                        <Button
+                        Height="36"
+                        Margin="0,6,0,0"
+                        HorizontalAlignment="Left"
+                        Background="#4F000000"
+                        Content="Start now" />
+                    </StackPanel>
+                </Border>
+            </Border>
+
+            <Grid Grid.Row="1" Margin="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock
+                Grid.Row="0"
+                FontSize="16"
+                FontWeight="Bold"
+                Text="Recent files" />
+                <Grid Grid.Row="1" Margin="0,12,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <controls:Card Grid.Column="0" Margin="0,0,4,0">
+                        <StackPanel>
+
+                            <TextBlock
+                            Grid.Row="0"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Text="FileName" />
+                            <TextBlock
+                            Grid.Row="0"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                            Text="FilePath"
+                            TextWrapping="NoWrap"
+                            TextTrimming="CharacterEllipsis" />
+                            <TextBlock
+                            Grid.Row="0"
+                            FontSize="12"
+                            FontWeight="Bold"
+                            Text="DateOpened" />
+                        </StackPanel>
+                    </controls:Card>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+    <!--<Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
             <RowDefinition Height="*" />
@@ -113,5 +204,5 @@
                 <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Update" />
             </Border>
         </Grid>
-    </Grid>
+    </Grid>-->
 </UserControl>

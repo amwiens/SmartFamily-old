@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\sites-like-ancestry-h.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
   </ItemGroup>
@@ -15,6 +19,10 @@
     <ProjectReference Include="..\SmartFamily.Core.WPF\SmartFamily.Core.WPF.csproj" />
     <ProjectReference Include="..\SmartFamily.Core\SmartFamily.Core.csproj" />
     <ProjectReference Include="..\SmartFamily.EntityFramework\SmartFamily.EntityFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\sites-like-ancestry-h.jpg" />
   </ItemGroup>
 
 </Project>

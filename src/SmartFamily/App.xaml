@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="/Styles/MetroWindow.xaml" />
                 <ResourceDictionary Source="/Styles/TextBlock.xaml" />
                 <ResourceDictionary Source="/Styles/UserControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/SmartFamily.Core.WPF;component/Styles/SmartFamily.Core.WPF.xaml" />
                 <!--
                 MahApps.Metro resource dictionaries.
                 Learn more about using MahApps.Metro at https://mahapps.com/
