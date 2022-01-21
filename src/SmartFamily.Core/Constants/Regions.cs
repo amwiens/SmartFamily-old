@@ -21,6 +21,11 @@
         public const string People = "PeopleRegion";
 
         /// <summary>
+        /// Person region on the person page.
+        /// </summary>
+        public const string Person = "PersonRegion";
+
+        /// <summary>
         /// Places region on the places page.
         /// </summary>
         public const string Places = "PlacesRegion";

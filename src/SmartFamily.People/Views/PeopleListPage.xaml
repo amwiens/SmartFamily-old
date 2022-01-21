@@ -1,15 +1,25 @@
 ﻿<UserControl
     x:Class="SmartFamily.People.Views.PeopleListPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:prism="http://prismlibrary.com/">
     <Grid>
         <DataGrid
+            x:Name="_people"
             Margin="{StaticResource SmallLeftRightMargin}"
             AutoGenerateColumns="False"
             CanUserAddRows="False"
+            CanUserDeleteRows="False"
             GridLinesVisibility="Horizontal"
-            ItemsSource="{Binding Source}"
-            KeyboardNavigation.TabNavigation="Once">
+            ItemsSource="{Binding People}"
+            KeyboardNavigation.TabNavigation="Once"
+            SelectedItem="{Binding SelectedPerson}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <prism:InvokeCommandAction Command="{Binding SelectPersonCommand}" CommandParameter="{Binding SelectedItem, ElementName=_people}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <DataGrid.Columns>
                 <!--
                     TODO: Remove this column definitions and define columns for your data.

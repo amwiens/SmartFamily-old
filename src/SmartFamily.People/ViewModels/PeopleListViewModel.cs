@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 
@@ -8,6 +9,7 @@ using SmartFamily.Core.Models;
 using SmartFamily.EntityFramework.Contracts.Services;
 
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace SmartFamily.People.ViewModels
 {
@@ -21,11 +23,25 @@ namespace SmartFamily.People.ViewModels
         private readonly ISampleDataService _sampleDataService;
 
         private IRegionNavigationService _navigationService;
+        private SamplePerson _selectedPerson;
+
+        private ICommand? _selectPersonCommand;
 
         /// <summary>
         /// Source
         /// </summary>
-        public ObservableCollection<SamplePerson> Source { get; } = new ObservableCollection<SamplePerson>();
+        public ObservableCollection<SamplePerson> People { get; } = new ObservableCollection<SamplePerson>();
+
+        public SamplePerson SelectedPerson
+        {
+            get => _selectedPerson;
+            set => SetProperty(ref _selectedPerson, value);
+        }
+
+        /// <summary>
+        /// Select person command.
+        /// </summary>
+        public ICommand SelectPersonCommand => _selectPersonCommand ?? (_selectPersonCommand = new DelegateCommand<SamplePerson>(OnPersonSelect));
 
         /// <summary>
         /// Ctor
@@ -39,6 +55,35 @@ namespace SmartFamily.People.ViewModels
             _regionManager = regionManager;
             _sampleDataService = sampleDataService;
             _logger = logger;
+        }
+
+        /// <summary>
+        /// Request navigate.
+        /// </summary>
+        /// <param name="target">Target page.</param>
+        /// <returns><c>true</c> if page can be navigated to, otherwise <c>false</c>.</returns>
+        private bool RequestNavigate(string target, NavigationParameters parameters)
+        {
+            if (_navigationService.CanNavigate(target))
+            {
+                _navigationService.RequestNavigate(target, parameters);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Navigate to the target page.
+        /// </summary>
+        /// <param name="target">Target page.</param>
+        private void RequestNavigateAndCleanJournal(string target, NavigationParameters parameters = null)
+        {
+            var navigated = RequestNavigate(target, parameters);
+            if (navigated)
+            {
+                _navigationService.Journal.Clear();
+            }
         }
 
         /// <summary>
@@ -66,17 +111,17 @@ namespace SmartFamily.People.ViewModels
         {
             _logger.LogInformation("PeopleListViewModel: Navigated to.");
 
-            _navigationService = _regionManager.Regions[Regions.People].NavigationService;
+            _navigationService = _regionManager.Regions[Regions.Hamburger].NavigationService;
             _navigationService.Navigated += OnNavigated;
 
-            Source.Clear();
+            People.Clear();
 
             // TODO: Replace this with your actual data
             var data = await _sampleDataService.GetGridDataAsync();
 
             foreach (var item in data)
             {
-                Source.Add(item);
+                People.Add(item);
             }
         }
 
@@ -87,6 +132,20 @@ namespace SmartFamily.People.ViewModels
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
             _logger.LogInformation("PeopleListViewModel: Navigated from.");
+        }
+
+        /// <summary>
+        /// Opens the person view with the selected person in focus.
+        /// </summary>
+        /// <param name="person">Selected person.</param>
+        private void OnPersonSelect(SamplePerson person)
+        {
+            _logger.LogInformation($"{person.Name} selected.");
+
+            var navigationParameters = new NavigationParameters();
+            navigationParameters.Add("Person", person);
+
+            RequestNavigateAndCleanJournal(PageKeys.Person, navigationParameters);
         }
     }
 }

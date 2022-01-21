@@ -1,0 +1,24 @@
+﻿<UserControl
+    x:Class="SmartFamily.People.Views.PersonPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Style="{StaticResource BaseUserControlStyle}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Margin="{StaticResource MediumLeftMargin}"
+            Style="{StaticResource PageTitleStyle}"
+            Text="Person" />
+        <Grid
+            Grid.Row="1"
+            Margin="{StaticResource MediumLeftRightMargin}"
+            Background="{DynamicResource MahApps.Brushes.Gray10}">
+            <StackPanel Orientation="Vertical">
+                <ContentControl x:Name="personViewContentControl" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

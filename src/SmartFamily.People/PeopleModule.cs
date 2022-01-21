@@ -28,6 +28,7 @@ namespace SmartFamily.People
         {
             containerRegistry.RegisterForNavigation<PeoplePage, PeopleViewModel>(PageKeys.People);
             containerRegistry.RegisterForNavigation<PeopleListPage, PeopleListViewModel>(PageKeys.PeopleListView);
+            containerRegistry.RegisterForNavigation<PersonPage, PersonViewModel>(PageKeys.Person);
         }
     }
 }
