@@ -5,8 +5,6 @@ using SmartFamily.Core.Constants;
 using SmartFamily.Places.ViewModels;
 using SmartFamily.Places.Views;
 
-using System;
-
 namespace SmartFamily.Places
 {
     /// <summary>

@@ -25,7 +25,6 @@ namespace SmartFamily.Core.WPF.DependencyProperties
 
             if (element != null)
                 element.Closing += OnWindowClosing;
-
         }
 
         private static void OnWindowClosing(object sender, CancelEventArgs e)

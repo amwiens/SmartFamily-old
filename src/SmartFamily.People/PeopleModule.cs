@@ -1,6 +1,5 @@
 using Prism.Ioc;
 using Prism.Modularity;
-using Prism.Regions;
 
 using SmartFamily.Core.Constants;
 using SmartFamily.People.ViewModels;
