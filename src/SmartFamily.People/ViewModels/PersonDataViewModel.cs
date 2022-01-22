@@ -6,15 +6,21 @@ using Prism.Regions;
 using SmartFamily.Core.Constants;
 using SmartFamily.Core.Models;
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace SmartFamily.People.ViewModels
 {
     /// <summary>
-    /// Person view model.
+    /// Person data view model.
     /// </summary>
-    public class PersonViewModel : BindableBase, INavigationAware
+    public class PersonDataViewModel : BindableBase, INavigationAware
     {
         private readonly IRegionManager _regionManager;
-        private readonly ILogger<PersonViewModel> _logger;
+        private readonly ILogger<PersonDataViewModel> _logger;
 
         private IRegionNavigationService _navigationService;
         private SamplePerson _person;
@@ -33,41 +39,11 @@ namespace SmartFamily.People.ViewModels
         /// </summary>
         /// <param name="regionManager">Region manager.</param>
         /// <param name="logger">Logger.</param>
-        public PersonViewModel(IRegionManager regionManager,
-            ILogger<PersonViewModel> logger)
+        public PersonDataViewModel(IRegionManager regionManager,
+            ILogger<PersonDataViewModel> logger)
         {
             _regionManager = regionManager;
             _logger = logger;
-        }
-
-        /// <summary>
-        /// Request navigate.
-        /// </summary>
-        /// <param name="target">Target page.</param>
-        /// <param name="parameters">Navigation parameters.</param>
-        /// <returns><c>true</c> if page can be navigated to, otherwise <c>false</c>.</returns>
-        private bool RequestNavigate(string target, NavigationParameters parameters)
-        {
-            if (_navigationService.CanNavigate(target))
-            {
-                _navigationService.RequestNavigate(target, parameters);
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Navigate to the target page.
-        /// </summary>
-        /// <param name="target">Target page.</param>
-        private void RequestNavigateAndCleanJournal(string target, NavigationParameters parameters = null)
-        {
-            var navigated = RequestNavigate(target, parameters);
-            if (navigated)
-            {
-                _navigationService.Journal.Clear();
-            }
         }
 
         /// <summary>
@@ -98,11 +74,6 @@ namespace SmartFamily.People.ViewModels
             _navigationService.Navigated += OnNavigated;
 
             Person = navigationContext.Parameters.GetValue<SamplePerson>("Person");
-
-            var navigationParameters = new NavigationParameters();
-            navigationParameters.Add("Person", Person);
-
-            RequestNavigateAndCleanJournal(PageKeys.PersonData, navigationParameters);
         }
 
         /// <summary>

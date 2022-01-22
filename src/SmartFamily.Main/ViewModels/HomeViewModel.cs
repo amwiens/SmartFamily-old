@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Services.Dialogs;
@@ -12,6 +13,7 @@ using SmartFamily.Core.Exceptions;
 using SmartFamily.Core.Models;
 using SmartFamily.Core.WPF.Contracts.Services;
 using SmartFamily.Core.WPF.Dialogs;
+using SmartFamily.Core.WPF.Events;
 
 using System;
 using System.Collections.Generic;
@@ -30,12 +32,14 @@ namespace SmartFamily.Main.ViewModels
         private readonly IOpenFileDialogService _openFileDialogService;
         private readonly IDatabaseService _databaseService;
         private readonly IDialogService _dialogService;
+        private readonly IEventAggregator _eventAggregator;
         private readonly ILogger<HomeViewModel> _logger;
 
         private IRegionNavigationService? _navigationService;
         private List<RecentFile> _recentFiles;
 
         private ICommand? _menuFileOpenCommand;
+        private ICommand? _menuFileNewCommand;
 
         /// <summary>
         /// Gets the recent files.
@@ -49,10 +53,12 @@ namespace SmartFamily.Main.ViewModels
             }
         }
 
+        public ICommand FileNewCommand => _menuFileNewCommand ?? (_menuFileNewCommand = new DelegateCommand(OnFileNew));
+
         /// <summary>
-        /// File -> open menu command.
+        /// Open file command.
         /// </summary>
-        public ICommand MenuFileOpenCommand => _menuFileOpenCommand ?? (_menuFileOpenCommand = new DelegateCommand<RecentFile>(OnMenuFileOpen));
+        public ICommand FileOpenCommand => _menuFileOpenCommand ?? (_menuFileOpenCommand = new DelegateCommand<RecentFile>(OnFileOpen));
 
         /// <summary>
         /// Ctor
@@ -63,12 +69,14 @@ namespace SmartFamily.Main.ViewModels
             IOpenFileDialogService openFileDialogService,
             IDatabaseService databaseService,
             IDialogService dialogService,
+            IEventAggregator eventAggregator,
             ILogger<HomeViewModel> logger)
         {
             _regionManager = regionManager;
             _openFileDialogService = openFileDialogService;
             _databaseService = databaseService;
             _dialogService = dialogService;
+            _eventAggregator = eventAggregator;
             _logger = logger;
 
             GetRecentFiles();
@@ -151,60 +159,22 @@ namespace SmartFamily.Main.ViewModels
         }
 
         /// <summary>
-        /// Open a file.
+        /// Create a new file.
         /// </summary>
-        private void OnMenuFileOpen(RecentFile recentFile)
+        private void OnFileNew()
         {
-            var fileName = Path.Combine(recentFile.FilePath, recentFile.FileName);
-            if (File.Exists(fileName))
-                OpenDatabaseFile(fileName);
+            _eventAggregator.GetEvent<NewDatabaseEvent>().Publish();
         }
 
         /// <summary>
-        /// Opens the database file.
+        /// Open a file.
         /// </summary>
-        /// <param name="databasePath">Path to the database file.</param>
-        private void OpenDatabaseFile(string databasePath)
+        private void OnFileOpen(RecentFile recentFile)
         {
-            try
+            var fileName = Path.Combine(recentFile.FilePath, recentFile.FileName);
+            if (File.Exists(fileName))
             {
-                ApplicationSettings.OpenDatabase = _databaseService.OpenDatabase(databasePath);
-
-                if (ApplicationSettings.RecentFiles is null)
-                {
-                    ApplicationSettings.RecentFiles = new List<RecentFile>();
-                }
-                var recentFile = new RecentFile
-                {
-                    FileName = databasePath.Substring(databasePath.LastIndexOf('\\') + 1),
-                    FilePath = databasePath.Substring(0, databasePath.LastIndexOf('\\')),
-                    LastOpened = DateTime.Now,
-                };
-
-                var file = ApplicationSettings.RecentFiles.Where(x => x.FileName == recentFile.FileName && x.FilePath == recentFile.FilePath);
-
-                if (file.Any())
-                {
-                    file.FirstOrDefault().LastOpened = DateTime.Now;
-                }
-                else
-                {
-                    ApplicationSettings.RecentFiles.Add(recentFile);
-                }
-
-                //CloseEnabled = true;
-                _logger.LogInformation("HomeViewModel: {databasePath} opened.", databasePath);
-                RequestNavigateAndCleanJournal(PageKeys.Main);
-            }
-            catch (DatabaseFormatException ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                _dialogService.ShowNotification(ex.Message, r => { });
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                _dialogService.ShowNotification(ex.Message, r => { });
+                _eventAggregator.GetEvent<DatabaseOpenedEvent>().Publish(fileName);
             }
         }
     }

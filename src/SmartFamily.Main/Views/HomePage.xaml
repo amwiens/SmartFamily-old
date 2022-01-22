@@ -2,9 +2,9 @@
     x:Class="SmartFamily.Main.Views.HomePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:SmartFamily.Core.WPF.Controls;assembly=SmartFamily.Core.WPF"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:prism="http://prismlibrary.com/"
-    xmlns:controls="clr-namespace:SmartFamily.Core.WPF.Controls;assembly=SmartFamily.Core.WPF"
     Style="{StaticResource BaseUserControlStyle}">
 
     <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
@@ -14,11 +14,12 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Border
-            Grid.Row="0"
-            Height="400">
+            <Border Grid.Row="0" Height="400">
                 <Border.Background>
-                    <ImageBrush ImageSource="../Assets/sites-like-ancestry-h.jpg" Stretch="UniformToFill" Opacity=".5" />
+                    <ImageBrush
+                        ImageSource="../Assets/sites-like-ancestry-h.jpg"
+                        Opacity=".5"
+                        Stretch="UniformToFill" />
                 </Border.Background>
                 <Border>
                     <Border.Background>
@@ -28,25 +29,26 @@
                         </RadialGradientBrush>
                     </Border.Background>
                     <StackPanel
-                    Margin="16"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Background="Transparent">
+                        Margin="16"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="Transparent">
                         <TextBlock FontSize="18" Text="Coming soon" />
                         <TextBlock
-                        FontSize="28"
-                        FontWeight="Bold"
-                        Text="Start your family journey..." />
+                            FontSize="28"
+                            FontWeight="Bold"
+                            Text="Start your family journey..." />
                         <!--<TextBlock
                         FontSize="18"
                         Opacity=".8"
                         Text="Sample text" />-->
                         <Button
-                        Height="36"
-                        Margin="0,6,0,0"
-                        HorizontalAlignment="Left"
-                        Background="#4F000000"
-                        Content="Start now" />
+                            Height="36"
+                            Margin="0,6,0,0"
+                            HorizontalAlignment="Left"
+                            Background="#4F000000"
+                            Command="{Binding FileNewCommand}"
+                            Content="Start now" />
                     </StackPanel>
                 </Border>
             </Border>
@@ -57,10 +59,10 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <TextBlock
-                Grid.Row="0"
-                FontSize="16"
-                FontWeight="Bold"
-                Text="Recent files" />
+                    Grid.Row="0"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Text="Recent files" />
                 <Grid Grid.Row="1" Margin="0,12,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -70,28 +72,39 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <controls:Card Grid.Column="0" Margin="0,0,4,0">
-                        <StackPanel>
+                    <ListView x:Name="_recentFiles" ItemsSource="{Binding RecentFiles}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <prism:InvokeCommandAction Command="{Binding FileOpenCommand}" CommandParameter="{Binding SelectedItem, ElementName=_recentFiles}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <controls:Card Grid.Column="0" Margin="0,0,4,0">
+                                    <StackPanel>
 
-                            <TextBlock
-                            Grid.Row="0"
-                            FontSize="16"
-                            FontWeight="Bold"
-                            Text="FileName" />
-                            <TextBlock
-                            Grid.Row="0"
-                            FontSize="12"
-                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
-                            Text="FilePath"
-                            TextWrapping="NoWrap"
-                            TextTrimming="CharacterEllipsis" />
-                            <TextBlock
-                            Grid.Row="0"
-                            FontSize="12"
-                            FontWeight="Bold"
-                            Text="DateOpened" />
-                        </StackPanel>
-                    </controls:Card>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            FontSize="16"
+                                            FontWeight="Bold"
+                                            Text="{Binding FileName}" />
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            FontSize="12"
+                                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                            Text="{Binding FilePath}"
+                                            TextTrimming="CharacterEllipsis"
+                                            TextWrapping="NoWrap" />
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            FontSize="12"
+                                            FontWeight="Bold"
+                                            Text="{Binding LastOpened}" />
+                                    </StackPanel>
+                                </controls:Card>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
             </Grid>
         </Grid>

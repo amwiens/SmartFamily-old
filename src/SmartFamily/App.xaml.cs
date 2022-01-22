@@ -66,7 +66,7 @@ namespace SmartFamily
             var appConfig = Container.Resolve<AppConfig>();
             var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var loggingFolder = Path.Combine(localAppData, appConfig.LoggingFolder);
-            var logFilePath = Path.Combine(loggingFolder, $"Log{DateTime.Today:ddMMyyy}.log");
+            var logFilePath = Path.Combine(loggingFolder, $"Log{DateTime.Today:yyyyMMdd}.log");
 
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()

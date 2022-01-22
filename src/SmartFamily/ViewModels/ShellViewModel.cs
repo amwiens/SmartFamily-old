@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Services.Dialogs;
@@ -13,6 +14,7 @@ using SmartFamily.Core.Exceptions;
 using SmartFamily.Core.Models;
 using SmartFamily.Core.WPF.Contracts.Services;
 using SmartFamily.Core.WPF.Dialogs;
+using SmartFamily.Core.WPF.Events;
 
 using System;
 using System.Collections.Generic;
@@ -34,6 +36,7 @@ namespace SmartFamily.ViewModels
         private readonly IApplicationSettingsService _applicationSettingsService;
         private readonly IOpenFileDialogService _openFileDialogService;
         private readonly IDatabaseService _databaseService;
+        private readonly IEventAggregator _eventAggregator;
         private readonly ILogger<ShellViewModel> _logger;
 
         private IRegionNavigationService? _navigationService;
@@ -113,6 +116,7 @@ namespace SmartFamily.ViewModels
             IApplicationSettingsService applicationSettingsService,
             IOpenFileDialogService openFileDialogService,
             IDatabaseService databaseService,
+            IEventAggregator eventAggregator,
             ILogger<ShellViewModel> logger)
         {
             _regionManager = regionManager;
@@ -121,7 +125,11 @@ namespace SmartFamily.ViewModels
             _applicationSettingsService = applicationSettingsService;
             _openFileDialogService = openFileDialogService;
             _databaseService = databaseService;
+            _eventAggregator = eventAggregator;
             _logger = logger;
+
+            eventAggregator.GetEvent<NewDatabaseEvent>().Subscribe(OnMenuFileNew, ThreadOption.UIThread);
+            eventAggregator.GetEvent<DatabaseOpenedEvent>().Subscribe(OpenDatabaseFile, ThreadOption.UIThread);
         }
 
         /// <summary>
@@ -160,7 +168,7 @@ namespace SmartFamily.ViewModels
 
             if (_applicationSettingsService.GetSetting<bool>("OpenLastClosedFile") && !string.IsNullOrWhiteSpace(_applicationSettingsService.GetSetting<string>("LastOpenFile")))
             {
-                OpenDatabaseFile(_applicationSettingsService.GetSetting<string>("LastOpenFile"));
+                _eventAggregator.GetEvent<DatabaseOpenedEvent>().Publish(_applicationSettingsService.GetSetting<string>("LastOpenFile"));
             }
             else
             {
@@ -247,7 +255,7 @@ namespace SmartFamily.ViewModels
                         _databaseService.CreateDatabase(dbPath);
 
                         _logger.LogInformation("ShellViewModel: {dbPath} database created.", dbPath);
-                        OpenDatabaseFile(dbPath);
+                        _eventAggregator.GetEvent<DatabaseOpenedEvent>().Publish(dbPath);
                     }
                 }
             });
@@ -261,7 +269,7 @@ namespace SmartFamily.ViewModels
             var result = _openFileDialogService.ShowOpenDatabaseDialog(out string fileName);
             if (result == true && !string.IsNullOrWhiteSpace(fileName))
             {
-                OpenDatabaseFile(fileName);
+                _eventAggregator.GetEvent<DatabaseOpenedEvent>().Publish(fileName);
             }
         }
 

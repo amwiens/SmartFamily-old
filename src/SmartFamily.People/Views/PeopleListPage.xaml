@@ -29,6 +29,12 @@
                 <DataGridTextColumn Binding="{Binding Sex}" Header="Sex" />
                 <DataGridTextColumn Binding="{Binding RecordNumber}" Header="Rec#" />
                 <DataGridTextColumn Binding="{Binding GrandmaNumber}" Header="Grandma Number" />
+                <DataGridTextColumn Binding="{Binding BirthDate}" Header="Birth date" />
+                <DataGridTextColumn Binding="{Binding BirthPlace}" Header="Birth place" />
+                <DataGridTextColumn Binding="{Binding MarriageDate}" Header="Marriage date" />
+                <DataGridTextColumn Binding="{Binding MarriagePlace}" Header="Marriage place" />
+                <DataGridTextColumn Binding="{Binding DeathDate}" Header="Death date" />
+                <DataGridTextColumn Binding="{Binding DeathPlace}" Header="Death place" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

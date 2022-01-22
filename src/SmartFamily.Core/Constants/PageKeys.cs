@@ -41,6 +41,11 @@
         public const string Person = "Person";
 
         /// <summary>
+        /// Person data view.
+        /// </summary>
+        public const string PersonData = "PersonData";
+
+        /// <summary>
         /// Places view.
         /// </summary>
         public const string Places = "Places";
