@@ -6,23 +6,73 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Style="{StaticResource BaseUserControlStyle}"
     mc:Ignorable="d">
-    <Grid>
+    <Grid Margin="{StaticResource SmallLeftRightMargin}" Background="Transparent">
         <Grid.RowDefinitions>
-            <RowDefinition Height="48" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
         <TextBlock
-            Margin="{StaticResource MediumLeftMargin}"
-            d:Text="John Doe"
-            Style="{StaticResource PageTitleStyle}"
-            Text="{Binding Person.Name}" />
-        <Grid
+            Grid.Row="0"
+            Grid.Column="0"
+            FontSize="14"
+            FontWeight="Bold"
+            Text="Birth:" />
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="{StaticResource SmallLeftRightMargin}"
+            FontSize="14"
+            Text="{Binding Person.BirthDate}" />
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="2"
+            Margin="{StaticResource SmallLeftRightMargin}"
+            FontSize="14"
+            Text="{Binding Person.BirthPlace}" />
+
+        <TextBlock
             Grid.Row="1"
-            Margin="{StaticResource MediumLeftRightMargin}"
-            Background="{DynamicResource MahApps.Brushes.Gray10}">
-            <StackPanel Orientation="Vertical">
-                <ContentControl x:Name="personViewContentControl" />
-            </StackPanel>
-        </Grid>
+            Grid.Column="0"
+            FontSize="14"
+            FontWeight="Bold"
+            Text="Marriage:" />
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="{StaticResource SmallLeftRightMargin}"
+            FontSize="14"
+            Text="{Binding Person.MarriageDate}" />
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="2"
+            Margin="{StaticResource SmallLeftRightMargin}"
+            FontSize="14"
+            Text="{Binding Person.MarriagePlace}" />
+
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="0"
+            FontSize="14"
+            FontWeight="Bold"
+            Text="Death:" />
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="{StaticResource SmallLeftRightMargin}"
+            FontSize="14"
+            Text="{Binding Person.DeathDate}" />
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="2"
+            Margin="{StaticResource SmallLeftRightMargin}"
+            FontSize="14"
+            Text="{Binding Person.DeathPlace}" />
     </Grid>
 </UserControl>

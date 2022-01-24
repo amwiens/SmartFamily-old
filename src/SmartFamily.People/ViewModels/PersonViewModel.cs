@@ -1,10 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
 
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 
 using SmartFamily.Core.Constants;
 using SmartFamily.Core.Models;
+using SmartFamily.Core.WPF.Events;
 
 namespace SmartFamily.People.ViewModels
 {
@@ -14,6 +16,7 @@ namespace SmartFamily.People.ViewModels
     public class PersonViewModel : BindableBase, INavigationAware
     {
         private readonly IRegionManager _regionManager;
+        private readonly IEventAggregator _eventAggregator;
         private readonly ILogger<PersonViewModel> _logger;
 
         private IRegionNavigationService _navigationService;
@@ -34,9 +37,11 @@ namespace SmartFamily.People.ViewModels
         /// <param name="regionManager">Region manager.</param>
         /// <param name="logger">Logger.</param>
         public PersonViewModel(IRegionManager regionManager,
+            IEventAggregator eventAggregator,
             ILogger<PersonViewModel> logger)
         {
             _regionManager = regionManager;
+            _eventAggregator = eventAggregator;
             _logger = logger;
         }
 
@@ -64,10 +69,10 @@ namespace SmartFamily.People.ViewModels
         private void RequestNavigateAndCleanJournal(string target, NavigationParameters parameters = null)
         {
             var navigated = RequestNavigate(target, parameters);
-            if (navigated)
-            {
-                _navigationService.Journal.Clear();
-            }
+            //if (navigated)
+            //{
+            //    _navigationService.Journal.Clear();
+            //}
         }
 
         /// <summary>
@@ -94,15 +99,16 @@ namespace SmartFamily.People.ViewModels
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             _logger.LogInformation("PersonViewModel: Navigated to.");
-            _navigationService = _regionManager.Regions[Regions.Person].NavigationService;
+            _navigationService = _regionManager.Regions[Regions.People].NavigationService;
             _navigationService.Navigated += OnNavigated;
 
             Person = navigationContext.Parameters.GetValue<SamplePerson>("Person");
+            _eventAggregator.GetEvent<SetPeoplePageTitleEvent>().Publish(Person.Name);
 
-            var navigationParameters = new NavigationParameters();
-            navigationParameters.Add("Person", Person);
+            //var navigationParameters = new NavigationParameters();
+            //navigationParameters.Add("Person", Person);
 
-            RequestNavigateAndCleanJournal(PageKeys.PersonData, navigationParameters);
+            //RequestNavigateAndCleanJournal(PageKeys.PersonData, navigationParameters);
         }
 
         /// <summary>

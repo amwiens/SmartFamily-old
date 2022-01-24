@@ -1,8 +1,4 @@
-﻿using Prism.Regions;
-
-using SmartFamily.Core.Constants;
-
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace SmartFamily.People.Views
 {
@@ -11,11 +7,12 @@ namespace SmartFamily.People.Views
     /// </summary>
     public partial class PersonPage : UserControl
     {
-        public PersonPage(IRegionManager regionManager)
+        /// <summary>
+        /// Person page.
+        /// </summary>
+        public PersonPage()
         {
             InitializeComponent();
-            RegionManager.SetRegionName(personViewContentControl, Regions.Person);
-            RegionManager.SetRegionManager(personViewContentControl, regionManager);
         }
     }
 }

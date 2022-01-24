@@ -1,11 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
 
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 
 using SmartFamily.Core.Constants;
 using SmartFamily.Core.Models;
+using SmartFamily.Core.WPF.Events;
 using SmartFamily.EntityFramework.Contracts.Services;
 
 using System.Collections.ObjectModel;
@@ -19,6 +21,7 @@ namespace SmartFamily.People.ViewModels
     public class PeopleListViewModel : BindableBase, INavigationAware
     {
         private readonly IRegionManager _regionManager;
+        private readonly IEventAggregator _eventAggregator;
         private readonly ILogger<PeopleListViewModel> _logger;
         private readonly ISampleDataService _sampleDataService;
 
@@ -46,13 +49,17 @@ namespace SmartFamily.People.ViewModels
         /// <summary>
         /// Ctor
         /// </summary>
+        /// <param name="regionManager">Region manager.</param>
+        /// <param name="eventAggregator">Event aggregator.</param>
         /// <param name="sampleDataService">Sample data service.</param>
         /// <param name="logger">Logger.</param>
         public PeopleListViewModel(IRegionManager regionManager,
+            IEventAggregator eventAggregator,
             ISampleDataService sampleDataService,
             ILogger<PeopleListViewModel> logger)
         {
             _regionManager = regionManager;
+            _eventAggregator = eventAggregator;
             _sampleDataService = sampleDataService;
             _logger = logger;
         }
@@ -110,8 +117,9 @@ namespace SmartFamily.People.ViewModels
         public async void OnNavigatedTo(NavigationContext navigationContext)
         {
             _logger.LogInformation("PeopleListViewModel: Navigated to.");
+            _eventAggregator.GetEvent<SetPeoplePageTitleEvent>().Publish("People list");
 
-            _navigationService = _regionManager.Regions[Regions.Hamburger].NavigationService;
+            _navigationService = _regionManager.Regions[Regions.People].NavigationService;
             _navigationService.Navigated += OnNavigated;
 
             People.Clear();
@@ -145,7 +153,7 @@ namespace SmartFamily.People.ViewModels
             var navigationParameters = new NavigationParameters();
             navigationParameters.Add("Person", person);
 
-            RequestNavigateAndCleanJournal(PageKeys.Person, navigationParameters);
+            RequestNavigate(PageKeys.Person, navigationParameters);
         }
     }
 }
