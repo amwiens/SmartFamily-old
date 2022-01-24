@@ -12,7 +12,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
-            <RowDefinition Height="25" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock
@@ -29,11 +29,13 @@
                 HorizontalAlignment="Left"
                 AutomationProperties.Name="Go back"
                 Command="{Binding GoBackCommand}"
+                Height="30"
                 ToolTip="Go back">
                 <TextBlock
                     AutomationProperties.Name="Go back"
                     FontFamily="Segoe MDL2 Assets"
-                    FontSize="14"
+                    FontSize="8"
+                    Margin="4"
                     Text="&#xE72B;" />
             </Button>
         </Border>
