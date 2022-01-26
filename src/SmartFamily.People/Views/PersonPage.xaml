@@ -8,70 +8,111 @@
     <Grid Margin="{StaticResource SmallLeftRightMargin}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock
-            Grid.Row="0"
-            Grid.Column="0"
-            FontSize="14"
-            FontWeight="Bold"
-            Text="Birth:" />
-        <TextBlock
-            Grid.Row="0"
-            Grid.Column="1"
-            Margin="{StaticResource SmallLeftRightMargin}"
-            FontSize="14"
-            Text="{Binding Person.BirthDate}" />
-        <TextBlock
-            Grid.Row="0"
-            Grid.Column="2"
-            Margin="{StaticResource SmallLeftRightMargin}"
-            FontSize="14"
-            Text="{Binding Person.BirthPlace}" />
+        <Image
+            Width="150"
+            Height="150"
+            Source="{Binding Person.PrimaryImagePath}" />
 
-        <TextBlock
-            Grid.Row="1"
-            Grid.Column="0"
-            FontSize="14"
-            FontWeight="Bold"
-            Text="Marriage:" />
-        <TextBlock
-            Grid.Row="1"
-            Grid.Column="1"
-            Margin="{StaticResource SmallLeftRightMargin}"
-            FontSize="14"
-            Text="{Binding Person.MarriageDate}" />
-        <TextBlock
-            Grid.Row="1"
-            Grid.Column="2"
-            Margin="{StaticResource SmallLeftRightMargin}"
-            FontSize="14"
-            Text="{Binding Person.MarriagePlace}" />
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-        <TextBlock
-            Grid.Row="2"
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                FontSize="14"
+                FontWeight="Bold"
+                Text="Birth:" />
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="{StaticResource SmallLeftRightMargin}"
+                FontSize="14"
+                Text="{Binding Person.BirthDate}" />
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="2"
+                Margin="{StaticResource SmallLeftRightMargin}"
+                FontSize="14"
+                Text="{Binding Person.BirthPlace}" />
+
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                FontSize="14"
+                FontWeight="Bold"
+                Text="Marriage:" />
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="{StaticResource SmallLeftRightMargin}"
+                FontSize="14"
+                Text="{Binding Person.MarriageDate}" />
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="2"
+                Margin="{StaticResource SmallLeftRightMargin}"
+                FontSize="14"
+                Text="{Binding Person.MarriagePlace}" />
+
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="0"
+                FontSize="14"
+                FontWeight="Bold"
+                Text="Death:" />
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="{StaticResource SmallLeftRightMargin}"
+                FontSize="14"
+                Text="{Binding Person.DeathDate}" />
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="2"
+                Margin="{StaticResource SmallLeftRightMargin}"
+                FontSize="14"
+                Text="{Binding Person.DeathPlace}" />
+
+            <StackPanel
+                Grid.Row="3"
+                Grid.ColumnSpan="3"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="{StaticResource SmallTopMargin}"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    Text="Bio:" />
+
+                <TextBlock
+                    Margin="{StaticResource SmallLeftTopRightBottomMargin}"
+                    FontSize="14"
+                    Text="{Binding Person.Bio}" />
+            </StackPanel>
+        </Grid>
+
+        <TabControl
+            Grid.Row="1"
             Grid.Column="0"
-            FontSize="14"
-            FontWeight="Bold"
-            Text="Death:" />
-        <TextBlock
-            Grid.Row="2"
-            Grid.Column="1"
-            Margin="{StaticResource SmallLeftRightMargin}"
-            FontSize="14"
-            Text="{Binding Person.DeathDate}" />
-        <TextBlock
-            Grid.Row="2"
-            Grid.Column="2"
-            Margin="{StaticResource SmallLeftRightMargin}"
-            FontSize="14"
-            Text="{Binding Person.DeathPlace}" />
+            Grid.ColumnSpan="2">
+            <TabItem Header="Events" />
+            <TabItem Header="Media" />
+        </TabControl>
     </Grid>
 </UserControl>

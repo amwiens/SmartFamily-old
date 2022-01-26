@@ -33,6 +33,8 @@ namespace SmartFamily.EntityFramework.Services
                     BirthPlace = "Langdon, Cavalier, North Dakota, United States",
                     MarriageDate = "26 Jul 2008",
                     MarriagePlace = "Mackinac Island, Mackinac, Michigan, United States",
+                    Bio = "This is a temp bio. This is just to test to see what this will look like on the screen.",
+                    PrimaryImagePath = "C:\\Users\\amwie\\OneDrive\\Genealogy\\RootsMagic\\Media\\People\\Wiens\\Wiens, Aaron Matthew (1976)\\Pics\\WiensAaronMatthew-2017.jpg",
                 },
                 new SamplePerson()
                 {
@@ -44,6 +46,8 @@ namespace SmartFamily.EntityFramework.Services
                     BirthPlace = "Rochester, Olmsted, Minnesota, United States",
                     MarriageDate = "",
                     MarriagePlace = "",
+                    Bio = "This is a temp bio. This is just to test to see what this will look like on the screen.",
+                    PrimaryImagePath = "C:\\Users\\amwie\\OneDrive\\Genealogy\\RootsMagic\\Media\\People\\Wiens\\Wiens, Addison Grace (2010)\\Pics\\WiensAddisonGrace-2017.jpg",
                 },
                 new SamplePerson()
                 {
@@ -55,6 +59,8 @@ namespace SmartFamily.EntityFramework.Services
                     BirthPlace = "Rochester, Olmsted, Minnesota, United States",
                     MarriageDate = "",
                     MarriagePlace = "",
+                    Bio = "This is a temp bio. This is just to test to see what this will look like on the screen.",
+                    PrimaryImagePath = "C:\\Users\\amwie\\OneDrive\\Genealogy\\RootsMagic\\Media\\People\\Wiens\\Wiens, Chloe Monroe (2014)\\Pics\\WiensChloeMonroe-2017-2.jpg",
                 },
                 new SamplePerson()
                 {
@@ -66,6 +72,8 @@ namespace SmartFamily.EntityFramework.Services
                     BirthPlace = "Langdon, Cavalier, North Dakota, United States",
                     MarriageDate = "11 Aug 1972",
                     MarriagePlace = "Whitewater, Butler, Kansas, United States",
+                    Bio = "This is a temp bio. This is just to test to see what this will look like on the screen.",
+                    PrimaryImagePath = "C:\\Users\\amwie\\OneDrive\\Genealogy\\RootsMagic\\Media\\People\\Wiens\\Wiens, Allen Edwin (1951)\\Pics\\WiensAllenEdwin-2017.jpg",
                 },
                 new SamplePerson()
                 {
@@ -77,6 +85,8 @@ namespace SmartFamily.EntityFramework.Services
                     BirthPlace = "Owatonna, Steele, Minnesota, United States",
                     MarriageDate = "26 Jul 2008",
                     MarriagePlace = "Mackinac Island, Mackinac, Michigan, United States",
+                    Bio = "This is a temp bio. This is just to test to see what this will look like on the screen.",
+                    PrimaryImagePath = "C:\\Users\\amwie\\OneDrive\\Genealogy\\RootsMagic\\Media\\People\\Goedtel\\Goedtel, Carissa Lee (1980)\\Pics\\GoedtelCarissaLee-2017.jpg",
                 },
             };
         }

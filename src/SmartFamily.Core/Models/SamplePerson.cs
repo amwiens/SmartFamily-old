@@ -8,51 +8,61 @@
         /// <summary>
         /// Name
         /// </summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// Sex
         /// </summary>
-        public string Sex { get; set; }
+        public string? Sex { get; set; }
 
         /// <summary>
         /// Birth date
         /// </summary>
-        public string BirthDate { get; set; }
+        public string? BirthDate { get; set; }
 
         /// <summary>
         /// Birth place
         /// </summary>
-        public string BirthPlace { get; set; }
+        public string? BirthPlace { get; set; }
 
         /// <summary>
         /// Marriage date
         /// </summary>
-        public string MarriageDate { get; set; }
+        public string? MarriageDate { get; set; }
 
         /// <summary>
         /// Marriage place
         /// </summary>
-        public string MarriagePlace { get; set; }
+        public string? MarriagePlace { get; set; }
 
         /// <summary>
         /// Death date
         /// </summary>
-        public string DeathDate { get; set; }
+        public string? DeathDate { get; set; }
 
         /// <summary>
         /// Death place
         /// </summary>
-        public string DeathPlace { get; set; }
+        public string? DeathPlace { get; set; }
 
         /// <summary>
         /// Record number
         /// </summary>
-        public string RecordNumber { get; set; }
+        public string? RecordNumber { get; set; }
 
         /// <summary>
         /// Grandma number
         /// </summary>
-        public string GrandmaNumber { get; set; }
+        public string? GrandmaNumber { get; set; }
+
+        /// <summary>
+        /// Bio
+        /// </summary>
+        public string? Bio { get; set; }
+
+        /// <summary>
+        /// Primary image path
+        /// </summary>
+        public string? PrimaryImagePath { get; set; }
     }
 }
