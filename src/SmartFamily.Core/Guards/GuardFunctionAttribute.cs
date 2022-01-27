@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace SmartFamily.Core.Guards
 {
@@ -26,7 +24,7 @@ namespace SmartFamily.Core.Guards
         {
             Group = Guard.Argument(group, nameof(group))
                 .NotNull()
-                .NotWhitespace();
+                .NotWhiteSpace();
 
             Shortcut = Guard.Argument(shortcut, nameof(shortcut))
                 .StartsWith("g", StringComparison.Ordinal)
@@ -51,10 +49,14 @@ namespace SmartFamily.Core.Guards
         /// </summary>
         public int Order { get; }
 
-
-#if !NETSTANDARD1_0
-
-
+        /// <summary>
+        /// Gets the exposed methods in the specified assembly that are marked with <see cref="GuardFunctionAttribute"/>
+        /// </summary>
+        /// <param name="assembly">The assembly to search.</param>
+        /// <returns>
+        /// An enumerable of methods and <see cref="GuardFunctionAttribute"/> instances that
+        /// mark them.
+        /// </returns>
         public static IEnumerable<KeyValuePair<MethodInfo, GuardFunctionAttribute>> GetMethods(Assembly assembly)
         {
             return from t in assembly.ExportedTypes
@@ -65,7 +67,5 @@ namespace SmartFamily.Core.Guards
                    orderby a.Group, m.Name, a.Order
                    select new KeyValuePair<MethodInfo, GuardFunctionAttribute>(m, a);
         }
-
-#endif
     }
 }

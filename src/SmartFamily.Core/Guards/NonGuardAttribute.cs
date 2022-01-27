@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace SmartFamily.Core.Guards
+﻿namespace SmartFamily.Core.Guards
 {
     /// <summary>
     /// Marks a method as a non-guarding utility.

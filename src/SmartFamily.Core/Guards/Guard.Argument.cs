@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 
 using System.Diagnostics;
 using System.Linq.Expressions;
@@ -77,7 +75,6 @@ namespace SmartFamily.Core.Guards
         [GuardFunction("Extensibility")]
         public static Exception Fail(Exception exception)
         {
-#if !NETSTANDARD1_0
             StackTrace? stackTrace = null;
             for (var scope = Scope.Current; scope != null; scope = scope.Parent)
             {
@@ -88,7 +85,6 @@ namespace SmartFamily.Core.Guards
                 if (!scope.Propagates)
                     break;
             }
-#endif
 
             return exception;
         }
