@@ -7,7 +7,7 @@ using System.Net.Mail;
 namespace SmartFamily.Core.Guards
 {
     /// <content>
-    /// Proides preconditions for <see cref="MailAddress"/> arguments.
+    /// Provides preconditions for <see cref="MailAddress"/> arguments.
     /// </content>
     public static partial class Guard
     {

@@ -162,7 +162,7 @@ namespace SmartFamily.Core.Guards
         }
 
         /// <summary>
-        /// Requires the double-precision floatin-point argument to have a value that is either
+        /// Requires the double-precision floating-point argument to have a value that is either
         /// positive infinity (<see cref="double.PositiveInfinity"/>) or negative infinity (<see cref="double.NegativeInfinity"/>).
         /// </summary>
         /// <param name="argument">The argument.</param>
@@ -221,7 +221,7 @@ namespace SmartFamily.Core.Guards
         /// <remarks>
         ///     The argument value that is passed to <paramref name="message"/> cannot be
         ///     <c>null</c>, but it is defined as nullable anyway. This is because passing a lambda
-        ///     would cause the callse to be ambiguous between this method and its overload when the
+        ///     would cause the calls to be ambiguous between this method and its overload when the
         ///     message delegate accepts a non-nullable argument.
         /// </remarks>
         [AssertionMethod]

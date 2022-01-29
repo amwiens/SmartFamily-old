@@ -76,7 +76,7 @@ namespace SmartFamily.Core.Guards
         /// Requires the argument to have a value that is an instance of the specified type.
         /// </summary>
         /// <param name="argument">The object argument.</param>
-        /// <param name="type">The type that the arguent's value should be an instance of.</param>
+        /// <param name="type">The type that the argument's value should be an instance of.</param>
         /// <param name="message">
         ///     The factory to initialize the message of the exception that will be thrown if the
         ///     precondition is not satisfied.

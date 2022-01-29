@@ -114,7 +114,7 @@ namespace SmartFamily.Core.Guards
         /// <param name="flag">The flags to check.</param>
         /// <param name="message">
         ///     The factory to initialize the message of the exception that will be thrown if the
-        ///     precondition nis not satisfied.
+        ///     precondition is not satisfied.
         /// </param>
         /// <returns><paramref name="argument"/>.</returns>
         /// <exception cref="ArgumentException">
@@ -230,7 +230,7 @@ namespace SmartFamily.Core.Guards
             /// Initializes <see cref="HasFlag"/>.
             /// </summary>
             /// <returns>
-            ///     A function that checks ewhether an enum value has the specified flag bits set.
+            ///     A function that checks whether an enum value has the specified flag bits set.
             /// </returns>
             private static Func<T, T, bool> InitHasFlag()
             {

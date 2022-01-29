@@ -1,7 +1,7 @@
 ﻿namespace SmartFamily.Core.Models
 {
     /// <summary>
-    /// App theme enum.
+    /// Application theme enumeration.
     /// </summary>
     public enum AppTheme
     {

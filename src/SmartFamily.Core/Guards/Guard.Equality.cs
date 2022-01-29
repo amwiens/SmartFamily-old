@@ -112,7 +112,7 @@ namespace SmartFamily.Core.Guards
         /// </param>
         /// <returns><paramref name="argument"/>.</returns>
         /// <exception cref="ArgumentException">
-        ///     <paramref name="argument"/> hav ethe default value of type <typeparamref name="T"/>.
+        ///     <paramref name="argument"/> has the default value of type <typeparamref name="T"/>.
         /// </exception>
         [AssertionMethod]
         [DebuggerStepThrough]

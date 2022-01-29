@@ -62,7 +62,7 @@ namespace SmartFamily.Core.Guards
             }
 
             /// <summary>
-            /// Gets the previious scope to restore when the current one is disposed.
+            /// Gets the previous scope to restore when the current one is disposed.
             /// </summary>
             public Scope? Parent { get; }
 

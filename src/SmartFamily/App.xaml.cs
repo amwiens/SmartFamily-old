@@ -203,7 +203,7 @@ namespace SmartFamily
         /// <param name="e">Event args.</param>
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            // TODO: Please log and handle the excption as appropriate to your scenario
+            // TODO: Please log and handle the exception as appropriate to your scenario
             // For more info see https://docs.microsoft.com/dotnet/api/system.windows.application.dispatcherunhandledexception?view=netcore-3.0
             Log.Error(e.Exception, e.Exception.Message);
         }

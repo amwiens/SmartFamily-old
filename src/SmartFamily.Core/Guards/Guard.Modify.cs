@@ -50,7 +50,7 @@ namespace SmartFamily.Core.Guards
         /// <summary>
         /// <para>
         ///     Returns a new argument with the same name and a value that is created using the
-        ///     specified convertion function.
+        ///     specified conversion function.
         /// </para>
         /// <para>
         ///     If the conversion function throws an exception, it will be wrapped in an <see cref="ArgumentException"/>.
@@ -94,7 +94,7 @@ namespace SmartFamily.Core.Guards
         /// <summary>
         /// Returns a new argument with the same name and a shallow clone of the original value.
         /// </summary>
-        /// <typeparam name="T">The type of the clonable argument.</typeparam>
+        /// <typeparam name="T">The type of the cloneable argument.</typeparam>
         /// <param name="argument">The cloneable argument.</param>
         /// <returns>A new <see cref="ArgumentInfo{T}"/>.</returns>
         [DebuggerStepThrough]

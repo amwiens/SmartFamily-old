@@ -65,7 +65,7 @@ namespace SmartFamily.Core.Guards
         }
 
         /// <summary>
-        /// Requires the argument to have a string value that ocnsists only of white-space characters.
+        /// Requires the argument to have a string value that consists only of white-space characters.
         /// </summary>
         /// <param name="argument">The string argument.</param>
         /// <param name="message">
@@ -481,7 +481,7 @@ namespace SmartFamily.Core.Guards
         /// <param name="value">The string to search in the beginning of the argument.</param>
         /// <param name="comparison">The rules that specify how the strings will be compared.</param>
         /// <param name="message">
-        ///     The factory to initailize the message of the exception that will be thrown if the
+        ///     The factory to initialize the message of the exception that will be thrown if the
         ///     precondition is not satisfied.
         /// </param>
         /// <returns><paramref name="argument"/>.</returns>

@@ -23,7 +23,7 @@ namespace SmartFamily.Core.Guards
         /// <param name="value">The value of the method argument.</param>
         /// <param name="name">
         ///     <para>
-        ///         The name fo the method argument. Use the <c>nameof</c> operator (<c>Nameof</c>
+        ///         The name of the method argument. Use the <c>nameof</c> operator (<c>Nameof</c>
         ///         in Visual Basic) where possible.
         ///     </para>
         ///     <para>

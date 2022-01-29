@@ -52,7 +52,7 @@ namespace SmartFamily.ViewModels
         private bool _closeEnabled;
 
         /// <summary>
-        /// Checks if the close databasse menu item is enabled.
+        /// Checks if the close database menu item is enabled.
         /// </summary>
         public bool CloseEnabled
         {

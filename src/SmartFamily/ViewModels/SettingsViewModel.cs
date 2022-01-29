@@ -17,7 +17,7 @@ namespace SmartFamily.ViewModels
     /// <summary>
     /// Settings view model.
     /// </summary>
-    // TODO: Change the URL for your privacy policy in the appsettings.json file, currrently set to https://YourPrivacyUrlGoesHere/
+    // TODO: Change the URL for your privacy policy in the appsettings.json file, currently set to https://YourPrivacyUrlGoesHere/
     public class SettingsViewModel : BindableBase, INavigationAware
     {
         private readonly AppConfig _appConfig;

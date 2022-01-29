@@ -1,7 +1,7 @@
 ﻿namespace SmartFamily.Core.Models
 {
     /// <summary>
-    /// Application config
+    /// Application configuration.
     /// </summary>
     public class AppConfig
     {

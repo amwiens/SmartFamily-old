@@ -13,7 +13,7 @@ namespace SmartFamily.Core.Guards
         /// <summary>
         /// Requires the argument to be <c>null</c>.
         /// </summary>
-        /// <typeparam name="T">The type fo the argument.</typeparam>
+        /// <typeparam name="T">The type of the argument.</typeparam>
         /// <param name="argument">The argument.</param>
         /// <param name="message">
         ///     The factory to initialize the message of the exception that will be thrown if the
@@ -156,7 +156,7 @@ namespace SmartFamily.Core.Guards
         /// <param name="argument1">The first argument.</param>
         /// <param name="argument2">The second argument.</param>
         /// <param name="message">
-        ///     The factory to initailize the message of the exception that will be thrown if the
+        ///     The factory to initialize the message of the exception that will be thrown if the
         ///     precondition is not satisfied.
         /// </param>
         /// <exception cref="ArgumentNullException">

@@ -62,7 +62,7 @@ namespace SmartFamily.Core.Guards
         /// <param name="name">The name of the property.</param>
         /// <returns>
         ///     The getter of the property with the specified name, if it can be found in
-        ///     <paramref name="type"/>; owtherwise, <c>null</c>.
+        ///     <paramref name="type"/>; otherwise, <c>null</c>.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static MethodInfo? GetPropertyGetter(this Type type, string name)

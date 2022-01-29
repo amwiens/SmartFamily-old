@@ -21,7 +21,7 @@ namespace SmartFamily.Core.Guards
         private const string HttpsUriScheme = "https"; // Uri.UriSchemeHttps
 
         /// <summary>
-        /// Requires the argument value to ben an absolute URI.
+        /// Requires the argument value to be an absolute URI.
         /// </summary>
         /// <param name="argument">The URI argument.</param>
         /// <param name="message">

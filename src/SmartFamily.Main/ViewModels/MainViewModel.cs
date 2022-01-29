@@ -97,7 +97,7 @@ namespace SmartFamily.Main.ViewModels
         /// </summary>
         /// <param name="regionManager">Region manager.</param>
         /// <param name="applicationSettingsService">Application settings service.</param>
-        /// <param name="dialogService">Dialg service.</param>
+        /// <param name="dialogService">Dialog service.</param>
         public MainViewModel(IRegionManager regionManager,
             IApplicationSettingsService applicationSettingsService,
             IDialogService dialogService,

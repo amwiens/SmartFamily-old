@@ -21,7 +21,7 @@ namespace SmartFamily.Services
         /// <inheritdoc/>
         public Version GetVersion()
         {
-            // Set the app verion in SmartFamily > Properties > Package => PackageVersion
+            // Set the app version in SmartFamily > Properties > Package => PackageVersion
             string assemblyLocation = Assembly.GetExecutingAssembly().Location;
             var version = FileVersionInfo.GetVersionInfo(assemblyLocation).FileVersion;
             return new Version(version);

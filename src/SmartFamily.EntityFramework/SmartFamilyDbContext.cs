@@ -14,7 +14,7 @@ namespace SmartFamily.EntityFramework
         /// <summary>
         /// Creates the database context
         /// </summary>
-        /// <param name="dbPath">Path to the databse.</param>
+        /// <param name="dbPath">Path to the database.</param>
         /// <returns>Database context.</returns>
         public static SmartFamilyDbContext Create(string dbPath)
         {
