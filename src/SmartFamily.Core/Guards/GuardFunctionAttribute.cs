@@ -6,7 +6,7 @@ namespace SmartFamily.Core.Guards
     /// Marks a target as a function of <see cref="Guard"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-    internal sealed class GuardFunctionAttribute : Attribute
+    public sealed class GuardFunctionAttribute : Attribute
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GuardFunctionAttribute"/> class.
@@ -18,7 +18,7 @@ namespace SmartFamily.Core.Guards
         /// <exception cref="ArgumentException">
         ///     <paramref name="group"/> consist only of white-space characters,
         ///     <paramref name="shortcut"/> does not start with "g", <paramref name="shortcut"/>
-        ///     does starts with "gx" or <paramref name="shortcut"/> is shorter than two characters
+        ///     does starts with "gx" or <paramref name="shortcut"/> is shorter than two characters.
         /// </exception>
         public GuardFunctionAttribute(string group, string? shortcut = null, int order = 0)
         {

@@ -5,7 +5,7 @@
     /// </summary>
     /// <remarks>Methods with this attribute are ignored by annotation tests.</remarks>
     [AttributeUsage(AttributeTargets.Method)]
-    internal sealed class NonGuardAttribute : Attribute
+    public sealed class NonGuardAttribute : Attribute
     {
     }
 }

@@ -50,7 +50,7 @@ namespace SmartFamily.Core.Guards
         /// </summary>
         /// <param name="argument">The argument.</param>
         /// <param name="message">
-        ///     the factory to initialize the message of the exception that will be thrown if the
+        ///     The factory to initialize the message of the exception that will be thrown if the
         ///     precondition is not satisfied.
         /// </param>
         /// <returns><paramref name="argument"/>.</returns>
@@ -289,7 +289,7 @@ namespace SmartFamily.Core.Guards
         ///     The factory to initialize the message of the exception that will be thrown if the
         ///     precondition is not satisfied.
         /// </param>
-        /// <returns><paramref name="message"/>.</returns>
+        /// <returns><paramref name="argument"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">
         ///     <paramref name="argument"/> value is either <see cref="float.PositiveInfinity"/> or
         ///     <see cref="float.NegativeInfinity"/>, and the argument is not modified since it is initialized.

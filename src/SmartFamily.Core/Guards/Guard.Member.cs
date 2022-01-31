@@ -18,7 +18,7 @@ namespace SmartFamily.Core.Guards
         /// <typeparam name="T">The type of the argument.</typeparam>
         /// <typeparam name="TMember">The type of the argument member to validate.</typeparam>
         /// <param name="argument">The argument.</param>
-        /// <param name="member">An expression that specifies the argument member against.</param>
+        /// <param name="member">An expression that specifies the argument member to validate.</param>
         /// <param name="validation">The function to test the argument member against.</param>
         /// <param name="message">
         ///     The factory to initialize the message of the exception that will be thrown if the
@@ -34,7 +34,7 @@ namespace SmartFamily.Core.Guards
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerStepThrough]
         [GuardFunction("Member", "gmem")]
-        public static ref readonly ArgumentInfo<T> member<T, TMember>(
+        public static ref readonly ArgumentInfo<T> Member<T, TMember>(
             in this ArgumentInfo<T> argument,
             Expression<Func<T, TMember>> member,
             Action<ArgumentInfo<TMember>> validation,
@@ -191,7 +191,7 @@ namespace SmartFamily.Core.Guards
         {
             if (argument.HasValue() && member != null && validation != null)
             {
-                // Get member info
+                // Get member info.
                 ArgumentMemberInfo<T, TMember> info;
                 try
                 {
@@ -252,7 +252,7 @@ namespace SmartFamily.Core.Guards
             /// <summary>
             /// Returns the cached argument member for the specified lambda expression.
             /// </summary>
-            /// <typeparam name="T">the type of the argument.</typeparam>
+            /// <typeparam name="T">The type of the argument.</typeparam>
             /// <typeparam name="TMember">The type of the argument member.</typeparam>
             /// <param name="lexp">
             ///     The lambda expression that specifies the argument member to get.
@@ -357,7 +357,7 @@ namespace SmartFamily.Core.Guards
                 public IDictionary<MemberInfo, Node> Owners { get; }
 
                 /// <summary>
-                /// the lock that synchronizes access to the node.
+                /// The lock that synchronizes access to the node.
                 /// </summary>
                 public ReaderWriterLockSlim Lock { get; }
 
@@ -372,13 +372,13 @@ namespace SmartFamily.Core.Guards
         /// Represents a generic argument member.
         /// </summary>
         /// <typeparam name="T">The type of the argument.</typeparam>
-        /// <typeparam name="TMember">the type of the argument member.</typeparam>
+        /// <typeparam name="TMember">The type of the argument member.</typeparam>
         private sealed class ArgumentMemberInfo<T, TMember> : ArgumentMemberInfo
         {
             /// <summary>
             /// Initializes a new instance of the <see cref="ArgumentMemberInfo{T, TMember}"/> class.
             /// </summary>
-            /// <param name="mexp">the member expression.</param>
+            /// <param name="mexp">The member expression.</param>
             /// <param name="getValue">
             ///     A function that returns the member value from the argument it belongs to.
             /// </param>

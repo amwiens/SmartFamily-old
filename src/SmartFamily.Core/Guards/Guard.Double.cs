@@ -151,7 +151,7 @@ namespace SmartFamily.Core.Guards
                 var value = argument.GetValueOrDefault();
                 if (double.IsNaN(value))
                 {
-                    var m = message ?? Messages.NaN(argument);
+                    var m = message ?? Messages.NotNaN(argument);
                     throw Fail(!argument.Modified
                         ? new ArgumentOutOfRangeException(argument.Name, argument.Secure ? null : value as object, m)
                         : new ArgumentException(m, argument.Name));

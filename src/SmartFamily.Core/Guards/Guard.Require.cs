@@ -34,7 +34,7 @@ namespace SmartFamily.Core.Guards
                 => this.Require<ArgumentException>(condition, message);
 
             /// <summary>
-            /// Requires the argument to satisfy a condition and throw the specified type of
+            /// Requires the argument to satisfy a condition and throws the specified type of
             /// exception if the condition is not met.
             /// </summary>
             /// <typeparam name="TException">
@@ -86,7 +86,7 @@ namespace SmartFamily.Core.Guards
                 => this.Require<ArgumentException>(predicate, message);
 
             /// <summary>
-            /// Requires the argument to satisfy a condition and throw the specified type of
+            /// Requires the argument to satisfy a condition and throws the specified type of
             /// exception if the condition is not met.
             /// </summary>
             /// <typeparam name="TException">
@@ -141,7 +141,7 @@ namespace SmartFamily.Core.Guards
                 var type = typeof(T);
                 if (type == typeof(ArgumentException))
                     return (paramName, message) =>
-                    (new ArgumentException(message, paramName) as T)!;
+                        (new ArgumentException(message, paramName) as T)!;
 
                 if (type.IsSubclassOf(typeof(ArgumentException)))
                 {

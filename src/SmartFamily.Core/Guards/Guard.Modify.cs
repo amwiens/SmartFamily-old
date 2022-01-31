@@ -60,7 +60,7 @@ namespace SmartFamily.Core.Guards
         /// <typeparam name="TTarget">The type of the new argument.</typeparam>
         /// <param name="argument">The existing argument.</param>
         /// <param name="convert">
-        ///     A function that accepts the existing argument's value and returns a new object ot be
+        ///     A function that accepts the existing argument's value and returns a new object to be
         ///     used as the new argument's value.
         /// </param>
         /// <param name="message">
@@ -72,7 +72,7 @@ namespace SmartFamily.Core.Guards
         /// <exception cref="ArgumentException"><paramref name="convert"/> threw an exception.</exception>
         [ContractAnnotation("convert:null => halt")]
         [DebuggerStepThrough]
-        [GuardFunction("normalization", "gwrap")]
+        [GuardFunction("Normalization", "gwrap")]
         public static ArgumentInfo<TTarget> Wrap<TSource, TTarget>(
             in this ArgumentInfo<TSource> argument,
             Func<TSource, TTarget> convert,

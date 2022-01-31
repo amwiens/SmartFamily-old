@@ -12,8 +12,8 @@ namespace SmartFamily.Core.Guards
         {
             public static string State(string? caller)
                 => caller != null
-                ? $"{caller} call is not valid due to the current state of the object."
-                : "Operation is not valid due to the current state of the object.";
+                    ? $"{caller} call is not valid due to the current state of the object."
+                    : "Operation is not valid due to the current state of the object.";
 
             public static string Support(string? caller)
                 => caller != null ? $"{caller} is not supported" : "Specified method is not supported.";
@@ -121,7 +121,7 @@ namespace SmartFamily.Core.Guards
                 => $"{argument.Name} must be positive infinity (∞).";
 
             public static string NotPositiveInfinity<T>(in ArgumentInfo<T> argument)
-                => $"{argument.Name} cannot be positive infinity(∞).";
+                => $"{argument.Name} cannot be positive infinity (∞).";
 
             public static string NegativeInfinity<T>(in ArgumentInfo<T> argument)
                 => $"{argument.Name} must be negative infinity (-∞).";

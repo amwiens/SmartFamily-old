@@ -74,6 +74,20 @@ namespace SmartFamily.Core.Guards
             return ref argument;
         }
 
+        /// <summary>
+        /// Requires the argument value to be an absolute URI with the specified scheme.
+        /// </summary>
+        /// <param name="argument">The URI argument.</param>
+        /// <param name="scheme">The URI scheme to compare.</param>
+        /// <param name="message">
+        ///     The factory to initialize the message of the exception that will be thrown if the
+        ///     precondition is not satisfied.
+        /// </param>
+        /// <returns><paramref name="argument"/>.</returns>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="argument"/> value is neither <c>null</c> nor an absolute URI with
+        ///     the scheme specified by <paramref name="scheme"/>.
+        /// </exception>
         [AssertionMethod]
         [DebuggerStepThrough]
         [GuardFunction("Uri", "gsch")]

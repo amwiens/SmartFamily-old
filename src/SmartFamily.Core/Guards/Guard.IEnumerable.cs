@@ -994,7 +994,7 @@ namespace SmartFamily.Core.Guards
             /// </summary>
             /// <returns>
             ///     A function that returns a value that indicates whether the specified collection
-            ///     contains duplicate elements
+            ///     contains duplicate elements.
             /// </returns>
             private static Func<TCollection, object?, (bool, object)> InitContainsDuplicate()
             {

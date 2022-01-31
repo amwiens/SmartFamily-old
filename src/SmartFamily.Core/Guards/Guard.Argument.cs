@@ -35,7 +35,7 @@ namespace SmartFamily.Core.Guards
         ///     Pass <c>true</c> for the validation parameters to be excluded from the exception
         ///     messages of failed validations.
         /// </param>
-        /// <returns></returns>
+        /// <returns>An object used for asserting preconditions.</returns>
         [DebuggerStepThrough]
         [GuardFunction("Initialization", "ga", order: 1)]
         public static ArgumentInfo<T> Argument<T>(
@@ -160,7 +160,7 @@ namespace SmartFamily.Core.Guards
             /// Gets how the layout is displayed in the debugger variable windows.
             /// </summary>
             [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-            internal string DebuggerDisplay
+            public string DebuggerDisplay
             {
                 get
                 {
@@ -194,7 +194,7 @@ namespace SmartFamily.Core.Guards
             /// </summary>
             /// <returns>String representation of the argument value.</returns>
             public override string ToString() =>
-                Value?.ToString() ?? String.Empty;
+                Value?.ToString() ?? string.Empty;
         }
     }
 }

@@ -310,7 +310,6 @@ namespace SmartFamily.Core.Guards
             Func<string, int, int, string> message = null)
         {
             if (argument.HasValue())
-            {
                 if (argument.Value.Length < minLength || argument.Value.Length > maxLength)
                 {
                     var m = message?.Invoke(argument.Value, minLength, maxLength)
@@ -318,7 +317,6 @@ namespace SmartFamily.Core.Guards
 
                     throw Fail(new ArgumentException(m, argument.Name));
                 }
-            }
 
             return ref argument;
         }
@@ -607,7 +605,7 @@ namespace SmartFamily.Core.Guards
         /// </exception>
         [AssertionMethod]
         [DebuggerStepThrough]
-        [GuardFunction("String", "gends")]
+        [GuardFunction("String", "gnends")]
         public static ref readonly ArgumentInfo<string> DoesNotEndWith(
             in this ArgumentInfo<string> argument,
             string value,
@@ -630,7 +628,7 @@ namespace SmartFamily.Core.Guards
         /// <param name="pattern">The regular expression pattern to use.</param>
         /// <param name="message">
         ///     The factory to initialize the message of the exception that will be thrown if the
-        ///     precondition is not satisfied. The bool argument indicates whether the exception
+        ///     precondition is not satisfied. The boolean argument indicates whether the exception
         ///     is caused because of a time-out.
         /// </param>
         /// <returns><paramref name="argument"/>.</returns>

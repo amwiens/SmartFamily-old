@@ -30,10 +30,10 @@ namespace SmartFamily.Core.Guards
         /// </exception>
         [AssertionMethod]
         [DebuggerStepThrough]
-        [GuardFunction("comparison", "gmin")]
+        [GuardFunction("Comparison", "gmin")]
         public static ref readonly ArgumentInfo<T> Min<T>(
             in this ArgumentInfo<T> argument, in T minValue, Func<T, T, string>? message = null)
-            where T : IComparable<T>
+            where T : IComparable<T>?
         {
             if (argument.HasValue() && Comparer<T>.Default.Compare(argument.Value, minValue) < 0)
             {
