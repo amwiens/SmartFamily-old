@@ -1,6 +1,5 @@
 ﻿using JetBrains.Annotations;
 
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Mail;
 

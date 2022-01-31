@@ -9,13 +9,10 @@ using Prism.Services.Dialogs;
 using SmartFamily.Core;
 using SmartFamily.Core.Constants;
 using SmartFamily.Core.Contracts.Services;
-using SmartFamily.Core.Exceptions;
 using SmartFamily.Core.Models;
 using SmartFamily.Core.WPF.Contracts.Services;
-using SmartFamily.Core.WPF.Dialogs;
 using SmartFamily.Core.WPF.Events;
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
