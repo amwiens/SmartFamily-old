@@ -1,10 +1,6 @@
 ﻿using SmartFamily.Core.Guards;
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xunit;
 
@@ -57,6 +53,139 @@ namespace SmartFamily.Core.Tests.Guards
                 (arg, message) => arg.NotDefault(message));
         }
 
+        [Theory(DisplayName = "Equality: Equal/NotEqual w/o comparer")]
+        [InlineData(null, null, null, false)]
+        [InlineData("AB", "AB", "BC", false)]
+        [InlineData("AB", "AB", "BC", true)]
+        public void EqualWithoutComparer(string value, string equal, string unequal, bool secure)
+        {
+            var valueArg = Guard.Argument(() => value, secure).Equal(equal).NotEqual(unequal);
+            if (value == null)
+            {
+                valueArg.Equal(unequal);
+                return;
+            }
 
+            ThrowsArgumentException(
+                valueArg,
+                arg => arg.Equal(unequal),
+                m => secure != m.Contains(unequal),
+                (arg, message) => arg.Equal(unequal, (v, other) =>
+                {
+                    Assert.Same(value, v);
+                    Assert.Same(unequal, other);
+                    return message;
+                }));
+
+            ThrowsArgumentException(
+                valueArg,
+                arg => arg.NotEqual(equal),
+                m => secure != m.Contains(equal),
+                (arg, message) => arg.NotEqual(equal, v =>
+                {
+                    Assert.Same(value, v);
+                    return message;
+                }));
+        }
+
+        [Theory(DisplayName = "Equality: Equal/NotEqual w/ comparer")]
+        [InlineData(null, null, null, StringComparison.Ordinal, false)]
+        [InlineData("AB", "AB", "ab", StringComparison.Ordinal, false)]
+        [InlineData("AB", "AB", "ab", StringComparison.Ordinal, true)]
+        [InlineData("AB", "ab", "BC", StringComparison.OrdinalIgnoreCase, false)]
+        [InlineData("AB", "ab", "BC", StringComparison.OrdinalIgnoreCase, true)]
+        public void EqualWithComparer(
+            string value, string equal, string unequal, StringComparison comparison, bool secure)
+        {
+            var valueArg = Guard.Argument(() => value, secure);
+            var comparer = comparison == StringComparison.Ordinal
+                ? StringComparer.Ordinal
+                : StringComparer.OrdinalIgnoreCase;
+
+            valueArg.Equal(equal, comparer).NotEqual(unequal, comparer);
+
+            if (value == null)
+            {
+                valueArg.Equal(unequal, comparer);
+                valueArg.NotEqual(equal, comparer);
+                return;
+            }
+
+            ThrowsArgumentException(
+                valueArg,
+                arg => arg.Equal(unequal, comparer),
+                m => secure != m.Contains(unequal),
+                (arg, message) => arg.Equal(unequal, comparer, (v, other) =>
+                {
+                    Assert.Same(value, v);
+                    Assert.Same(unequal, other);
+                    return message;
+                }));
+
+            ThrowsArgumentException(
+                valueArg,
+                arg => arg.NotEqual(equal, comparer),
+                m => secure != m.Contains(equal),
+                (arg, message) => arg.NotEqual(equal, comparer, v =>
+                {
+                    Assert.Same(value, v);
+                    return message;
+                }));
+        }
+
+        [Fact(DisplayName = "Equality: Same/NotSame")]
+        public void Same()
+        {
+            var one1 = "1";
+            var one2 = ((char)('0' + 1)).ToString();
+
+            Test(null, null, null, false);
+            Test(one1, one1, one2, false);
+            Test(one1, one1, one2, true);
+
+            void Test(string value, string same, string nonSame, bool secure)
+            {
+                same = same?.ToString();
+                nonSame = nonSame?.ToString();
+
+                var valueArg = Guard.Argument(() => value, secure);
+                valueArg
+                    .Equal(same)
+                    .Equal(nonSame)
+                    .Same(same)
+                    .NotSame(nonSame);
+
+                if (value is null)
+                {
+                    valueArg
+                        .Same(nonSame)
+                        .NotSame(same);
+
+                    return;
+                }
+
+                ThrowsArgumentException(
+                    valueArg,
+                    arg => arg.Same(nonSame),
+                    m => secure != m.Contains(nonSame),
+                    (arg, message) => arg.Same(nonSame, (v, other) =>
+                    {
+                        Assert.Same(value, v);
+                        Assert.Same(nonSame, other);
+                        return message;
+                    }));
+
+                ThrowsArgumentException(
+                    valueArg,
+                    arg => arg.NotSame(same),
+                    m => secure != m.Contains(same),
+                    (arg, message) => arg.NotSame(same, (v, other) =>
+                    {
+                        Assert.Same(value, v);
+                        Assert.Same(same, other);
+                        return message;
+                    }));
+            }
+        }
     }
 }
