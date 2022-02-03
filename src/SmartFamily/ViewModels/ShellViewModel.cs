@@ -11,6 +11,8 @@ using SmartFamily.Core;
 using SmartFamily.Core.Constants;
 using SmartFamily.Core.Contracts.Services;
 using SmartFamily.Core.Exceptions;
+using SmartFamily.Core.Extensions;
+using SmartFamily.Core.Guards;
 using SmartFamily.Core.Models;
 using SmartFamily.Core.WPF.Contracts.Services;
 using SmartFamily.Core.WPF.Dialogs;
@@ -243,8 +245,8 @@ namespace SmartFamily.ViewModels
             {
                 if (r.Result == ButtonResult.OK)
                 {
-                    var fileName = r.Parameters.GetValue<string>("FileName");
-                    var fileLocation = r.Parameters.GetValue<string>("FileLocation");
+                    var fileName = Guard.Argument(r.Parameters.GetValue<string>("FileName")).IsAValidString();
+                    var fileLocation = Guard.Argument(r.Parameters.GetValue<string>("FileLocation")).IsAValidString();
                     var dbPath = Path.Combine(fileLocation, $"{fileName}.sfdb");
                     if (File.Exists(dbPath))
                     {
