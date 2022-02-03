@@ -300,8 +300,8 @@ namespace SmartFamily.Core.Tests.Guards
         [InlineData(null, null, null, StringComparison.Ordinal, false)]
         [InlineData("ABC", "AB", "ab", StringComparison.Ordinal, false)]
         [InlineData("ABC", "AB", "ab", StringComparison.Ordinal, true)]
-        [InlineData("ABC", "ab", "b", StringComparison.Ordinal, false)]
-        [InlineData("ABC", "ab", "b", StringComparison.Ordinal, true)]
+        [InlineData("ABC", "ab", "b", StringComparison.OrdinalIgnoreCase, false)]
+        [InlineData("ABC", "ab", "b", StringComparison.OrdinalIgnoreCase, true)]
         public void StartsWithWithComparison(
             string value, string head, string nonHead, StringComparison comparison, bool secure)
         {
@@ -634,7 +634,80 @@ namespace SmartFamily.Core.Tests.Guards
                 }));
 
             // Does not match - invalid pattern w/o timeout
+            ThrowsArgumentException(
+                Guard.Argument(withoutMatch, "pattern", secure),
+                arg => arg.DoesNotMatch(invalidPattern),
+                (arg, message) => arg.DoesNotMatch(invalidPattern, (s, t) =>
+                {
+                    Assert.Same(withoutMatch, s);
+                    Assert.False(t);
+                    return message;
+                }),
+                true,
+                true);
 
+            // Does not match - invalid pattern w/ timeout
+            ThrowsArgumentException(
+                Guard.Argument(withoutMatch, "pattern", secure),
+                arg => arg.DoesNotMatch(invalidPattern),
+                (arg, message) => arg.DoesNotMatch(invalidPattern, MatchTimeout, (s, t) =>
+                {
+                    Assert.Same(withoutMatch, s);
+                    Assert.False(t);
+                    return message;
+                }),
+                true,
+                true);
+
+            // Does not match - valid pattern w/o timeout
+            ThrowsArgumentException(
+                withMatchArg,
+                arg => arg.DoesNotMatch(validPattern),
+                m => secure != m.Contains(validPattern),
+                (arg, message) => arg.DoesNotMatch(validPattern, (s, t) =>
+                {
+                    Assert.Same(withMatch, s);
+                    Assert.False(t);
+                    return message;
+                }));
+
+            // Does not match - valid pattern w/ timeout
+            ThrowsArgumentException(
+                withMatchArg,
+                arg => arg.DoesNotMatch(validPattern, MatchTimeout),
+                m => secure != m.Contains(validPattern),
+                (arg, message) => arg.DoesNotMatch(validPattern, MatchTimeout, (s, t) =>
+                {
+                    Assert.Same(withMatch, s);
+                    Assert.False(t);
+                    return message;
+                }));
+
+            // Does not match - valid expression w/o timeout
+            ThrowsArgumentException(
+                withMatchArg,
+                arg => arg.DoesNotMatch(validRegexWithoutTimeout),
+                m => secure != m.Contains(validPattern),
+                (arg, message) => arg.DoesNotMatch(validRegexWithoutTimeout, (s, t) =>
+                {
+                    Assert.Same(withMatch, s);
+                    Assert.False(t);
+                    return message;
+                }));
+
+            // Does not match - valid expression w/ timeout
+            ThrowsArgumentException(
+                withMatchArg,
+                arg => arg.DoesNotMatch(validRegexWithTimeout),
+                m => secure != m.Contains(validPattern),
+                (arg, message) => arg.DoesNotMatch(validRegexWithTimeout, (s, t) =>
+                {
+                    Assert.Same(withMatch, s);
+                    Assert.False(t);
+                    return message;
+                }));
+
+            Task.WaitAll(timeoutTasks);
         }
     }
 }
