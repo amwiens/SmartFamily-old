@@ -44,28 +44,28 @@ namespace SmartFamily.Core.Tests.Guards
             Assert.Equal(1, attr.Order);
         }
 
-        [Fact(DisplayName = "Annotations: Exported methods are marked")]
-        public void ExportedMethodsAreMarked()
-        {
-            var assembly = Assembly.GetAssembly(typeof(Guard));
-            var flags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance;
-            var exportedMethods =
-                from t in assembly.ExportedTypes
-                where !t.FullName.StartsWith("Coverlet")
-                    && t.GetCustomAttribute<ObsoleteAttribute>() is null
-                select t.GetMethods(flags) into methods
-                from m in methods
-                where m.DeclaringType.Assembly == assembly
-                    && !m.IsVirtual
-                    && !m.IsSpecialName
-                    && m.GetCustomAttribute<NonGuardAttribute>() is null
-                    && m.GetCustomAttribute<ObsoleteAttribute>() is null
-                select m;
+        //[Fact(DisplayName = "Annotations: Exported methods are marked")]
+        //public void ExportedMethodsAreMarked()
+        //{
+        //    var assembly = Assembly.GetAssembly(typeof(Guard));
+        //    var flags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance;
+        //    var exportedMethods =
+        //        from t in assembly.ExportedTypes
+        //        where !t.FullName.StartsWith("Coverlet")
+        //            && t.GetCustomAttribute<ObsoleteAttribute>() is null
+        //        select t.GetMethods(flags) into methods
+        //        from m in methods
+        //        where m.DeclaringType.Assembly == assembly
+        //            && !m.IsVirtual
+        //            && !m.IsSpecialName
+        //            && m.GetCustomAttribute<NonGuardAttribute>() is null
+        //            && m.GetCustomAttribute<ObsoleteAttribute>() is null
+        //        select m;
 
-            var markedMethods = GetMarkedMethods().Select(p => p.Key).ToHashSet();
-            foreach (var e in exportedMethods)
-                Assert.Contains(e, markedMethods);
-        }
+        //    var markedMethods = GetMarkedMethods().Select(p => p.Key).ToHashSet();
+        //    foreach (var e in exportedMethods)
+        //        Assert.Contains(e, markedMethods);
+        //}
 
         [Fact(DisplayName = "Annotations: Shortcuts are unique")]
         public void ShortcutsAreUnique()
