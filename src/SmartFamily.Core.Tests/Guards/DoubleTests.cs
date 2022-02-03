@@ -4,16 +4,16 @@ using Xunit;
 
 namespace SmartFamily.Core.Tests.Guards
 {
-    public sealed class SingleTests : BaseTests
+    public sealed class DoubleTests : BaseTests
     {
-        [Theory(DisplayName = "Single: NaN/NotNaN")]
+        [Theory(DisplayName = "Double: NaN/NotNaN")]
         [InlineData(null, null)]
-        [InlineData(float.NaN, float.NegativeInfinity)]
-        [InlineData(float.NaN, -1.0f)]
-        [InlineData(float.NaN, 0.0f)]
-        [InlineData(float.NaN, 1.0f)]
-        [InlineData(float.NaN, float.PositiveInfinity)]
-        public void NaN(float? nan, float? nonNaN)
+        [InlineData(double.NaN, double.NegativeInfinity)]
+        [InlineData(double.NaN, -1.0)]
+        [InlineData(double.NaN, 0.0)]
+        [InlineData(double.NaN, 1.0)]
+        [InlineData(double.NaN, double.PositiveInfinity)]
+        public void NaN(double? nan, double? nonNaN)
         {
             var nullableNaNArg = Guard.Argument(() => nan).NaN();
             var nullableNonNaNArg = Guard.Argument(() => nonNaN).NotNaN();
@@ -27,9 +27,9 @@ namespace SmartFamily.Core.Tests.Guards
             ThrowsArgumentOutOfRangeException(
                 nullableNonNaNArg,
                 arg => arg.NaN(),
-                (arg, message) => arg.NaN(f =>
+                (arg, message) => arg.NaN(d =>
                 {
-                    Assert.Equal(nonNaN, f);
+                    Assert.Equal(nonNaN, d);
                     return message;
                 }));
 
@@ -43,9 +43,9 @@ namespace SmartFamily.Core.Tests.Guards
             ThrowsArgumentOutOfRangeException(
                 nonNaNArg,
                 arg => arg.NaN(),
-                (arg, message) => arg.NaN(f =>
+                (arg, message) => arg.NaN(d =>
                 {
-                    Assert.Equal(nonNaN, f);
+                    Assert.Equal(nonNaN, d);
                     return message;
                 }));
 
@@ -55,17 +55,17 @@ namespace SmartFamily.Core.Tests.Guards
                 (arg, message) => arg.NotNaN(message));
         }
 
-        [Theory(DisplayName = "Single: Infinity/NotInfinity")]
+        [Theory(DisplayName = "Double: Infinity/NotInfinity")]
         [InlineData(null, null)]
-        [InlineData(float.NegativeInfinity, float.NaN)]
-        [InlineData(float.NegativeInfinity, -1.0f)]
-        [InlineData(float.NegativeInfinity, 0.0f)]
-        [InlineData(float.NegativeInfinity, 1.0f)]
-        [InlineData(float.PositiveInfinity, float.NaN)]
-        [InlineData(float.PositiveInfinity, -1.0f)]
-        [InlineData(float.PositiveInfinity, 0.0f)]
-        [InlineData(float.PositiveInfinity, 1.0f)]
-        public void Infinity(float? infinity, float? nonInfinity)
+        [InlineData(double.NegativeInfinity, double.NaN)]
+        [InlineData(double.NegativeInfinity, -1.0)]
+        [InlineData(double.NegativeInfinity, 0.0)]
+        [InlineData(double.NegativeInfinity, 1.0)]
+        [InlineData(double.PositiveInfinity, double.NaN)]
+        [InlineData(double.PositiveInfinity, -1.0)]
+        [InlineData(double.PositiveInfinity, 0.0)]
+        [InlineData(double.PositiveInfinity, 1.0)]
+        public void Infinity(double? infinity, double? nonInfinity)
         {
             var nullableInfinityArg = Guard.Argument(() => infinity).Infinity();
             var nullableNonInfinityArg = Guard.Argument(() => nonInfinity).NotInfinity();
@@ -79,18 +79,18 @@ namespace SmartFamily.Core.Tests.Guards
             ThrowsArgumentOutOfRangeException(
                 nullableNonInfinityArg,
                 arg => arg.Infinity(),
-                (arg, message) => arg.Infinity(f =>
+                (arg, message) => arg.Infinity(d =>
                 {
-                    Assert.Equal(nonInfinity, f);
+                    Assert.Equal(nonInfinity, d);
                     return message;
                 }));
 
             ThrowsArgumentOutOfRangeException(
                 nullableInfinityArg,
                 arg => arg.NotInfinity(),
-                (arg, message) => arg.NotInfinity(f =>
+                (arg, message) => arg.NotInfinity(d =>
                 {
-                    Assert.Equal(infinity, f);
+                    Assert.Equal(infinity, d);
                     return message;
                 }));
 
@@ -99,30 +99,30 @@ namespace SmartFamily.Core.Tests.Guards
             ThrowsArgumentOutOfRangeException(
                 nonInfinityArg,
                 arg => arg.Infinity(),
-                (arg, message) => arg.Infinity(f =>
+                (arg, message) => arg.Infinity(d =>
                 {
-                    Assert.Equal(nonInfinity, f);
+                    Assert.Equal(nonInfinity, d);
                     return message;
                 }));
 
             ThrowsArgumentOutOfRangeException(
                 infinityArg,
                 arg => arg.NotInfinity(),
-                (arg, message) => arg.NotInfinity(f =>
+                (arg, message) => arg.NotInfinity(d =>
                 {
-                    Assert.Equal(infinity, f);
+                    Assert.Equal(infinity, d);
                     return message;
                 }));
         }
 
-        [Theory(DisplayName = "Single: PositiveInfinity/NotPositiveInfinity")]
+        [Theory(DisplayName = "Double: PositiveInfinity/NotPositiveInfinity")]
         [InlineData(null, null)]
-        [InlineData(float.PositiveInfinity, float.NaN)]
-        [InlineData(float.PositiveInfinity, float.NegativeInfinity)]
-        [InlineData(float.PositiveInfinity, -1.0f)]
-        [InlineData(float.PositiveInfinity, 0.0f)]
-        [InlineData(float.PositiveInfinity, 1.0f)]
-        public void PositiveInfinity(float? infinity, float? nonInfinity)
+        [InlineData(double.PositiveInfinity, double.NaN)]
+        [InlineData(double.PositiveInfinity, double.NegativeInfinity)]
+        [InlineData(double.PositiveInfinity, -1.0)]
+        [InlineData(double.PositiveInfinity, 0.0)]
+        [InlineData(double.PositiveInfinity, 1.0)]
+        public void PositiveInfinity(double? infinity, double? nonInfinity)
         {
             var nullableInfinityArg = Guard.Argument(() => infinity).PositiveInfinity();
             var nullableNonInfinityArg = Guard.Argument(() => nonInfinity).NotPositiveInfinity();
@@ -136,9 +136,9 @@ namespace SmartFamily.Core.Tests.Guards
             ThrowsArgumentOutOfRangeException(
                 nullableNonInfinityArg,
                 arg => arg.PositiveInfinity(),
-                (arg, message) => arg.PositiveInfinity(f =>
+                (arg, message) => arg.PositiveInfinity(d =>
                 {
-                    Assert.Equal(nonInfinity, f);
+                    Assert.Equal(nonInfinity, d);
                     return message;
                 }));
 
@@ -152,9 +152,9 @@ namespace SmartFamily.Core.Tests.Guards
             ThrowsArgumentOutOfRangeException(
                 nonInfinityArg,
                 arg => arg.PositiveInfinity(),
-                (arg, message) => arg.PositiveInfinity(f =>
+                (arg, message) => arg.PositiveInfinity(d =>
                 {
-                    Assert.Equal(nonInfinity, f);
+                    Assert.Equal(nonInfinity, d);
                     return message;
                 }));
 
@@ -164,14 +164,14 @@ namespace SmartFamily.Core.Tests.Guards
                 (arg, message) => arg.NotPositiveInfinity(message));
         }
 
-        [Theory(DisplayName = "Single:NegativeInfinity/NotNegativeInfinity")]
+        [Theory(DisplayName = "Double: NegativeInfinity/NotNegativeInfinity")]
         [InlineData(null, null)]
-        [InlineData(float.NegativeInfinity, float.NaN)]
-        [InlineData(float.NegativeInfinity, -1.0f)]
-        [InlineData(float.NegativeInfinity, 0.0f)]
-        [InlineData(float.NegativeInfinity, 1.0f)]
-        [InlineData(float.NegativeInfinity, float.PositiveInfinity)]
-        public void NegativeInfinity(float? infinity, float? nonInfinity)
+        [InlineData(double.NegativeInfinity, double.NaN)]
+        [InlineData(double.NegativeInfinity, -1.0)]
+        [InlineData(double.NegativeInfinity, 0.0)]
+        [InlineData(double.NegativeInfinity, 1.0)]
+        [InlineData(double.NegativeInfinity, double.PositiveInfinity)]
+        public void NegativeInfinity(double? infinity, double? nonInfinity)
         {
             var nullableInfinityArg = Guard.Argument(() => infinity).NegativeInfinity();
             var nullableNonInfinityArg = Guard.Argument(() => nonInfinity).NotNegativeInfinity();
@@ -185,9 +185,9 @@ namespace SmartFamily.Core.Tests.Guards
             ThrowsArgumentOutOfRangeException(
                 nullableNonInfinityArg,
                 arg => arg.NegativeInfinity(),
-                (arg, message) => arg.NegativeInfinity(f =>
+                (arg, message) => arg.NegativeInfinity(d =>
                 {
-                    Assert.Equal(nonInfinity, f);
+                    Assert.Equal(nonInfinity, d);
                     return message;
                 }));
 
@@ -201,9 +201,9 @@ namespace SmartFamily.Core.Tests.Guards
             ThrowsArgumentOutOfRangeException(
                 nonInfinityArg,
                 arg => arg.NegativeInfinity(),
-                (arg, message) => arg.NegativeInfinity(f =>
+                (arg, message) => arg.NegativeInfinity(d =>
                 {
-                    Assert.Equal(nonInfinity, f);
+                    Assert.Equal(nonInfinity, d);
                     return message;
                 }));
 
@@ -213,15 +213,15 @@ namespace SmartFamily.Core.Tests.Guards
                 (arg, message) => arg.NotNegativeInfinity(message));
         }
 
-        [Theory(DisplayName = "Single: Equal/NotEqual w/ delta")]
+        [Theory(DisplayName = "Double: Equal/NotEqual w/ delta")]
         [InlineData(null, .0, .0, .0)]
-        [InlineData(.3305F, .33F, .3F, .01F)]
-        [InlineData(.331F, .332F, .3F, .01F)]
-        public void Equal(float? value, float equal, float nonEqual, float delta)
+        [InlineData(.3305, .33, .3, .01)]
+        [InlineData(.331, .332, .3, .01)]
+        public void Equal(double? value, double equal, double nonEqual, double delta)
         {
             Test(value, nameof(value), NullableTest, NonNullableTest);
 
-            void NullableTest(Guard.ArgumentInfo<float?> nullableValueArg)
+            void NullableTest(Guard.ArgumentInfo<double?> nullableValueArg)
             {
                 nullableValueArg.Equal(equal, delta).NotEqual(nonEqual, delta);
                 if (!nullableValueArg.HasValue())
@@ -253,7 +253,7 @@ namespace SmartFamily.Core.Tests.Guards
                     }));
             }
 
-            void NonNullableTest(Guard.ArgumentInfo<float> valueArg)
+            void NonNullableTest(Guard.ArgumentInfo<double> valueArg)
             {
                 valueArg.Equal(equal, delta).NotEqual(nonEqual, delta);
                 ThrowsArgumentOutOfRangeException(
