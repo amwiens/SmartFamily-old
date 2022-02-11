@@ -25,7 +25,7 @@
                     TODO: Remove this column definitions and define columns for your data.
                     Consider adding header properties to Resources.resw
                 -->
-                <DataGridTextColumn Binding="{Binding Name}" Header="Name" />
+                <DataGridTextColumn Binding="{Binding Name, Mode=OneWay}" Header="Name" />
                 <DataGridTextColumn Binding="{Binding Sex}" Header="Sex" />
                 <DataGridTextColumn Binding="{Binding RecordNumber}" Header="Rec#" />
                 <DataGridTextColumn Binding="{Binding GrandmaNumber}" Header="Grandma Number" />

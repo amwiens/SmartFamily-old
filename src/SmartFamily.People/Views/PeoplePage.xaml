@@ -26,16 +26,16 @@
             BorderBrush="Black"
             BorderThickness="0,1,0,1">
             <Button
+                Height="30"
                 HorizontalAlignment="Left"
                 AutomationProperties.Name="Go back"
                 Command="{Binding GoBackCommand}"
-                Height="30"
                 ToolTip="Go back">
                 <TextBlock
+                    Margin="4"
                     AutomationProperties.Name="Go back"
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="8"
-                    Margin="4"
                     Text="&#xE72B;" />
             </Button>
         </Border>
