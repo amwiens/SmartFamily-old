@@ -2,12 +2,6 @@
 using SmartFamily.Core.Common;
 using SmartFamily.Core.Guards;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SmartFamily.Data
 {
     public class GEDCOMStore : IGEDCOMStore
@@ -363,6 +357,210 @@ namespace SmartFamily.Data
 
         private static void RemoveIndividualFromFamilyRecord(Individual child, GEDCOMRecord familyRecord, GEDCOMTag tag)
         {
+            var childRecord = (from GEDCOMRecord record in familyRecord.ChildRecords.GetLinesByTag(tag)
+                               where record.XRefId == GEDCOMUtil.CreateId("I", child.Id)
+                               select record).SingleOrDefault();
+
+            if (childRecord != null)
+            {
+                familyRecord.ChildRecords.Remove(childRecord);
+            }
+        }
+
+        private void UpdateFamilyDetails(Individual individual)
+        {
+            var familyRecord = _document.SelectChildsFamilyRecord(GEDCOMUtil.CreateId("I", individual.Id));
+
+            if (familyRecord != null)
+            {
+                if (individual.FatherId != GEDCOMUtil.GetId(familyRecord.Husband) || individual.MotherId != GEDCOMUtil.GetId(familyRecord.Wife))
+                {
+                    // remove child from current family
+                    RemoveIndividualFromFamilyRecord(individual, familyRecord, GEDCOMTag.CHIL);
+
+                    familyRecord = GetFamilyRecord(individual);
+
+                    if (familyRecord != null)
+                    {
+                        // Add Individual as Child
+                        familyRecord.AddChild(GEDCOMUtil.CreateId("I", individual.Id));
+                    }
+                    else
+                    {
+                        // new Family
+                        CreateNewFamily(individual);
+                    }
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(individual.FatherId) || !string.IsNullOrEmpty(individual.MotherId))
+                {
+                    familyRecord = GetFamilyRecord(individual);
+
+                    if (familyRecord != null)
+                    {
+                        // Add Individual as Child
+                        familyRecord.AddChild(GEDCOMUtil.CreateId("I", individual.Id));
+                    }
+                    else
+                    {
+                        // new Family
+                        CreateNewFamily(individual);
+                    }
+                }
+            }
+        }
+
+        public void AddFamily(Family family)
+        {
+            Guard.Argument(family, nameof(family)).NotNull();
+
+            family.Id = _document.Records.GetNextId(GEDCOMTag.FAM).ToString();
+
+            var record = new GEDCOMFamilyRecord(family.Id);
+            if (!string.IsNullOrEmpty(family.HusbandId))
+            {
+                // Add HUSB
+                record.AddHusband(GEDCOMUtil.CreateId("I", family.HusbandId));
+            }
+
+            if (!string.IsNullOrEmpty(family.WifeId))
+            {
+                // Add WIFE
+                record.AddWife(GEDCOMUtil.CreateId("I", family.WifeId));
+            }
+
+            foreach (Individual child in family.Children)
+            {
+                // Add CHIL
+                record.AddChild(GEDCOMUtil.CreateId("I", child.Id));
+            }
+
+            _document.AddRecord(record);
+        }
+
+        public void AddIndividual(Individual individual)
+        {
+            Guard.Argument(individual, nameof(individual)).NotNull();
+
+            // Add to internal List
+            Individuals.Add(individual);
+
+            // Add underlying GEDCOM record
+            individual.Id = _document.Records.GetNextId(GEDCOMTag.INDI).ToString();
+
+            var record = new GEDCOMIndividualRecord(individual.Id);
+
+            var name = new GEDCOMNameStructure($"{individual.FirstName} /{individual.LastName}/", record.Level + 1);
+
+            record.Name = name;
+            record.Sex = individual.Sex;
+            _document.AddRecord(record);
+
+            // Update Family Info
+            UpdateFamilyDetails(individual);
+        }
+
+        public void DeleteFamily(Family family)
+        {
+            Guard.Argument(family, nameof(family)).NotNull();
+
+            GEDCOMFamilyRecord record = _document.SelectFamilyRecord(GEDCOMUtil.CreateId("F", family.Id));
+
+            if (record == null)
+            {
+                // record not in repository
+                throw new ArgumentOutOfRangeException();
+            }
+
+            _document.RemoveRecord(record);
+        }
+
+        public void DeleteIndividual(Individual individual)
+        {
+            Guard.Argument(individual, nameof(individual)).NotNull();
+
+            string individualId = GEDCOMUtil.CreateId("I", individual.Id);
+
+            // Remove from internal List
+            Individuals.Remove(individual);
+
+            GEDCOMIndividualRecord record = _document.SelectIndividualRecord(individualId);
+
+            if (record == null)
+            {
+                // record not in repository
+                throw new ArgumentOutOfRangeException();
+            }
+
+            _document.RemoveRecord(record);
+
+            // see if individual is a child in a family
+            var familyRecord = _document.SelectChildsFamilyRecord(individualId);
+            if (familyRecord != null)
+            {
+                // remove child from family
+                RemoveIndividualFromFamilyRecord(individual, familyRecord, GEDCOMTag.CHIL);
+            }
+
+            // TODO: check against both for same sex families
+            if (individual.Sex == Sex.Male)
+            {
+                // see if individual is a husband in a family
+                foreach (GEDCOMFamilyRecord fRecord in _document.SelectHusbandsFamilyRecords(individualId))
+                {
+                    // remove husband from family
+                    RemoveIndividualFromFamilyRecord(individual, fRecord, GEDCOMTag.HUSB);
+                }
+            }
+            else
+            {
+                // see if individual is a wife in a family
+                foreach (GEDCOMFamilyRecord fRecord in _document.SelectWifesFamilyRecords(individualId))
+                {
+                    // remove wife from family
+                    RemoveIndividualFromFamilyRecord(individual, fRecord, GEDCOMTag.WIFE);
+                }
+            }
+        }
+
+        public void SaveChanges()
+        {
+            using (var stream = new FileStream(_path, FileMode.Create, FileAccess.Write))
+            {
+                _document.Save(stream);
+            }
+        }
+
+        public void UpdateFamily(Family family)
+        {
+            Guard.Argument(family, nameof(family)).NotNull();
+
+            GEDCOMFamilyRecord record = _document.SelectFamilyRecord(GEDCOMUtil.CreateId("F", family.Id));
+            if (record == null)
+            {
+                // record not in repository
+                throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void UpdateIndividual(Individual individual)
+        {
+            Guard.Argument(individual, nameof(individual)).NotNull();
+
+            GEDCOMIndividualRepository record = _document.SelectIndividualRecord(GEDCOMUtil.CreateId("I", individual.Id));
+            if (record == null)
+            {
+                // record not in repository
+                throw new ArgumentOutOfRangeException();
+            }
+
+            record.Name = new GEDCOMNameStructure($"{individual.FirstName} /{individual.LastName}/", record.Level + 1);
+            record.Sex = individual.Sex;
+
+            // Update Family Info
+            UpdateFamilyDetails(individual);
         }
     }
 }
