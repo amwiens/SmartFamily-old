@@ -1,6 +1,10 @@
 ﻿using SmartFamily.Core;
 using SmartFamily.Core.Common;
 using SmartFamily.Core.Guards;
+using SmartFamily.Gedcom;
+using SmartFamily.Gedcom.Common;
+using SmartFamily.Gedcom.Records;
+using SmartFamily.Gedcom.Structures;
 
 namespace SmartFamily.Data
 {
@@ -175,7 +179,7 @@ namespace SmartFamily.Data
                 var family = new Family
                 {
                     Id = familyRecord.GetId(),
-                    HusbandId = GEDCOMutil.GetId(familyRecord.Husband),
+                    HusbandId = GEDCOMUtil.GetId(familyRecord.Husband),
                     WifeId = GEDCOMUtil.GetId(familyRecord.Wife),
                     TreeId = DEFAULT_TREE_ID
                 };
@@ -549,7 +553,7 @@ namespace SmartFamily.Data
         {
             Guard.Argument(individual, nameof(individual)).NotNull();
 
-            GEDCOMIndividualRepository record = _document.SelectIndividualRecord(GEDCOMUtil.CreateId("I", individual.Id));
+            GEDCOMIndividualRecord record = _document.SelectIndividualRecord(GEDCOMUtil.CreateId("I", individual.Id));
             if (record == null)
             {
                 // record not in repository
