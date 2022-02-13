@@ -14,7 +14,7 @@ namespace SmartFamily.Data
                 .NotNull()
                 .NotEmpty();
 
-            Initialize(new IGEDCOMStore(path));
+            Initialize(new GEDCOMStore(path));
         }
 
         public GEDCOMUnitOfWork(IGEDCOMStore database)

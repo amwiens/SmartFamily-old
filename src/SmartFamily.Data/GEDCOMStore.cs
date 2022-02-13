@@ -62,7 +62,7 @@ namespace SmartFamily.Data
             var familyRecord = !string.IsNullOrEmpty(fatherId)
                 ? (!string.IsNullOrEmpty(motherId)
                     ? _document.SelectFamilyRecord(GEDCOMUtil.CreateId("I", fatherId), GEDCOMUtil.CreateId("I", motherId))
-                    : _document.SelectHusbandFamilyRecords(GEDCOMUtil.CreateId("I", fatherId)).FirstOrDefault())
+                    : _document.SelectHusbandsFamilyRecords(GEDCOMUtil.CreateId("I", fatherId)).FirstOrDefault())
                 : _document.SelectWifesFamilyRecords(GEDCOMUtil.CreateId("I", motherId)).FirstOrDefault();
             return familyRecord;
         }
@@ -220,7 +220,7 @@ namespace SmartFamily.Data
                 {
                     Id = individualRecord.GetId(),
                     FirstName = (individualRecord.Name != null) ? individualRecord.Name.GivenName : string.Empty,
-                    LastName = (individualRecord.Name != null) ? individualRecord.name.LastName : string.Empty,
+                    LastName = (individualRecord.Name != null) ? individualRecord.Name.LastName : string.Empty,
                     Sex = individualRecord.Sex,
                     TreeId = DEFAULT_TREE_ID
                 };

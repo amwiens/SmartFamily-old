@@ -29,7 +29,7 @@ namespace SmartFamily.Gedcom.Structures
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Public Properties
 
@@ -62,9 +62,9 @@ namespace SmartFamily.Gedcom.Structures
         /// </summary>
         public string Title
         {
-            get => ChildRecords.GEtRecordDdata(GEDCOMTag.TITL);
+            get => ChildRecords.GetRecordData(GEDCOMTag.TITL);
         }
 
-        #endregion
+        #endregion Public Properties
     }
 }
