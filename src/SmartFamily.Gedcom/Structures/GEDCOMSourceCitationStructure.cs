@@ -41,7 +41,7 @@ namespace SmartFamily.Gedcom.Structures
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Protected Properties
 
@@ -53,7 +53,7 @@ namespace SmartFamily.Gedcom.Structures
             get => ChildRecords.GetLineByTag<GEDCOMRecord>(GEDCOMTag.DATA);
         }
 
-        #endregion
+        #endregion Protected Properties
 
         #region Public Properties
 
@@ -181,6 +181,6 @@ namespace SmartFamily.Gedcom.Structures
             }
         }
 
-        #endregion
+        #endregion Public Properties
     }
 }

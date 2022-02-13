@@ -21,7 +21,7 @@ namespace SmartFamily.Gedcom.Structures
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Public Properties
 
@@ -49,6 +49,6 @@ namespace SmartFamily.Gedcom.Structures
             get => ChildRecords.GetLinesByTag<GEDCOMSourceCitationStructure>(GEDCOMTag.SOUR);
         }
 
-        #endregion
+        #endregion Public Properties
     }
 }

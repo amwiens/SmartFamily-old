@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SmartFamily.Gedcom.Common
+﻿namespace SmartFamily.Gedcom.Common
 {
     /// <summary>
     /// An Enum representing a GEDCOM Tag

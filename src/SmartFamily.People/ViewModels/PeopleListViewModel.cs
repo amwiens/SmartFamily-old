@@ -7,7 +7,6 @@ using Prism.Regions;
 
 using SmartFamily.Core;
 using SmartFamily.Core.Constants;
-using SmartFamily.Core.Models;
 using SmartFamily.Core.WPF.Events;
 using SmartFamily.EntityFramework.Contracts.Services;
 

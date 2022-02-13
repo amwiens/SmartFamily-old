@@ -12,7 +12,7 @@ namespace SmartFamily.Gedcom.Records
         private string _data;
         private string _xRefId;
 
-        #endregion
+        #endregion Fields
 
         #region Constructors
 
@@ -69,7 +69,7 @@ namespace SmartFamily.Gedcom.Records
             _childRecords = record.ChildRecords;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Properties
 
@@ -130,7 +130,7 @@ namespace SmartFamily.Gedcom.Records
             set => _xRefId = value;
         }
 
-        #endregion
+        #endregion Properties
 
         #region Private Methods
 
@@ -144,7 +144,7 @@ namespace SmartFamily.Gedcom.Records
             return GEDCOMUtil.ParseGEDCOM(text, this);
         }
 
-        #endregion
+        #endregion Private Methods
 
         #region Protected Methods
 
@@ -225,7 +225,7 @@ namespace SmartFamily.Gedcom.Records
             }
         }
 
-        #endregion
+        #endregion Protected Methods
 
         #region Public Methods
 
@@ -297,7 +297,7 @@ namespace SmartFamily.Gedcom.Records
             return sb.ToString();
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region IEquatable<GEDCOMRecord> Members
 
@@ -310,6 +310,6 @@ namespace SmartFamily.Gedcom.Records
             return false;
         }
 
-        #endregion
+        #endregion IEquatable<GEDCOMRecord> Members
     }
 }

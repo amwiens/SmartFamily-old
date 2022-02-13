@@ -46,7 +46,7 @@ namespace SmartFamily.Gedcom.Structures
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Public Properties
 
@@ -113,6 +113,6 @@ namespace SmartFamily.Gedcom.Structures
             set => SetChildData(GEDCOMTag.CTRY, value);
         }
 
-        #endregion
+        #endregion Public Properties
     }
 }

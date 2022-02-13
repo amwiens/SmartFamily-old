@@ -137,7 +137,7 @@ namespace SmartFamily.Gedcom.Structures
             ChildRecords.Add(placeRecord);
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Public Properties
 
@@ -465,6 +465,6 @@ namespace SmartFamily.Gedcom.Structures
             get => ChildRecords.GetRecordData(GEDCOMTag.TYPE);
         }
 
-        #endregion
+        #endregion Public Properties
     }
 }

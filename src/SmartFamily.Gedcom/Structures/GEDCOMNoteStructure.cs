@@ -27,7 +27,7 @@ namespace SmartFamily.Gedcom.Structures
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Public Properties
 
@@ -47,6 +47,6 @@ namespace SmartFamily.Gedcom.Structures
             get => Data;
         }
 
-        #endregion
+        #endregion Public Properties
     }
 }

@@ -46,7 +46,7 @@ namespace SmartFamily.Gedcom.Structures
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Public Properties
 
@@ -131,6 +131,6 @@ namespace SmartFamily.Gedcom.Structures
             set => SetChildData(GEDCOMTag.SPFX, value);
         }
 
-        #endregion
+        #endregion Public Properties
     }
 }
