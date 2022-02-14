@@ -260,7 +260,7 @@ namespace SmartFamily.Gedcom.IO
         /// Moves to the Submission Record (Tag = SuBN).
         /// </summary>
         /// <returns><c>true</c> if the reader is positioned on a Submission record, <c>false</c> if the reader is not positioned on a Submission record.</returns>
-        public bool MovetoSubmission()
+        public bool MoveToSubmission()
         {
             return MoveToRecord(GEDCOMTag.SUBN, 0);
         }
