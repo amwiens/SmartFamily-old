@@ -19,7 +19,7 @@ namespace SmartFamily.Gedcom.Records
         /// <summary>
         /// Constructs a <see cref="GEDCOMRecord"/> object.
         /// </summary>
-        internal GEDCOMRecord()
+        public GEDCOMRecord()
         {
         }
 
@@ -27,7 +27,7 @@ namespace SmartFamily.Gedcom.Records
         /// Constructs a <see cref="GEDCOMRecord"/> object.
         /// </summary>
         /// <param name="record">The record of text that represents a <see cref="GEDCOMRecord"/>.</param>
-        internal GEDCOMRecord(string record)
+        public GEDCOMRecord(string record)
         {
             Parse(record);
             _childRecords = new GEDCOMRecordList();
@@ -41,7 +41,7 @@ namespace SmartFamily.Gedcom.Records
         /// <param name="xRefId">An optional XrefId reference.</param>
         /// <param name="tag">The tag name of the GEDCOM Record.</param>
         /// <param name="data">The data part of the GEDCOM Record.</param>
-        internal GEDCOMRecord(int level, string id, string xRefId, string tag, string data)
+        public GEDCOMRecord(int level, string id, string xRefId, string tag, string data)
         {
             Level = level;
             Id = id;
@@ -59,7 +59,7 @@ namespace SmartFamily.Gedcom.Records
         ///     This constructor is primarily to allow subclasses of <see cref="GEDCOMRecord"/>
         ///     to be constructed from the base class.
         /// </remarks>
-        internal GEDCOMRecord(GEDCOMRecord record)
+        public GEDCOMRecord(GEDCOMRecord record)
         {
             Level = record.Level;
             Id = record.Id;

@@ -1,0 +1,79 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TestFiles\GEDCOMDocumentTests\NoRecords.ged" />
+    <None Remove="TestFiles\GEDCOMDocumentTests\NoRecordsSave.ged" />
+    <None Remove="TestFiles\GEDCOMDocumentTests\OneFamily.ged" />
+    <None Remove="TestFiles\GEDCOMDocumentTests\OneFamilySave.ged" />
+    <None Remove="TestFiles\GEDCOMDocumentTests\OneIndividual.ged" />
+    <None Remove="TestFiles\GEDCOMDocumentTests\OneIndividualSave.ged" />
+    <None Remove="TestFiles\GEDCOMDocumentTests\ThreeFamilies.ged" />
+    <None Remove="TestFiles\GEDCOMDocumentTests\TwoFamilies.ged" />
+    <None Remove="TestFiles\GEDCOMDocumentTests\TwoFamiliesSave.ged" />
+    <None Remove="TestFiles\GEDCOMDocumentTests\TwoIndividuals.ged" />
+    <None Remove="TestFiles\GEDCOMDocumentTests\TwoIndividualsSave.ged" />
+    <None Remove="TestFiles\GEDCOMReaderTests\Empty.ged" />
+    <None Remove="TestFiles\GEDCOMReaderTests\Header.ged" />
+    <None Remove="TestFiles\GEDCOMReaderTests\NoRecords.ged" />
+    <None Remove="TestFiles\GEDCOMReaderTests\OneFamily.ged" />
+    <None Remove="TestFiles\GEDCOMReaderTests\OneIndividual.ged" />
+    <None Remove="TestFiles\GEDCOMReaderTests\TwoFamilies.ged" />
+    <None Remove="TestFiles\GEDCOMReaderTests\TwoIndividuals.ged" />
+    <None Remove="TestFiles\GEDCOMWriterTests\Header.ged" />
+    <None Remove="TestFiles\GEDCOMWriterTests\OneFamily.ged" />
+    <None Remove="TestFiles\GEDCOMWriterTests\OneIndividual.ged" />
+    <None Remove="TestFiles\GEDCOMWriterTests\TwoFamilies.ged" />
+    <None Remove="TestFiles\GEDCOMWriterTests\TwoIndividuals.ged" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestFiles\GEDCOMDocumentTests\NoRecords.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMDocumentTests\NoRecordsSave.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMDocumentTests\OneFamily.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMDocumentTests\OneFamilySave.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMDocumentTests\OneIndividual.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMDocumentTests\OneIndividualSave.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMDocumentTests\ThreeFamilies.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMDocumentTests\TwoFamilies.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMDocumentTests\TwoFamiliesSave.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMDocumentTests\TwoIndividuals.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMDocumentTests\TwoIndividualsSave.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMReaderTests\Empty.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMReaderTests\Header.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMReaderTests\NoRecords.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMReaderTests\OneFamily.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMReaderTests\OneIndividual.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMReaderTests\TwoFamilies.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMReaderTests\TwoIndividuals.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMWriterTests\Header.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMWriterTests\OneFamily.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMWriterTests\OneIndividual.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMWriterTests\TwoFamilies.ged" />
+    <EmbeddedResource Include="TestFiles\GEDCOMWriterTests\TwoIndividuals.ged" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="3.1.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SmartFamily.Gedcom\SmartFamily.Gedcom.csproj" />
+  </ItemGroup>
+
+</Project>

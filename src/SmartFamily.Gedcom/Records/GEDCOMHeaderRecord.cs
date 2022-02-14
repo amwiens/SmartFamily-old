@@ -145,7 +145,7 @@ namespace SmartFamily.Gedcom.Records
         /// <summary>
         /// Gets or sets the Id of the Submitter.
         /// </summary>
-        public string Sumbitter
+        public string Submitter
         {
             get => GetChildXRefId(GEDCOMTag.SUBM);
             set => SetChildXRefId(GEDCOMTag.SUBM, value);
