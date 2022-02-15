@@ -1,4 +1,4 @@
-﻿using SmartFamily.Gedcom.Tests.Common;
+﻿using SmartFamily.TestUtilities.Common;
 
 using System;
 using System.Linq;

@@ -4,11 +4,11 @@ using SmartFamily.Core.Guards;
 
 namespace SmartFamily.Data
 {
-    public class GGEDCOMFamilyRepository : IRepository<Family>
+    public class GEDCOMFamilyRepository : IRepository<Family>
     {
         private readonly IGEDCOMStore _database;
 
-        public GGEDCOMFamilyRepository(IGEDCOMStore database)
+        public GEDCOMFamilyRepository(IGEDCOMStore database)
         {
             Guard.Argument(database, nameof(database)).NotNull();
 

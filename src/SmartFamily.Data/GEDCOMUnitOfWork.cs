@@ -49,7 +49,7 @@ namespace SmartFamily.Data
             }
             if (typeof(T) == typeof(Family))
             {
-                return new GGEDCOMFamilyRepository(_database) as IRepository<T>;
+                return new GEDCOMFamilyRepository(_database) as IRepository<T>;
             }
             throw new NotImplementedException();
         }

@@ -2,6 +2,7 @@
 using SmartFamily.Gedcom.IO;
 using SmartFamily.Gedcom.Records;
 using SmartFamily.Gedcom.Tests.Common;
+using SmartFamily.TestUtilities.Common;
 
 using System;
 using System.IO;

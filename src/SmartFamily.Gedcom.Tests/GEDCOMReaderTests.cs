@@ -2,14 +2,11 @@
 using SmartFamily.Gedcom.IO;
 using SmartFamily.Gedcom.Records;
 using SmartFamily.Gedcom.Tests.Common;
+using SmartFamily.TestUtilities.Common;
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xunit;
 

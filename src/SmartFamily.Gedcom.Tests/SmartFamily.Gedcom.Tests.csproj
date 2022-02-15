@@ -73,6 +73,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmarFamily.TestUtilities\SmarFamily.TestUtilities.csproj" />
     <ProjectReference Include="..\SmartFamily.Gedcom\SmartFamily.Gedcom.csproj" />
   </ItemGroup>
 

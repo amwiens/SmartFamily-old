@@ -6,7 +6,7 @@ using System.Text;
 
 using Xunit;
 
-namespace SmartFamily.Gedcom.Tests.Common
+namespace SmartFamily.TestUtilities.Common
 {
     public class GEDCOMAssert
     {
