@@ -3,11 +3,8 @@ using SmartFamily.Gedcom;
 using SmartFamily.TestUtilities.Common;
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xunit;
 
@@ -107,7 +104,7 @@ namespace SmartFamily.Data.Tests
             GEDCOMAssert.IsValidOutput(GetEmbeddedFileString(updatedFileName), GetFileString(testFile));
         }
 
-        #endregion
+        #endregion AddFamily
 
         #region DeleteFamily
 
@@ -156,13 +153,56 @@ namespace SmartFamily.Data.Tests
             Assert.Throws<ArgumentOutOfRangeException>(() => db.DeleteFamily(family));
         }
 
-        #endregion
+        #endregion DeleteFamily
 
         #region UpdateFamily
 
+        [Fact]
+        public void GEDCOMStore_UpdateFamily_Should_Throw_On_Null_Family()
+        {
+            // Arrange
+            string testFile = "UpdateFamily.ged";
+            var db = CreateStore("NoRecords.ged", testFile);
+            Family family = null;
 
+            // Assert
+            Assert.Throws<ArgumentNullException>(() => db.UpdateFamily(family));
+        }
 
-        #endregion
+        [Theory]
+        [InlineData("OneFamily", "1", "OneFamily_UpdateFamily")]
+        [InlineData("TwoFamilies", "2", "TwoFamilies_UpdateFamily")]
+        public void GEDCOMStore_UpdateFamily_Should_Update_Properties_Of_The_Family(string fileName, string idToUpdate, string updatedFileName)
+        {
+            // Arrange
+            string testFile = "UpdateFamily.ged";
+            var db = CreateStore($"{fileName}.ged", testFile);
+
+            Family updateFamily = db.Families.Single(ind => ind.Id == idToUpdate);
+
+            // Act
+            db.UpdateFamily(updateFamily);
+            db.SaveChanges();
+
+            // Assert
+            GEDCOMAssert.IsValidOutput(GetEmbeddedFileString(updatedFileName), GetFileString(testFile));
+        }
+
+        [Theory]
+        [InlineData("OneFamily", "2", 1)]
+        [InlineData("TwoFamilies", "3", 2)]
+        public void GEDCOMStore_UpdateFamily_Should_Throw_If_Family_Not_In_Document(string fileName, string idToUpdate, int recordCount)
+        {
+            // Arrange
+            string testFile = "UpdateFamily.ged";
+            var db = CreateStore($"{fileName}.ged", testFile);
+            Family family = CreateTestFamily(idToUpdate);
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => db.UpdateFamily(family));
+        }
+
+        #endregion UpdateFamily
 
         #region Other Helpers
 
@@ -189,6 +229,6 @@ namespace SmartFamily.Data.Tests
             return doc.FamilyRecords.Count;
         }
 
-        #endregion
+        #endregion Other Helpers
     }
 }

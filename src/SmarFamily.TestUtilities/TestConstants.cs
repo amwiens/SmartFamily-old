@@ -19,7 +19,7 @@
         public const int IND_LastNameCount = 10;
         public const string IND_AltLastName = "Car";
         public const string IND_UpdateFirstName = "John";
-        public const string IND_UpdateLastName = "Smith";
+        public const string IND_UpdateLastName = "Doe";
 
         public const string CIT_Page = "Page{0}";
         public const string CIT_Text = "Text{0}";
