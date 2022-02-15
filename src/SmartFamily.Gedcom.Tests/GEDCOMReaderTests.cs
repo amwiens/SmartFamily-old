@@ -43,7 +43,7 @@ namespace SmartFamily.Gedcom.Tests
             Assert.Throws<ArgumentNullException>(() => GEDCOMReader.Create(text));
         }
 
-        #endregion
+        #endregion Create
 
         #region MoveToFamily
 
@@ -92,7 +92,7 @@ namespace SmartFamily.Gedcom.Tests
             }
         }
 
-        #endregion
+        #endregion MoveToFamily
 
         #region MoveToHeader
 
@@ -141,7 +141,7 @@ namespace SmartFamily.Gedcom.Tests
             }
         }
 
-        #endregion
+        #endregion MoveToHeader
 
         #region MoveToIndividual
 
@@ -191,7 +191,7 @@ namespace SmartFamily.Gedcom.Tests
             }
         }
 
-        #endregion
+        #endregion MoveToIndividual
 
         #region MoveToRecord
 
@@ -245,7 +245,7 @@ namespace SmartFamily.Gedcom.Tests
             }
         }
 
-        #endregion
+        #endregion MoveToRecord
 
         #region Read
 
@@ -410,7 +410,7 @@ namespace SmartFamily.Gedcom.Tests
             GEDCOMAssert.IsValidRecord(placeRecord, 2, "AnyTown", false, -1);
         }
 
-        #endregion
+        #endregion Read
 
         #region ReadFamilies
 
@@ -440,7 +440,7 @@ namespace SmartFamily.Gedcom.Tests
             }
         }
 
-        #endregion
+        #endregion ReadFamilies
 
         #region ReadFamily
 
@@ -499,7 +499,7 @@ namespace SmartFamily.Gedcom.Tests
             GEDCOMAssert.FamilyIsEqual(expectedRecord, actualRecord);
         }
 
-        #endregion
+        #endregion ReadFamily
 
         #region ReadHeader
 
@@ -537,7 +537,7 @@ namespace SmartFamily.Gedcom.Tests
             GEDCOMAssert.HeaderIsEqual(expectedRecord, actualRecord);
         }
 
-        #endregion
+        #endregion ReadHeader
 
         #region ReadIndividual
 
@@ -596,7 +596,7 @@ namespace SmartFamily.Gedcom.Tests
             GEDCOMAssert.IndividualIsEqual(expectedRecord, actualRecord);
         }
 
-        #endregion
+        #endregion ReadIndividual
 
         #region ReadIndividuals
 
@@ -626,7 +626,7 @@ namespace SmartFamily.Gedcom.Tests
             }
         }
 
-        #endregion
+        #endregion ReadIndividuals
 
         protected override Stream GetEmbeddedFileStream(string fileName)
         {

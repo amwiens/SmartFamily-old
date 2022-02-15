@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace SmartFamily.TestUtilities.Common
+﻿namespace SmartFamily.TestUtilities.Common
 {
     public abstract class GEDCOMTestBase
     {

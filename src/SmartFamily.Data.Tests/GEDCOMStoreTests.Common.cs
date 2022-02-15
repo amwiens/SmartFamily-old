@@ -19,7 +19,7 @@ namespace SmartFamily.Data.Tests
 
         protected override string FilePath => SharedResources.GEDCOMTestFilePath;
 
-        #endregion
+        #endregion Protected Properties
 
         [Fact]
         public void GEDCOMStore_Constructor_Throws_On_Empty_Path()
@@ -92,6 +92,6 @@ namespace SmartFamily.Data.Tests
             return new GEDCOMStore(testFile);
         }
 
-        #endregion
+        #endregion Other Helpers
     }
 }
