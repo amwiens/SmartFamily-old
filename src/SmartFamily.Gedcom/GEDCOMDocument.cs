@@ -1,4 +1,5 @@
-﻿using SmartFamily.Gedcom.Common;
+﻿using SmartFamily.Core.Guards;
+using SmartFamily.Gedcom.Common;
 using SmartFamily.Gedcom.IO;
 using SmartFamily.Gedcom.Records;
 
@@ -83,10 +84,7 @@ namespace SmartFamily.Gedcom
         /// <param name="record">The record to add.</param>
         public void AddRecord(GEDCOMRecord record)
         {
-            if (record == null)
-            {
-                throw new ArgumentNullException(typeof(GEDCOMRecord).Name);
-            }
+            Guard.Argument(record, nameof(record)).NotNull();
 
             _records.Add(record);
 
@@ -100,10 +98,7 @@ namespace SmartFamily.Gedcom
         /// <param name="records">The list of records to add.</param>
         public void AddRecords(GEDCOMRecordList records)
         {
-            if (records == null)
-            {
-                throw new ArgumentNullException(typeof(GEDCOMRecordList).Name);
-            }
+            Guard.Argument(records, nameof(records)).NotNull();
 
             _records.AddRange(records);
         }
@@ -135,10 +130,7 @@ namespace SmartFamily.Gedcom
         /// <param name="reader">The GEDCOMReader to load.</param>
         public void Load(GEDCOMReader reader)
         {
-            if (reader == null)
-            {
-                throw new ArgumentNullException("reader");
-            }
+            Guard.Argument(reader, nameof(reader)).NotNull();
 
             // Read the GEDCOM file into a GEDCOMRecords Collection
             _records = reader.Read();
@@ -163,10 +155,7 @@ namespace SmartFamily.Gedcom
         /// <param name="record">The record to remove.</param>
         public void RemoveRecord(GEDCOMRecord record)
         {
-            if (record == null)
-            {
-                throw new ArgumentNullException(typeof(GEDCOMRecord).Name);
-            }
+            Guard.Argument(record, nameof(record)).NotNull();
 
             if (_records.Remove(record))
             {
@@ -206,10 +195,7 @@ namespace SmartFamily.Gedcom
         /// <param name="writer">The GEDCOMWriter to save to.</param>
         public void Save(GEDCOMWriter writer)
         {
-            if (writer == null)
-            {
-                throw new ArgumentNullException(typeof(GEDCOMWriter).Name);
-            }
+            Guard.Argument(writer, nameof(writer)).NotNull();
 
             writer.NewLine = "\n";
 
@@ -281,14 +267,8 @@ namespace SmartFamily.Gedcom
 
         public GEDCOMFamilyRecord SelectFamilyRecord(string husbandId, string wifeId)
         {
-            if (husbandId == null)
-            {
-                throw new ArgumentNullException(typeof(string).Name);
-            }
-            if (wifeId == null)
-            {
-                throw new ArgumentNullException(typeof(string).Name);
-            }
+            Guard.Argument(husbandId, nameof(husbandId)).NotNull();
+            Guard.Argument(wifeId, nameof(wifeId)).NotNull();
 
             return (from GEDCOMFamilyRecord familyRecord in FamilyRecords
                     where familyRecord.Husband == husbandId && familyRecord.Wife == wifeId
@@ -315,10 +295,7 @@ namespace SmartFamily.Gedcom
 
         public IEnumerable<GEDCOMFamilyRecord> SelectHusbandsFamilyRecords(string husbandId)
         {
-            if (husbandId == null)
-            {
-                throw new ArgumentNullException(typeof(string).Name);
-            }
+            Guard.Argument(husbandId, nameof(husbandId)).NotNull();
 
             return from GEDCOMFamilyRecord familyRecord in FamilyRecords
                    where familyRecord.Husband == husbandId
@@ -385,10 +362,7 @@ namespace SmartFamily.Gedcom
 
         public IEnumerable<GEDCOMFamilyRecord> SelectWifesFamilyRecords(string wifeId)
         {
-            if (wifeId == null)
-            {
-                throw new ArgumentNullException(typeof(string).Name);
-            }
+            Guard.Argument(wifeId, nameof(wifeId)).NotNull();
 
             return from GEDCOMFamilyRecord familyRecord in FamilyRecords
                    where familyRecord.Wife == wifeId

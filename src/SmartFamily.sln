@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFamily.Data.Tests", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmarFamily.TestUtilities", "SmarFamily.TestUtilities\SmarFamily.TestUtilities.csproj", "{04BDFD86-19D5-410B-9345-83E3066FBF94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFamily.DomainServices", "SmartFamily.DomainServices\SmartFamily.DomainServices.csproj", "{7F608D4E-1356-484F-8E31-46A563308A8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{04BDFD86-19D5-410B-9345-83E3066FBF94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04BDFD86-19D5-410B-9345-83E3066FBF94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04BDFD86-19D5-410B-9345-83E3066FBF94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F608D4E-1356-484F-8E31-46A563308A8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F608D4E-1356-484F-8E31-46A563308A8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F608D4E-1356-484F-8E31-46A563308A8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F608D4E-1356-484F-8E31-46A563308A8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

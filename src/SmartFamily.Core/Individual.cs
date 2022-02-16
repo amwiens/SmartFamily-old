@@ -55,6 +55,19 @@ namespace SmartFamily.Core
         /// </summary>
         public string MotherId { get; set; }
 
+
+        public string? BirthDate => Facts.Where(x => x.FactType == FactType.Birth).SingleOrDefault()?.Date;
+
+        public string? BirthPlace => Facts.Where(x => x.FactType == FactType.Birth).SingleOrDefault()?.Place;
+
+        public string? MarriageDate => Facts.Where(x => x.FactType == FactType.Marriage).SingleOrDefault()?.Date;
+
+        public string? MarriagePlace => Facts.Where(x => x.FactType == FactType.Marriage).SingleOrDefault()?.Place;
+
+        public string? DeathDate => Facts.Where(x => x.FactType == FactType.Death).SingleOrDefault()?.Date;
+
+        public string? DeathPlace => Facts.Where(x => x.FactType == FactType.Death).SingleOrDefault()?.Place;
+
         /// <summary>
         /// Gets or sets the name of this Individual.
         /// </summary>
