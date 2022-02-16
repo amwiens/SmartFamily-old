@@ -89,6 +89,11 @@ namespace SmartFamily.DomainServices.Services
         /// <param name="tree">The tree to update in the data store.</param>
         public void Update(Tree tree)
         {
+            // Contract
+            Guard.Argument(tree, nameof(Tree)).NotNull();
+
+            _repository.Update(tree);
+            _unitOfWork.Commit();
         }
     }
 }

@@ -237,7 +237,7 @@ namespace SmartFamily.DomainServices.Tests
             var sources = _service.Get(treeId);
 
             // Assert
-            Assert.IsType<IEnumerable<TEntity>>(sources);
+            Assert.IsAssignableFrom<IEnumerable<TEntity>>(sources);
             Assert.Equal(TestConstants.PAGE_TotalCount, sources.Count());
         }
 
@@ -280,7 +280,7 @@ namespace SmartFamily.DomainServices.Tests
             var sources = _service.Get(treeId, t => true, 0, TestConstants.PAGE_RecordCount);
 
             // Assert
-            Assert.IsType<IPagedList<TEntity>>(sources);
+            Assert.IsAssignableFrom<IPagedList<TEntity>>(sources);
             Assert.Equal(TestConstants.PAGE_TotalCount, sources.TotalCount);
             Assert.Equal(TestConstants.PAGE_RecordCount, sources.PageSize);
         }
