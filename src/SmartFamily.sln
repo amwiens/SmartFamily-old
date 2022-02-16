@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartFamily.Data.Tests", "t
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartFamily.Gedcom.Tests", "tests\SmartFamily.Gedcom.Tests\SmartFamily.Gedcom.Tests.csproj", "{A2B6EEA9-2474-48DE-844B-DF02091E661B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFamily.DomainServices.Tests", "tests\SmartFamily.DomainServices.Tests\SmartFamily.DomainServices.Tests.csproj", "{D34227D2-826C-4CF7-ADAD-68E847912943}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,10 @@ Global
 		{A2B6EEA9-2474-48DE-844B-DF02091E661B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2B6EEA9-2474-48DE-844B-DF02091E661B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2B6EEA9-2474-48DE-844B-DF02091E661B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D34227D2-826C-4CF7-ADAD-68E847912943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D34227D2-826C-4CF7-ADAD-68E847912943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D34227D2-826C-4CF7-ADAD-68E847912943}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D34227D2-826C-4CF7-ADAD-68E847912943}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,6 +115,7 @@ Global
 		{5EC30543-0F99-4B72-86C3-C63CB46DA935} = {B99CCC1A-0FE3-4B0F-911E-7787451E7584}
 		{EB0ADD02-117B-4C9C-A71B-C1F85C7CF9A3} = {B99CCC1A-0FE3-4B0F-911E-7787451E7584}
 		{A2B6EEA9-2474-48DE-844B-DF02091E661B} = {B99CCC1A-0FE3-4B0F-911E-7787451E7584}
+		{D34227D2-826C-4CF7-ADAD-68E847912943} = {B99CCC1A-0FE3-4B0F-911E-7787451E7584}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2BA1E9CB-B217-4BB5-9EC5-6F789429D1F2}

@@ -1,4 +1,5 @@
 ﻿using SmartFamily.Core;
+using SmartFamily.Core.Collections;
 using SmartFamily.Core.Data;
 using SmartFamily.Core.Guards;
 using SmartFamily.DomainServices.Contracts.Services;
@@ -71,12 +72,23 @@ namespace SmartFamily.DomainServices.Services
         }
 
         /// <summary>
+        /// Gets a page of trees based on a predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate to use.</param>
+        /// <param name="pageIndex">The page index to return.</param>
+        /// <param name="pageSize">The page size.</param>
+        /// <returns>List of trees.</returns>
+        public IPagedList<Tree> Get(Func<Tree, bool> predicate, int pageIndex, int pageSize)
+        {
+            return new PagedList<Tree>(Get().Where(predicate), pageIndex, pageSize);
+        }
+
+        /// <summary>
         /// Updates a tree in the data store.
         /// </summary>
         /// <param name="tree">The tree to update in the data store.</param>
         public void Update(Tree tree)
         {
-
         }
     }
 }

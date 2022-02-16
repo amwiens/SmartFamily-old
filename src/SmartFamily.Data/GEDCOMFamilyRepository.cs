@@ -1,4 +1,5 @@
 ﻿using SmartFamily.Core;
+using SmartFamily.Core.Collections;
 using SmartFamily.Core.Data;
 using SmartFamily.Core.Guards;
 
@@ -34,9 +35,19 @@ namespace SmartFamily.Data
             throw new NotImplementedException();
         }
 
+        public IPagedList<Family> Find(int pageIndex, int pageSize, string sqlCondition, params object[] args)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Family> Find(Func<Family, bool> predicate)
         {
             return GetAll().Where(predicate);
+        }
+
+        public IPagedList<Family> Find(int pageIndex, int pageSize, Func<Family, bool> predicate)
+        {
+            return GetAll().Where(predicate).InPagesOf(pageSize).GetPage(pageIndex);
         }
 
         public IEnumerable<Family> Get<TScopeType>(TScopeType scopeValue)
@@ -62,6 +73,16 @@ namespace SmartFamily.Data
         public IEnumerable<Family> GetAll()
         {
             return _database.Families;
+        }
+
+        public IPagedList<Family> GetPage(int pageIndex, int pageSize)
+        {
+            return GetAll().InPagesOf(pageSize).GetPage(pageIndex);
+        }
+
+        public IPagedList<Family> GetPage<TScopeType>(TScopeType scopeValue, int pageIndex, int pageSize)
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(Family item)

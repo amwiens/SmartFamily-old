@@ -1,4 +1,5 @@
-﻿using SmartFamily.Core.Common;
+﻿using SmartFamily.Core.Collections;
+using SmartFamily.Core.Common;
 using SmartFamily.Core.Data;
 using SmartFamily.Core.Guards;
 
@@ -84,6 +85,19 @@ namespace SmartFamily.DomainServices.Common
         public IEnumerable<TEntity> Get(string treeId, Func<TEntity, bool> predicate)
         {
             return Get(treeId).Where(predicate);
+        }
+
+        /// <summary>
+        /// Gets a page of entities based on a predicate.
+        /// </summary>
+        /// <param name="treeId">The Id of the tree.</param>
+        /// <param name="predicate">The predicate to use.</param>
+        /// <param name="pageIndex">The page index to return.</param>
+        /// <param name="pageSize">The page size.</param>
+        /// <returns>List of entities.</returns>
+        public virtual IPagedList<TEntity> Get(string treeId, Func<TEntity, bool> predicate, int pageIndex, int pageSize)
+        {
+            return new PagedList<TEntity>(Get(treeId).Where(predicate), pageIndex, pageSize);
         }
 
         /// <summary>

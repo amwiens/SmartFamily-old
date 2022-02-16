@@ -1,4 +1,5 @@
 ﻿using SmartFamily.Core;
+using SmartFamily.Core.Collections;
 using SmartFamily.Core.Data;
 using SmartFamily.Core.Guards;
 
@@ -34,6 +35,11 @@ namespace SmartFamily.Data
             return GetAll().Where(predicate);
         }
 
+        public IPagedList<Individual> Find(int pageIndex, int pageSize, Func<Individual, bool> predicate)
+        {
+            return GetAll().Where(predicate).InPagesOf(pageSize).GetPage(pageIndex);
+        }
+
         IEnumerable<Individual> IRepository<Individual>.GetAll()
         {
             return GetAll();
@@ -42,6 +48,11 @@ namespace SmartFamily.Data
         public IEnumerable<Individual> GetAll()
         {
             return _database.Individuals;
+        }
+
+        public IPagedList<Individual> GetPage(int pageIndex, int pageSize)
+        {
+            return GetAll().InPagesOf(pageSize).GetPage(pageIndex);
         }
 
         public void Update(Individual item)

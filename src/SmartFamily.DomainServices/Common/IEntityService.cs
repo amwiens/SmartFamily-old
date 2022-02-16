@@ -1,4 +1,5 @@
-﻿using SmartFamily.Core.Common;
+﻿using SmartFamily.Core.Collections;
+using SmartFamily.Core.Common;
 
 namespace SmartFamily.DomainServices.Common
 {
@@ -42,6 +43,16 @@ namespace SmartFamily.DomainServices.Common
         /// <param name="predicate">The predicate to use.</param>
         /// <returns>List of entities.</returns>
         IEnumerable<TEntity> Get(string treeId, Func<TEntity, bool> predicate);
+
+        /// <summary>
+        /// Gets a page of entities based on a predicate.
+        /// </summary>
+        /// <param name="treeId">The Id of the tree.</param>
+        /// <param name="predicate">The predicate to use.</param>
+        /// <param name="pageIndex">The page index to return.</param>
+        /// <param name="pageSize">The page size.</param>
+        /// <returns>List of entities.</returns>
+        IPagedList<TEntity> Get(string treeId, Func<TEntity, bool> predicate, int pageIndex, int pageSize);
 
         /// <summary>
         /// Updates an entity in the data store.

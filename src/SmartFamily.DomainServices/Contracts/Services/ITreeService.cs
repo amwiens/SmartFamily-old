@@ -1,4 +1,5 @@
 ﻿using SmartFamily.Core;
+using SmartFamily.Core.Collections;
 
 namespace SmartFamily.DomainServices.Contracts.Services
 {
@@ -35,6 +36,15 @@ namespace SmartFamily.DomainServices.Contracts.Services
         /// </summary>
         /// <returns>A collection of <see cref="Tree"/> objects.</returns>
         IEnumerable<Tree> Get();
+
+        /// <summary>
+        /// Gets a page of trees based on a predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate to use.</param>
+        /// <param name="pageIndex">The page index to return.</param>
+        /// <param name="pageSize">The page size.</param>
+        /// <returns>List of trees.</returns>
+        IPagedList<Tree> Get(Func<Tree, bool> predicate, int pageIndex, int pageSize);
 
         /// <summary>
         /// Updates a tree in the data store.
