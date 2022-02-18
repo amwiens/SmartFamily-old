@@ -1,4 +1,4 @@
-﻿using SmartFamily.Core.Models;
+﻿using SmartFamily.Core;
 
 namespace SmartFamily.EntityFramework.Contracts.Services
 {
@@ -11,18 +11,18 @@ namespace SmartFamily.EntityFramework.Contracts.Services
         /// Get content grid data.
         /// </summary>
         /// <returns>Content grid data.</returns>
-        Task<IEnumerable<SamplePerson>> GetContentGridDataAsync();
+        Task<IEnumerable<Individual>> GetContentGridDataAsync();
 
         /// <summary>
         /// Get grid data.
         /// </summary>
         /// <returns>Grid data.</returns>
-        Task<IEnumerable<SamplePerson>> GetGridDataAsync();
+        Task<IEnumerable<Individual>> GetGridDataAsync();
 
         /// <summary>
         /// Get list details data.
         /// </summary>
         /// <returns>List details data.</returns>
-        Task<IEnumerable<SamplePerson>> GetListDetailsDataAsync();
+        Task<IEnumerable<Individual>> GetListDetailsDataAsync();
     }
 }

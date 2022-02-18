@@ -5,8 +5,8 @@ using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 
+using SmartFamily.Core;
 using SmartFamily.Core.Constants;
-using SmartFamily.Core.Models;
 using SmartFamily.Core.WPF.Events;
 using SmartFamily.EntityFramework.Contracts.Services;
 
@@ -26,16 +26,16 @@ namespace SmartFamily.People.ViewModels
         private readonly ISampleDataService _sampleDataService;
 
         private IRegionNavigationService _navigationService;
-        private SamplePerson _selectedPerson;
+        private Individual _selectedPerson;
 
         private ICommand? _selectPersonCommand;
 
         /// <summary>
         /// Source
         /// </summary>
-        public ObservableCollection<SamplePerson> People { get; } = new ObservableCollection<SamplePerson>();
+        public ObservableCollection<Individual> People { get; } = new ObservableCollection<Individual>();
 
-        public SamplePerson SelectedPerson
+        public Individual SelectedPerson
         {
             get => _selectedPerson;
             set => SetProperty(ref _selectedPerson, value);
@@ -44,7 +44,7 @@ namespace SmartFamily.People.ViewModels
         /// <summary>
         /// Select person command.
         /// </summary>
-        public ICommand SelectPersonCommand => _selectPersonCommand ?? (_selectPersonCommand = new DelegateCommand<SamplePerson>(OnPersonSelect));
+        public ICommand SelectPersonCommand => _selectPersonCommand ?? (_selectPersonCommand = new DelegateCommand<Individual>(OnPersonSelect));
 
         /// <summary>
         /// Ctor
@@ -146,7 +146,7 @@ namespace SmartFamily.People.ViewModels
         /// Opens the person view with the selected person in focus.
         /// </summary>
         /// <param name="person">Selected person.</param>
-        private void OnPersonSelect(SamplePerson person)
+        private void OnPersonSelect(Individual person)
         {
             _logger.LogInformation($"{person.Name} selected.");
 

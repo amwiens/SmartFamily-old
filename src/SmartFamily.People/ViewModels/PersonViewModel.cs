@@ -4,8 +4,8 @@ using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 
+using SmartFamily.Core;
 using SmartFamily.Core.Constants;
-using SmartFamily.Core.Models;
 using SmartFamily.Core.WPF.Events;
 
 namespace SmartFamily.People.ViewModels
@@ -20,12 +20,12 @@ namespace SmartFamily.People.ViewModels
         private readonly ILogger<PersonViewModel> _logger;
 
         private IRegionNavigationService _navigationService;
-        private SamplePerson _person;
+        private Individual _person;
 
         /// <summary>
         /// Person
         /// </summary>
-        public SamplePerson Person
+        public Individual Person
         {
             get => _person;
             set => SetProperty(ref _person, value);
@@ -102,7 +102,7 @@ namespace SmartFamily.People.ViewModels
             _navigationService = _regionManager.Regions[Regions.People].NavigationService;
             _navigationService.Navigated += OnNavigated;
 
-            Person = navigationContext.Parameters.GetValue<SamplePerson>("Person");
+            Person = navigationContext.Parameters.GetValue<Individual>("Person");
             _eventAggregator.GetEvent<SetPeoplePageTitleEvent>().Publish(Person.Name);
 
             //var navigationParameters = new NavigationParameters();

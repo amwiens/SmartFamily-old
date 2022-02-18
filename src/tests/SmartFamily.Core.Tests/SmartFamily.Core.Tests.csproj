@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SmartFamily.Core\SmartFamily.Core.csproj" />
+    <ProjectReference Include="..\..\SmartFamily.Core\SmartFamily.Core.csproj" />
   </ItemGroup>
 
 </Project>

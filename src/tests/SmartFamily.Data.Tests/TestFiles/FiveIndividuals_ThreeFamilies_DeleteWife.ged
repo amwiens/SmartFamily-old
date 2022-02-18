@@ -1,0 +1,38 @@
+0 HEAD
+1 SOUR FTM
+2 VERS Family Tree Maker (17.0.0.416)
+2 NAME Family Tree Maker for Windows
+2 CORP The Generations Network
+3 ADDR 360 W 4800 N
+4 CONT Provo, UT 84604
+3 PHON (801) 705-7000
+1 DEST FTM
+1 DATE 13 December 2008
+1 CHAR ANSI
+1 FILE D:\My Projects\Family Tree Project\Tests\FamilyTreeProject.GEDCOM.Tests\TestFiles\FiveIndividuals.ged
+1 SUBM @SUBM@
+1 GEDC
+2 VERS 5.5
+2 FORM LINEAGE-LINKED
+0 @SUBM@ SUBM
+0 @I1@ INDI
+1 NAME John /Smith/
+1 SEX M
+0 @I3@ INDI
+1 NAME William /Jones/
+1 SEX M
+0 @I4@ INDI
+1 NAME Henry /Smith/
+1 SEX M
+0 @I5@ INDI
+1 NAME Mary /Williams/
+1 SEX F
+0 @F1@ FAM
+1 HUSB @I1@
+1 CHIL @I4@
+0 @F2@ FAM
+1 HUSB @I3@
+0 @F3@ FAM
+1 HUSB @I1@
+1 WIFE @I5@
+0 TRLR
