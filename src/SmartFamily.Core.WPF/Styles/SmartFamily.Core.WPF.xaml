@@ -1,6 +1,0 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/SmartFamily.Core.WPF;component/Styles/Controls/Card.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-</ResourceDictionary>
