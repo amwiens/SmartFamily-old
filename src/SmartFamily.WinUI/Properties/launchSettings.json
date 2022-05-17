@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SmartFamily.WinUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "SmartFamily.WinUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
