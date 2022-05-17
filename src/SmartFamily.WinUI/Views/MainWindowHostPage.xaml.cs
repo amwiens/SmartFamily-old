@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
 using SmartFamily.Backend.ViewModels;
+using SmartFamily.Backend.ViewModels.Sidebar;
 
 using System.Linq;
 
@@ -32,6 +33,10 @@ internal sealed partial class MainWindowHostPage : Page
 
     private void Sidebar_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
+        if (args.SelectedItem is SidebarItemViewModel itemViewModel)
+        {
+
+        }
     }
 
     private void MainWindowHostPage_Loaded(object sender, RoutedEventArgs e)

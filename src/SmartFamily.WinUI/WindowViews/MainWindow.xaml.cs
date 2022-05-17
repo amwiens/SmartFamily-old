@@ -2,8 +2,6 @@
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 
-using System;
-
 using WinRT.Interop;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -41,19 +39,20 @@ public sealed partial class MainWindow : Window
         // Set title
         AppWindow.Title = "Smart Family";
 
-        //if (AppWindowTitleBar.IsCustomizationSupported())
-        //{
-        //    // Extend title bar
-        //    AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
+        if (AppWindowTitleBar.IsCustomizationSupported())
+        {
+            // Extend title bar
+            AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
 
-        //    // Set window buttons background to transparent
-        //    AppWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
-        //    AppWindow.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-        //}
-        //else
-        //{
-        //    this.ExtendsContentIntoTitleBar = true;
-        //}
+            // Set window buttons background to transparent
+            AppWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
+            AppWindow.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+        }
+        else
+        {
+            this.ExtendsContentIntoTitleBar = true;
+            SetTitleBar(HostPage.CustomTitleBar);
+        }
 
 
         // Set min size

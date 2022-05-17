@@ -15,6 +15,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="UserControls\NavigationControl.xaml" />
+    <None Remove="UserControls\TitleBarControl.xaml" />
     <None Remove="Views\MainWindowHostPage.xaml" />
   </ItemGroup>
 
@@ -48,11 +50,18 @@
     <ProjectReference Include="..\SmartFamily.Backend\SmartFamily.Backend.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="UserControls\NavigationControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Views\MainWindowHostPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UserControls\" />
+    <Page Update="UserControls\TitleBarControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>
