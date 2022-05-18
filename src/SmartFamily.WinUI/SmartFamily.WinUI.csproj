@@ -15,6 +15,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Dialogs\DatabaseWizardDialog.xaml" />
     <None Remove="UserControls\NavigationControl.xaml" />
     <None Remove="UserControls\TitleBarControl.xaml" />
     <None Remove="Views\MainWindowHostPage.xaml" />
@@ -61,6 +62,11 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="UserControls\TitleBarControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Dialogs\DatabaseWizardDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

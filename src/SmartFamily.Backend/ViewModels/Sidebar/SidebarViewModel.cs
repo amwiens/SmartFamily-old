@@ -8,6 +8,7 @@ using SmartFamily.Backend.Models;
 using SmartFamily.Backend.Models.Transitions;
 using SmartFamily.Backend.Services;
 using SmartFamily.Backend.Utils;
+using SmartFamily.Backend.ViewModels.Dialogs;
 
 using System.Collections.ObjectModel;
 
@@ -56,9 +57,17 @@ public sealed class SidebarViewModel : ObservableObject, IInitializableSource<ID
 
     public SidebarViewModel()
     {
-        this.SidebarItems = new();
-        this.OpenNewDatabaseCommand = new AsyncRelayCommand(OpenNewDatabase);
-        this.OpenSettingsCommand = new AsyncRelayCommand(OpenSettings);
+        SidebarItems = new();
+        OpenNewDatabaseCommand = new AsyncRelayCommand(OpenNewDatabase);
+        OpenSettingsCommand = new AsyncRelayCommand(OpenSettings);
+        _sidebarSearchModel = new()
+        {
+            Collection = SidebarItems,
+            FinderPredicate = (item, key) => item.DatabaseName!.ToLowerInvariant().Contains(key)
+        };
+
+        WeakReferenceMessenger.Default.Register<RemoveDatabaseRequestedMessage>(this);
+        WeakReferenceMessenger.Default.Register<OpenDatabaseRequestedMessage>(this);
     }
 
     public void Receive(RemoveDatabaseRequestedMessage message)
@@ -96,7 +105,8 @@ public sealed class SidebarViewModel : ObservableObject, IInitializableSource<ID
     {
         SearchQuery = string.Empty;
 
-
+        var databaseWizardViewModel = new DatabaseWizardDialogViewModel();
+        await DialogService.ShowDialog(databaseWizardViewModel);
     }
 
     private async Task OpenSettings()

@@ -3,6 +3,8 @@
 using SmartFamily.Backend.Dialogs;
 using SmartFamily.Backend.Enums;
 using SmartFamily.Backend.Services;
+using SmartFamily.Backend.ViewModels.Dialogs;
+using SmartFamily.WinUI.Dialogs;
 using SmartFamily.WinUI.WindowViews;
 
 using System.ComponentModel;
@@ -18,7 +20,7 @@ internal sealed class DialogService : IDialogService
         this._dialogs = new()
         {
             //{ typeof(SettingsDialogViewModel), () => new SettingsDialog() },
-            //{ typeof(DatabaseWizardDialogViewModel), () => new DatabaseWizardDialog() }
+            { typeof(DatabaseWizardDialogViewModel), () => new DatabaseWizardDialog() }
         };
     }
 
