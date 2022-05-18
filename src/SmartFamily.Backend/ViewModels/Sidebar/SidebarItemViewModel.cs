@@ -1,11 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+
+using SmartFamily.Backend.Messages;
+using SmartFamily.Backend.Services;
 
 namespace SmartFamily.Backend.ViewModels.Sidebar;
 
 public sealed class SidebarItemViewModel : ObservableObject
 {
-
+    private IFileExplorerService FileExplorerService { get; } = Ioc.Default.GetRequiredService<IFileExplorerService>();
 
     public DatabaseViewModel DatabaseViewModel { get; }
 
@@ -39,11 +44,12 @@ public sealed class SidebarItemViewModel : ObservableObject
 
     private async Task ShowInFileExplorer()
     {
-
+        // TODO: Check if exists (hide the option if doesn't)
+        await FileExplorerService.OpenPathInFileExplorerAsync(DatabaseViewModel.DatabaseRootPath);
     }
 
     private void RemoveDatabase()
     {
-
+        WeakReferenceMessenger.Default.Send(new RemoveDatabaseRequestedMessage(DatabaseViewModel.DatabaseIdModel));
     }
 }

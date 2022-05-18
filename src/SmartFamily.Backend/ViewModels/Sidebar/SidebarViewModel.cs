@@ -1,17 +1,25 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 
-using System;
-using System.Collections.Generic;
+using SmartFamily.Backend.Messages;
+using SmartFamily.Backend.Models;
+using SmartFamily.Backend.Models.Transitions;
+using SmartFamily.Backend.Services;
+using SmartFamily.Backend.Utils;
+
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartFamily.Backend.ViewModels.Sidebar;
 
-public sealed class SidebarViewModel : ObservableObject
+public sealed class SidebarViewModel : ObservableObject, IInitializableSource<IDictionary<DatabaseIdModel, DatabaseViewModel>>, IRecipient<RemoveDatabaseRequestedMessage>, IRecipient<OpenDatabaseRequestedMessage>
 {
+    private readonly SearchModel<SidebarItemViewModel> _sidebarSearchModel;
+
+    private IDialogService DialogService { get; } = Ioc.Default.GetRequiredService<IDialogService>();
+
+    private IThreadingService ThreadingService { get; } = Ioc.Default.GetRequiredService<IThreadingService>();
 
     public ObservableCollection<SidebarItemViewModel> SidebarItems { get; }
 
@@ -53,10 +61,41 @@ public sealed class SidebarViewModel : ObservableObject
         this.OpenSettingsCommand = new AsyncRelayCommand(OpenSettings);
     }
 
+    public void Receive(RemoveDatabaseRequestedMessage message)
+    {
+        var itemToRemove = SidebarItems.FirstOrDefault(item => item.DatabaseViewModel.DatabaseIdModel == message.Value);
+        if (itemToRemove != null)
+        {
+            SidebarItems.Remove(itemToRemove);
+        }
+    }
 
+    public void Receive(OpenDatabaseRequestedMessage message)
+    {
+        SidebarItems.Add(new(message.Value));
+    }
+
+    void IInitializableSource<IDictionary<DatabaseIdModel, DatabaseViewModel>>.Initialize(IDictionary<DatabaseIdModel, DatabaseViewModel> param)
+    {
+        _ = ThreadingService.ExecuteOnUiThreadAsync(() =>
+        {
+            foreach (var item in param.Values)
+            {
+                SidebarItems.Add(new(item));
+            }
+
+            if (SidebarItems.FirstOrDefault() is SidebarItemViewModel itemToSelect)
+            {
+                SelectedItem = itemToSelect;
+                WeakReferenceMessenger.Default.Send(new NavigationRequestedMessage(itemToSelect.DatabaseViewModel) { Transition = new SuppressTransitionModel() });
+            }
+        });
+    }
 
     private async Task OpenNewDatabase()
     {
+        SearchQuery = string.Empty;
+
 
     }
 
@@ -67,6 +106,6 @@ public sealed class SidebarViewModel : ObservableObject
 
     private void SearchQueryChanged(string? query)
     {
-        //NoItemsFoundLoad = !_sidebarSearchModel.SubmitQuery(query);
+        NoItemsFoundLoad = !_sidebarSearchModel.SubmitQuery(query);
     }
 }

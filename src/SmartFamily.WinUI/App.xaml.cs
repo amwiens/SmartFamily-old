@@ -3,7 +3,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 
+using SmartFamily.Backend.Services;
 using SmartFamily.WinUI.Helpers;
+using SmartFamily.WinUI.ServiceImplementation;
 using SmartFamily.WinUI.WindowViews;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -60,7 +62,13 @@ public partial class App : Application
     {
         var serviceCollection = new ServiceCollection();
 
+        serviceCollection
 
+            .AddSingleton<IDialogService, DialogService>()
+
+            .AddSingleton<IThreadingService, ThreadingService>()
+
+            .AddSingleton<IFileExplorerService, FileExplorerService>();
 
         return serviceCollection.BuildServiceProvider();
     }
