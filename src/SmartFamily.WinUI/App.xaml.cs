@@ -65,10 +65,11 @@ public partial class App : Application
         serviceCollection
 
             .AddSingleton<IDialogService, DialogService>()
-
+            .AddSingleton<IApplicationService, ApplicationService>()
             .AddSingleton<IThreadingService, ThreadingService>()
 
-            .AddSingleton<IFileExplorerService, FileExplorerService>();
+            .AddSingleton<IFileExplorerService, FileExplorerService>()
+            .AddSingleton<IClipboardService, ClipboardService>();
 
         return serviceCollection.BuildServiceProvider();
     }

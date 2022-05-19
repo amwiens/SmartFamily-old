@@ -16,14 +16,17 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Dialogs\DatabaseWizardDialog.xaml" />
+    <None Remove="Dialogs\SettingsDialog.xaml" />
     <None Remove="UserControls\ActionBlocks\ActionBlockContentControl.xaml" />
     <None Remove="UserControls\ActionBlocks\ActionBlockControl.xaml" />
+    <None Remove="UserControls\BannerControl.xaml" />
     <None Remove="UserControls\NavigationControl.xaml" />
     <None Remove="UserControls\TitleBarControl.xaml" />
     <None Remove="Views\DatabaseWizard\AddExistingDatabasePage.xaml" />
     <None Remove="Views\DatabaseWizard\DatabaseWizardFinishPage.xaml" />
     <None Remove="Views\DatabaseWizard\DatabaseWizardMainPage.xaml" />
     <None Remove="Views\MainWindowHostPage.xaml" />
+    <None Remove="Views\Settings\AboutSettingsPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,6 +57,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SmartFamily.Backend\SmartFamily.Backend.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="UserControls\BannerControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Dialogs\SettingsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\DatabaseWizard\DatabaseWizardFinishPage.xaml">
@@ -97,6 +110,11 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="UserControls\ActionBlocks\ActionBlockContentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Settings\AboutSettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

@@ -111,7 +111,7 @@ public sealed class SidebarViewModel : ObservableObject, IInitializableSource<ID
 
     private async Task OpenSettings()
     {
-
+        await DialogService.ShowDialog(new SettingsDialogViewModel());
     }
 
     private void SearchQueryChanged(string? query)

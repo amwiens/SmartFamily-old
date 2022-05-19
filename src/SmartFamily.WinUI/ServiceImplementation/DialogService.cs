@@ -19,7 +19,7 @@ internal sealed class DialogService : IDialogService
     {
         this._dialogs = new()
         {
-            //{ typeof(SettingsDialogViewModel), () => new SettingsDialog() },
+            { typeof(SettingsDialogViewModel), () => new SettingsDialog() },
             { typeof(DatabaseWizardDialogViewModel), () => new DatabaseWizardDialog() }
         };
     }

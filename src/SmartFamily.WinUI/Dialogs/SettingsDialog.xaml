@@ -1,0 +1,78 @@
+﻿<ContentDialog
+    x:Class="SmartFamily.WinUI.Dialogs.SettingsDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:SmartFamily.WinUI.Dialogs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Loaded="SettingsDialog_Loaded"
+    Style="{StaticResource DefaultContentDialogStyle}"
+    mc:Ignorable="d">
+
+    <ContentDialog.Resources>
+        <ResourceDictionary>
+            <x:Double x:Key="ContentDialogMaxWidth">1300</x:Double>
+        </ResourceDictionary>
+    </ContentDialog.Resources>
+
+    <Grid
+        Height="500"
+        Margin="-24"
+        Background="{ThemeResource ContentDialogBackground}">
+        <NavigationView
+            IsBackButtonVisible="Collapsed"
+            IsSettingsVisible="False"
+            PaneDisplayMode="Top"
+            SelectionChanged="NavigationView_SelectionChanged">
+            <NavigationView.MenuItems>
+                <!-- General -->
+                <NavigationViewItem
+                    AutomationProperties.Name="General"
+                    Content="General"
+                    IsSelected="True"
+                    Tag="0">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE12A;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <!-- Preferences -->
+                <NavigationViewItem
+                    AutomationProperties.Name="Preferences"
+                    Content="Preferences"
+                    Tag="1">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE90F;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <!-- About -->
+                <NavigationViewItem
+                    Margin="0,0,45,0"
+                    Content="About"
+                    Tag="2">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE946;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <!-- Display frame -->
+            <ScrollViewer Width="644">
+                <Frame x:Name="ContentFrame" />
+            </ScrollViewer>
+        </NavigationView>
+
+        <Button
+            Width="34"
+            Height="34"
+            Margin="0,8,8,0"
+            Padding="0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="Transparent"
+            BorderThickness="0"
+            Click="CloseButton_Click"
+            CornerRadius="20">
+            <FontIcon FontSize="10" Glyph="&#xE8BB;" />
+        </Button>
+    </Grid>
+</ContentDialog>
