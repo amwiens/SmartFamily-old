@@ -11,6 +11,7 @@ using SmartFamily.Backend.Messages;
 using SmartFamily.Backend.ViewModels.Dialogs;
 using SmartFamily.Backend.ViewModels.Pages.DatabaseWizard;
 using SmartFamily.WinUI.Helpers;
+using SmartFamily.WinUI.Views.DatabaseWizard;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -53,9 +54,18 @@ public sealed partial class DatabaseWizardDialog : ContentDialog, IDialog<Databa
         switch (viewModel)
         {
             case DatabaseWizardMainPageViewModel:
-                ContentFrame.Navigate(typeof(DatabaseWizardMainPageViewModel), viewModel, transition);
+                ContentFrame.Navigate(typeof(DatabaseWizardMainPage), viewModel, transition);
                 break;
 
+            case AddExistingDatabasePageViewModel:
+                ContentFrame.Navigate(typeof(AddExistingDatabasePage), viewModel, transition);
+                break;
+
+
+
+            case DatabaseWizardFinishPageViewModel:
+                ContentFrame.Navigate(typeof(DatabaseWizardFinishPage), viewModel, transition);
+                break;
         }
 
         await FinalizeNavigationAnimationAsync(viewModel);
@@ -68,6 +78,19 @@ public sealed partial class DatabaseWizardDialog : ContentDialog, IDialog<Databa
             case DatabaseWizardMainPageViewModel:
                 TitleText.Text = "Open new database";
                 PrimaryButtonText = String.Empty;
+                break;
+
+            case AddExistingDatabasePageViewModel:
+                TitleText.Text = "Add existing database";
+                PrimaryButtonText = "Continue";
+                break;
+
+
+
+            case DatabaseWizardFinishPageViewModel:
+                TitleText.Text = "Summary";
+                PrimaryButtonText = "Close";
+                SecondaryButtonText = String.Empty;
                 break;
         }
 
@@ -105,7 +128,7 @@ public sealed partial class DatabaseWizardDialog : ContentDialog, IDialog<Databa
     private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
     {
         var handledCallback = new HandledOrCanceledFlag(value => args.Cancel = value);
-        ViewModel.SecondaryButtonClickCommand?.Execute(handledCallback);
+        ViewModel.PrimaryButtonClickCommand?.Execute(handledCallback);
     }
 
     private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

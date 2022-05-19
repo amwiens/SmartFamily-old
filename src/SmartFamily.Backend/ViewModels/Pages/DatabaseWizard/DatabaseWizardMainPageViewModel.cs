@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
+using SmartFamily.Backend.Messages;
 using SmartFamily.Backend.ViewModels.Dialogs;
 
 namespace SmartFamily.Backend.ViewModels.Pages.DatabaseWizard;
@@ -20,7 +21,7 @@ public sealed class DatabaseWizardMainPageViewModel : BaseDatabaseWizardPageView
 
     private void AddExistingDatabase()
     {
-
+        Messenger.Send(new DatabaseWizardNavigationRequestedMessage(new AddExistingDatabasePageViewModel(Messenger, DialogViewModel)));
     }
 
     private void CreateNewDatabase()
