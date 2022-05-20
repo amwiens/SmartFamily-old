@@ -102,7 +102,7 @@
             <ucab:ActionBlockControl
                 Title="Open log location"
                 ClickCommand="{x:Bind ViewModel.OpenLogLocationCommand}"
-                Description="Launches file exploere wher elog file is located"
+                Description="Launches file explorer where log file is located"
                 IsClickable="True">
                 <ucab:ActionBlockControl.Icon>
                     <FontIcon Glyph="&#xE838;" />

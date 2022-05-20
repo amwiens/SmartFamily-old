@@ -4,8 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 
 using SmartFamily.Backend.Services;
+using SmartFamily.Backend.Services.Settings;
 using SmartFamily.WinUI.Helpers;
+using SmartFamily.WinUI.Serialization;
 using SmartFamily.WinUI.ServiceImplementation;
+using SmartFamily.WinUI.ServiceImplementation.Settings;
 using SmartFamily.WinUI.WindowViews;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -63,13 +66,18 @@ public partial class App : Application
         var serviceCollection = new ServiceCollection();
 
         serviceCollection
+            .AddSingleton<ISettingsService, SettingsService>()
+            .AddSingleton<IGeneralSettingsService, GeneralSettingsService>(sp => new(sp.GetRequiredService<ISettingsService>().GetSharingContext<ISettingsSharingContext>()))
+            .AddSingleton<IPreferencesSettingsService, PreferencesSettingsSerivce>(sp => new(sp.GetRequiredService<ISettingsService>().GetSharingContext<ISettingsSharingContext>()))
 
+            .AddSingleton<IApplicationSettingsService, ApplicationSettingsService>()
             .AddSingleton<IDialogService, DialogService>()
             .AddSingleton<IApplicationService, ApplicationService>()
             .AddSingleton<IThreadingService, ThreadingService>()
-
+            .AddSingleton<ILocalizationService, LocalizationService>()
             .AddSingleton<IFileExplorerService, FileExplorerService>()
-            .AddSingleton<IClipboardService, ClipboardService>();
+            .AddSingleton<IClipboardService, ClipboardService>()
+            .AddSingleton<IUpdateService, MicrosoftStoreUpdateService>();
 
         return serviceCollection.BuildServiceProvider();
     }

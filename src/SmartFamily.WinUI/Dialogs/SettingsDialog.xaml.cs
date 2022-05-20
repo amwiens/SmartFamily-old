@@ -43,7 +43,13 @@ public sealed partial class SettingsDialog : ContentDialog, IDialog<SettingsDial
     {
         switch (viewModel)
         {
+            case GeneralSettingsPageViewModel:
+                ContentFrame.Navigate(typeof(GeneralSettingsPage), viewModel, new EntranceNavigationTransitionInfo());
+                break;
 
+            case PreferencesSettingsPageViewModel:
+                ContentFrame.Navigate(typeof(PreferencesSettingsPage), viewModel, new EntranceNavigationTransitionInfo());
+                break;
 
             case AboutSettingsPageViewModel:
                 ContentFrame.Navigate(typeof(AboutSettingsPage), viewModel, new EntranceNavigationTransitionInfo());
@@ -64,11 +70,11 @@ public sealed partial class SettingsDialog : ContentDialog, IDialog<SettingsDial
         {
             default:
             case 0:
-                //Navigate(new GeneralSettingsPageViewModel());
+                Navigate(new GeneralSettingsPageViewModel());
                 break;
 
             case 1:
-                //Navigate(new PreferencesSettingsPageViewModel());
+                Navigate(new PreferencesSettingsPageViewModel());
                 break;
 
             case 2:

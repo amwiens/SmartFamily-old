@@ -27,6 +27,8 @@
     <None Remove="Views\DatabaseWizard\DatabaseWizardMainPage.xaml" />
     <None Remove="Views\MainWindowHostPage.xaml" />
     <None Remove="Views\Settings\AboutSettingsPage.xaml" />
+    <None Remove="Views\Settings\GeneralSettingsPage.xaml" />
+    <None Remove="Views\Settings\PreferencesSettingsPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,6 +59,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SmartFamily.Backend\SmartFamily.Backend.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Settings\GeneralSettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Settings\PreferencesSettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="UserControls\BannerControl.xaml">
