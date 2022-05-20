@@ -3,12 +3,16 @@
 using Newtonsoft.Json;
 
 using SmartFamily.Backend.Models;
+using SmartFamily.Core.Instance;
 
 namespace SmartFamily.Backend.ViewModels;
 
 [Serializable]
 public sealed class DatabaseViewModel : ObservableObject
 {
+    [JsonIgnore]
+    public IDatabaseInstance? DatabaseInstance { get; set; }
+
     [JsonIgnore]
     public DatabaseModel DatabaseModel { get; set; }
 
